@@ -162,6 +162,9 @@ export const ProjectInfo = ({ setStep }: any) => {
   useEffect(() => {
     changestartDate(moment(projectDate1).format('YYYY.MM.DD'));
     changeendDate(moment(projectDate2).format('YYYY.MM.DD'));
+    changeblogLink(blogLink);
+    changegithubLink(githubLink);
+    changewebsiteLink(websiteLink);
   }, []);
 
   const calendarOpen1 = () => {
@@ -189,7 +192,7 @@ export const ProjectInfo = ({ setStep }: any) => {
     const enumPlatform = engChange(platform);
     const enumProjectType = engChange(projectType);
     const enumSemester = engChange(semester);
-    if(semester==='ALL') changesemester('');
+    if (semester === 'ALL') changesemester('');
     const enumProjectStatus = engChange(projectStatus);
     if (enumPlatform !== undefined) changeplatform(enumPlatform);
     if (enumProjectType !== undefined) changeprojectType(enumProjectType);
@@ -444,6 +447,7 @@ export const ProjectInfo = ({ setStep }: any) => {
                   </div>
                   <label className="block w-full">
                     <input
+                      value={githubLink}
                       onChange={githubChange}
                       type="text"
                       name=""
@@ -462,6 +466,7 @@ export const ProjectInfo = ({ setStep }: any) => {
                   </div>
                   <label className="block w-full">
                     <input
+                      value={blogLink}
                       onChange={blogChange}
                       type="text"
                       name=""
@@ -479,6 +484,7 @@ export const ProjectInfo = ({ setStep }: any) => {
                   </div>
                   <label className="block w-full">
                     <input
+                      value={websiteLink}
                       type="text"
                       onChange={websiteChange}
                       name=""

@@ -8,7 +8,7 @@ export const MemberInfo = ({ setStep }: any) => {
 
   const [fronttags, setFrontTags] = useState<string[]>([]);
   const [backtags, setBackTags] = useState<string[]>([]);
-  const [leader, setLeader] = useState<string>('');
+  const [leader, setLeader] = useState<string>(preLeader);
   const [trigger1, setTrigger1] = useState<boolean>(false);
   const [trigger2, setTrigger2] = useState<boolean>(false);
   const nextStep = () => {
