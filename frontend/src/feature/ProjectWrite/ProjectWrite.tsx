@@ -21,8 +21,10 @@ export const ProjectWrite = ({ setStep }: any) => {
     backframeworkRequestList,
     frontprojectMemberList,
     backprojectMemberList,
+    resetStore,
   } = useStore();
 
+  console.log(leader);
   const [projectMemberRequestList2, setProjectMemberRequestList2] = useState<any>([]);
   const [projectMemberRequestList3, setProjectMemberRequestList3] = useState<any>([]);
   const [projectFrameworkList2, setProjectFrameworkList2] = useState<any>([]);
@@ -50,6 +52,8 @@ export const ProjectWrite = ({ setStep }: any) => {
       projectFrameworkList3.push({ name: item, frameworkTypeEnum: 'BACKEND' });
     });
     changeframeworkResponseList([...projectFrameworkList2, ...projectFrameworkList3]);
+
+    resetStore();
   }, []);
 
   // Markdown 내용이 변경될 때 호출되는 함수
