@@ -1,15 +1,26 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import check from '../../../shared/assets/image/modalImg/check.svg';
 import TagsInput from 'react-tagsinput';
 import 'react-tagsinput/react-tagsinput.css';
 import useStore from '../../../shared/store/store';
+import infoIcon from '../../../shared/assets/image/infoIcon.png';
 
 export const TechStackInfo = ({ setStep }: any) => {
-  const [fronttags, setFrontTags] = useState<string[]>([]);
-  const [backtags, setBackTags] = useState<string[]>([]);
   const [trigger1, setTrigger1] = useState<boolean>(false);
   const [trigger2, setTrigger2] = useState<boolean>(false);
-  const { changefrontframeworkRequestList, changebackframeworkRequestList } = useStore();
+  const {
+    changefrontframeworkRequestList,
+    changebackframeworkRequestList,
+    frontframeworkRequestList,
+    backframeworkRequestList,
+  } = useStore();
+
+  const [fronttags, setFrontTags] = useState<string[]>(frontframeworkRequestList.map((item: any) => item.name));
+  const [backtags, setBackTags] = useState<string[]>(backframeworkRequestList.map((item: any) => item.name));
+  useEffect(() => {
+    changefrontframeworkRequestList(fronttags);
+    changebackframeworkRequestList(backtags);
+  }, []);
   const nextStep = () => {
     setStep('next');
 
@@ -44,7 +55,7 @@ export const TechStackInfo = ({ setStep }: any) => {
       <div className="flex flex-row justify-center items-center font-['Pretendard'] bg-[#242424] rounded-2xl border-solid border-[#8a8991] border-[0.1rem] h-[42rem] w-[40rem] text-white box-border">
         <div className="relative flex flex-col gap-[2.5rem] items-center w-[85%] h-[91%]">
           {/*상단 제목, 스텝퍼*/}
-          <div className=" flex flex-row justify-between box-border w-[100%] h-fit">
+          <div className="flex flex-row justify-between box-border w-[100%] h-fit">
             <div className="break-words font-['Pretendard'] font-semibold text-[1.3rem] leading-[1.3] text-[#F1EEF9]">
               프로젝트에 사용한 기술을 입력해주세요.
             </div>
@@ -64,6 +75,12 @@ export const TechStackInfo = ({ setStep }: any) => {
                   3
                 </span>
               </div>
+            </div>
+          </div>
+          <div className="flex flex-wrap content-start w-[100%] mb-[-1rem] items-center">
+            <img src={infoIcon} className="w-[1.2rem] h-[1.2rem]"></img>
+            <div className="break-words font-['Pretendard'] font-semibold text-[1rem] leading-[1] ml-[0.3rem] text-[#9492A0]">
+              각 기술에서 가장 처음에 등록된 태그가 대표 기술로 등록됩니다.
             </div>
           </div>
           {/* 하단 입력 정보 전체*/}
