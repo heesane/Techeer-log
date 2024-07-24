@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import check from '../../../shared/assets/image/modalImg/check.svg';
 import TagsInput from 'react-tagsinput';
 import 'react-tagsinput/react-tagsinput.css';
@@ -6,11 +6,21 @@ import useStore from '../../../shared/store/store';
 import infoIcon from '../../../shared/assets/image/infoIcon.png';
 
 export const TechStackInfo = ({ setStep }: any) => {
-  const [fronttags, setFrontTags] = useState<string[]>([]);
-  const [backtags, setBackTags] = useState<string[]>([]);
   const [trigger1, setTrigger1] = useState<boolean>(false);
   const [trigger2, setTrigger2] = useState<boolean>(false);
-  const { changefrontframeworkRequestList, changebackframeworkRequestList } = useStore();
+  const {
+    changefrontframeworkRequestList,
+    changebackframeworkRequestList,
+    frontframeworkRequestList,
+    backframeworkRequestList,
+  } = useStore();
+
+  const [fronttags, setFrontTags] = useState<string[]>(frontframeworkRequestList.map((item: any) => item.name));
+  const [backtags, setBackTags] = useState<string[]>(backframeworkRequestList.map((item: any) => item.name));
+  useEffect(() => {
+    changefrontframeworkRequestList(fronttags);
+    changebackframeworkRequestList(backtags);
+  }, []);
   const nextStep = () => {
     setStep('next');
 
