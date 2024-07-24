@@ -9,6 +9,7 @@ export const ImageUpload = ({ setImageurl }: any) => {
 
   const handleImageChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const { files } = e.target;
+    console.log(files);
 
     if (files && files.length === 1) {
       console.log(files[0]);
@@ -44,7 +45,7 @@ export const ImageUpload = ({ setImageurl }: any) => {
         />
         <button
           onClick={handleImageUpload}
-          className="w-12 h-fit flex items-center justify-center cursor-pointer bg-transparent outline-none border-none"
+          className="flex items-center justify-center w-12 bg-transparent border-none outline-none cursor-pointer h-fit"
         >
           <img src={imgfile} className="flex w-[1.4rem]" />
         </button>

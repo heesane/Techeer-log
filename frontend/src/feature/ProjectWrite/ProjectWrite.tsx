@@ -21,10 +21,8 @@ export const ProjectWrite = ({ setStep }: any) => {
     backframeworkRequestList,
     frontprojectMemberList,
     backprojectMemberList,
-    resetStore,
   } = useStore();
 
-  console.log(leader);
   const [projectMemberRequestList2, setProjectMemberRequestList2] = useState<any>([]);
   const [projectMemberRequestList3, setProjectMemberRequestList3] = useState<any>([]);
   const [projectFrameworkList2, setProjectFrameworkList2] = useState<any>([]);
@@ -52,8 +50,7 @@ export const ProjectWrite = ({ setStep }: any) => {
       projectFrameworkList3.push({ name: item, frameworkTypeEnum: 'BACKEND' });
     });
     changeframeworkResponseList([...projectFrameworkList2, ...projectFrameworkList3]);
-
-    resetStore();
+    setMarkdown(content);
   }, []);
 
   // Markdown 내용이 변경될 때 호출되는 함수
@@ -141,33 +138,33 @@ export const ProjectWrite = ({ setStep }: any) => {
         </button>
         <button
           onClick={handleButtonTiltChange}
-          className="w-12 h-fit flex items-center justify-center cursor-pointer bg-transparent outline-none border-none"
+          className="flex items-center justify-center w-12 bg-transparent border-none outline-none cursor-pointer h-fit"
         >
           <img src={italic} className="flex w-[1.2rem]" />
         </button>
         <button
           onClick={handleButtonStrikeThroughChange}
-          className="w-12 h-fit flex items-center justify-center cursor-pointer bg-transparent outline-none border-none"
+          className="flex items-center justify-center w-12 bg-transparent border-none outline-none cursor-pointer h-fit"
         >
           <img src={strikethrough} className="flex w-[1.2rem]" />
         </button>
         <div className="h-[60%] w-0.5 bg-[#4D4D4D] mx-2"></div>
         <button
           onClick={handleButtonQuoteChange}
-          className="w-12 h-fit flex items-center justify-center cursor-pointer bg-transparent outline-none border-none"
+          className="flex items-center justify-center w-12 bg-transparent border-none outline-none cursor-pointer h-fit"
         >
           <img src={quote} className="flex w-[1.4rem]" />
         </button>
         <button
           onClick={handleLinkTextChange}
-          className="w-12 h-fit flex items-center justify-center cursor-pointer bg-transparent outline-none border-none"
+          className="flex items-center justify-center w-12 bg-transparent border-none outline-none cursor-pointer h-fit"
         >
           <img src={link} className="flex w-[1.3rem]" />
         </button>
         <ImageUpload setImageurl={onsetImageurl} />
         <button
           onClick={handleButtonCodeChange}
-          className="w-12 h-fit flex items-center justify-center cursor-pointer bg-transparent outline-none border-none"
+          className="flex items-center justify-center w-12 bg-transparent border-none outline-none cursor-pointer h-fit"
         >
           <img src={code} className="flex w-[1.3rem]" />
         </button>
@@ -179,7 +176,7 @@ export const ProjectWrite = ({ setStep }: any) => {
           <textarea
             value={markdown}
             onChange={handleMarkdownChange}
-            placeholder={content || '내용을 입력하세요.'}
+            placeholder={content || '내용을 입력하세요. 가장 처음에 첨부된 이미지가 썸네일 이미지로 지정됩니다.'}
             // rows={10}
             // cols={100}
             className="bg-transparent inline-flex text-[1.2rem] outline-none cursor-text border-none text-gray-400 focus:text-white px-1 h-full w-full resize-none leading-6 overflow-y-auto"

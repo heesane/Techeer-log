@@ -78,27 +78,6 @@ export const bottomButtons = ({ setStep }: any) => {
     frameworkResponseList,
   };
 
-  //임시
-  const projectData2 = {
-    title,
-    subtitle,
-    onlyText,
-    startDate,
-    endDate,
-    platform,
-    projectType,
-    year,
-    semester,
-    projectStatus,
-    githubLink,
-    blogLink,
-    websiteLink,
-    imageUrl,
-    projectMemberRequestList,
-    nonRegisterProjectMemberRequestList,
-    frameworkResponseList,
-  };
-
   const handleSubmit = useMutation({
     mutationFn: () => api.UploadProject(projectData),
     onSuccess: () => {
@@ -129,7 +108,7 @@ export const bottomButtons = ({ setStep }: any) => {
   }, [projectId]);
 
   const editMutation = useMutation({
-    mutationFn: (projectId: number) => api.putProject({ projectData2, projectId }),
+    mutationFn: (projectId: number) => api.putProject({ projectData, projectId }),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['projectList'] });
       navigate('/');
