@@ -282,13 +282,22 @@ export const ProjectInfo = ({ setStep }: any) => {
                     <div className="absolute mt-12 bg-[rgba(148,146,160,1)] shadow-lg rounded-sm border-[1px] border-solid w-[16rem]">
                       {/* Dropdown 내용 */}
                       <ul className="w-full text-[0.8rem]">
-                        <li className="px-4 py-2 cursor-pointer hover:bg-gray-100" onClick={handleChangeProjectType1}>
+                        <li
+                          className="px-4 py-2 cursor-pointer  hover:bg-gray-100 hover:text-[black]"
+                          onClick={handleChangeProjectType1}
+                        >
                           부트캠프
                         </li>
-                        <li onClick={handleChangeProjectType2} className="px-4 py-2 cursor-pointer hover:bg-gray-100">
+                        <li
+                          onClick={handleChangeProjectType2}
+                          className="px-4 py-2 hover:bg-gray-100 hover:text-[black]  cursor-pointer"
+                        >
                           팀 프로젝트
                         </li>
-                        <li onClick={handleChangeProjectType3} className="px-4 py-2 cursor-pointer hover:bg-gray-100">
+                        <li
+                          onClick={handleChangeProjectType3}
+                          className="px-4 py-2 hover:bg-gray-100 hover:text-[black] cursor-pointer"
+                        >
                           개인 프로젝트
                         </li>
                       </ul>
@@ -315,24 +324,39 @@ export const ProjectInfo = ({ setStep }: any) => {
                         {/* Dropdown 내용 */}
                         <ul className="w-full text-[0.8rem]">
                           <li
-                            className="px-4 py-2 cursor-pointer fontsize-[1rem] hover:bg-gray-100"
+                            className="px-4 py-2 cursor-pointer fontsize-[1rem] hover:bg-gray-100 hover:text-[black]"
                             onClick={handleChangeSemester1}
                           >
                             2024 동계
                           </li>
-                          <li onClick={handleChangeSemester2} className="px-4 py-2 cursor-pointer hover:bg-gray-100">
+                          <li
+                            onClick={handleChangeSemester2}
+                            className="px-4 py-2 hover:bg-gray-100 hover:text-[black] cursor-pointer"
+                          >
                             2024 하계
                           </li>
-                          <li onClick={handleChangeSemester3} className="px-4 py-2 cursor-pointer hover:bg-gray-100">
+                          <li
+                            onClick={handleChangeSemester3}
+                            className="px-4 py-2 hover:bg-gray-100 hover:text-[black] cursor-pointer"
+                          >
                             2023 동계
                           </li>
-                          <li onClick={handleChangeSemester4} className="px-4 py-2 cursor-pointer hover:bg-gray-100">
+                          <li
+                            onClick={handleChangeSemester4}
+                            className="px-4 py-2 hover:bg-gray-100 hover:text-[black] cursor-pointer"
+                          >
                             2023 하계
                           </li>
-                          <li onClick={handleChangeSemester5} className="px-4 py-2 cursor-pointer hover:bg-gray-100">
+                          <li
+                            onClick={handleChangeSemester5}
+                            className="px-4 py-2 hover:bg-gray-100 hover:text-[black] cursor-pointer"
+                          >
                             2022 동계
                           </li>
-                          <li onClick={handleChangeSemester6} className="px-4 py-2 cursor-pointer hover:bg-gray-100">
+                          <li
+                            onClick={handleChangeSemester6}
+                            className="px-4 py-2 hover:bg-gray-100 hover:text-[black] cursor-pointer"
+                          >
                             2022 하계
                           </li>
                         </ul>
@@ -378,20 +402,20 @@ export const ProjectInfo = ({ setStep }: any) => {
                         {/* Dropdown 내용 */}
                         <ul className="w-full text-[0.8rem]">
                           <li
-                            className="px-4 py-2 text-white cursor-pointer hover:bg-gray-100"
+                            className="px-4 py-2 cursor-pointer  hover:bg-gray-100 hover:text-[black] text-white"
                             onClick={handleChangePlatform1}
                           >
                             웹
                           </li>
                           <li
                             onClick={handleChangePlatform2}
-                            className="px-4 py-2 text-white cursor-pointer hover:bg-gray-100"
+                            className="px-4 py-2 hover:bg-gray-100 hover:text-[black] cursor-pointer text-white"
                           >
                             앱
                           </li>
                           <li
                             onClick={handleChangePlatform3}
-                            className="px-4 py-2 text-white cursor-pointer hover:bg-gray-100"
+                            className="px-4 py-2 hover:bg-gray-100 hover:text-[black] cursor-pointer text-white"
                           >
                             웹 앱
                           </li>
@@ -418,14 +442,14 @@ export const ProjectInfo = ({ setStep }: any) => {
                         {/* Dropdown 내용 */}
                         <ul className="w-full text-[0.8rem]">
                           <li
-                            className="px-4 py-2 text-white cursor-pointer hover:bg-gray-100"
+                            className="px-4 py-2 cursor-pointer hover:bg-gray-100 hover:text-[black] text-white"
                             onClick={handleChangeService1}
                           >
                             서비스 운영 중
                           </li>
                           <li
                             onClick={handleChangeService2}
-                            className="px-4 py-2 text-white cursor-pointer hover:bg-gray-100"
+                            className="px-4 py-2 hover:bg-gray-100 hover:text-[black] cursor-pointer text-white"
                           >
                             서비스 중단
                           </li>

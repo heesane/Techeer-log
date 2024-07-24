@@ -50,7 +50,7 @@ export const MemberInfo = ({ setStep }: any) => {
     }
     setBackTags(tag);
   };
-
+  console.log(leader);
   return (
     <div className="flex flex-col items-center justify-center w-screen h-screen bg-black bg-opacity-90">
       <div className="flex flex-row justify-center items-center font-['Pretendard'] bg-[#242424] rounded-2xl border-solid border-[#8a8991] border-[0.1rem] h-[42rem] w-[40rem] text-white box-border">
@@ -86,9 +86,9 @@ export const MemberInfo = ({ setStep }: any) => {
                   onChange={leaderonchange}
                   type="text"
                   name=""
-                  placeholder={preLeader || '팀 리더 이름을 입력하세요.'}
+                  placeholder={'팀 리더 이름을 입력하세요.'}
                   required
-                  className="border-b-[#9492A0] border-solid border-b-[0.08rem] w-[100%] pl-3 h-[2.1rem] text-[#9492A0] text-[0.8rem] font-['Pretendard'] bg-transparent focus:border-white focus:text-white outline-none"
+                  className="border-b-[#9492A0] border-solid border-b-[0.08rem] w-[100%] pl-3 h-[2.1rem] text-white text-[1rem] font-['Pretendard'] bg-transparent focus:border-white focus:text-white outline-none"
                 />
               </label>
             </div>

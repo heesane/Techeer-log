@@ -47,4 +47,5 @@ export interface ProjectType {
   changeframeworkResponseList: (value: any) => void;
   changecontent: (value: any) => void;
   setProjectData: (data: ProjectData) => void;
+  resetStore: () => void; // 추가된 부분
 }

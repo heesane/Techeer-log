@@ -26,6 +26,7 @@ export const bottomButtons = ({ setStep }: any) => {
     projectMemberRequestList,
     nonRegisterProjectMemberRequestList,
     frameworkResponseList,
+    resetStore,
   } = useStore();
 
   const [imageUrl, setImageUrl] = useState<string>('');
@@ -82,6 +83,7 @@ export const bottomButtons = ({ setStep }: any) => {
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['projectList'] });
       navigate('/');
+      resetStore(); // 완료 후 store 값 초기화
     },
     onError: (error) => {
       alert('프로젝트 등록에 실패하였습니다.' + error);
@@ -110,6 +112,7 @@ export const bottomButtons = ({ setStep }: any) => {
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['projectList'] });
       navigate('/');
+      resetStore(); // 완료 후 store 값 초기화
     },
     onError: (error) => {
       alert('프로젝트 수정에 실패하였습니다.' + error);
