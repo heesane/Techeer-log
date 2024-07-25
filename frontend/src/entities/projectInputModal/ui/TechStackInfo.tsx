@@ -15,19 +15,17 @@ export const TechStackInfo = ({ setStep }: any) => {
     backframeworkRequestList,
   } = useStore();
 
-  const [fronttags, setFrontTags] = useState<string[]>(frontframeworkRequestList.map((item: any) => item.name));
-  const [backtags, setBackTags] = useState<string[]>(backframeworkRequestList.map((item: any) => item.name));
-  useEffect(() => {
-    changefrontframeworkRequestList(fronttags);
-    changebackframeworkRequestList(backtags);
-  }, []);
-  const nextStep = () => {
-    setStep('next');
+  const [fronttags, setFrontTags] = useState<string[]>(frontframeworkRequestList);
+  const [backtags, setBackTags] = useState<string[]>(backframeworkRequestList);
 
+  const nextStep = () => {
     changefrontframeworkRequestList(fronttags);
     changebackframeworkRequestList(backtags);
+    setStep('next');
   };
   const prevStep = () => {
+    changefrontframeworkRequestList(fronttags);
+    changebackframeworkRequestList(backtags);
     setStep('prev');
   };
   const handleFrontChange = (tag: string[]) => {
@@ -92,7 +90,7 @@ export const TechStackInfo = ({ setStep }: any) => {
                   value={backtags}
                   onChange={handleBackChange}
                   className="rounded-[0.4rem] border-[#9492A0] border-solid border-[0.08rem] w-[100%] pl-[0.3rem] h-[6.1rem] text-[#9492A0] text-[0.8rem] font-['Pretendard'] bg-transparent focus:border-white focus:text-white outline-none"
-                  inputProps={{ placeholder: '백엔드 사용 기술을 입력하세요.' }}
+                  inputProps={{ placeholder: '백엔드 사용 기술을 입력 후 엔터를 눌러주세요.' }}
                 />
               </label>
             </div>
@@ -103,7 +101,7 @@ export const TechStackInfo = ({ setStep }: any) => {
                   value={fronttags}
                   onChange={handleFrontChange}
                   className="rounded-[0.4rem] border-[#9492A0] border-solid border-[0.08rem] w-[100%] pl-[0.3rem] h-[6.1rem] text-[#9492A0] text-[0.8rem] font-['Pretendard'] bg-transparent focus:border-white focus:text-white outline-none"
-                  inputProps={{ placeholder: '프론트엔드 사용 기술을 입력하세요.' }}
+                  inputProps={{ placeholder: '프론트엔드 사용 기술을 입력 후 엔터를 눌러주세요.' }}
                 />
               </label>
             </div>

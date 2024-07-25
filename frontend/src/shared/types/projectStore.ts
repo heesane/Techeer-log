@@ -17,12 +17,12 @@ export interface ProjectType {
   mainImageUrl: string;
   projectMemberRequestList: ProjectMember[];
   nonRegisterProjectMemberRequestList: ProjectMember[];
-  frontprojectMemberList: ProjectMember[];
-  backprojectMemberList: ProjectMember[];
+  frontprojectMemberList: string[];
+  backprojectMemberList: string[];
   leader: string;
 
-  frontframeworkRequestList: Framework[];
-  backframeworkRequestList: Framework[];
+  frontframeworkRequestList: string[];
+  backframeworkRequestList: string[];
 
   frameworkResponseList: Framework[];
 
