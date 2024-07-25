@@ -13,11 +13,12 @@ export const MemberInfo = ({ setStep }: any) => {
     backprojectMemberList,
   } = useStore();
 
-  const [fronttags, setFrontTags] = useState<string[]>(frontprojectMemberList.map((item: any) => item.name));
-  const [backtags, setBackTags] = useState<string[]>(backprojectMemberList.map((item: any) => item.name));
+  const [fronttags, setFrontTags] = useState<string[]>(frontprojectMemberList);
+  const [backtags, setBackTags] = useState<string[]>(backprojectMemberList);
   const [leader, setLeader] = useState<string>(preLeader);
   const [trigger1, setTrigger1] = useState<boolean>(false);
   const [trigger2, setTrigger2] = useState<boolean>(false);
+
   const nextStep = () => {
     changefrontprojectMemberList(fronttags);
     changebackprojectMemberList(backtags);
@@ -28,6 +29,9 @@ export const MemberInfo = ({ setStep }: any) => {
     setLeader(e.target.value);
   };
   const prevStep = () => {
+    changefrontprojectMemberList(fronttags);
+    changebackprojectMemberList(backtags);
+    changeleader(leader);
     setStep('prev');
   };
   const handleFrontChange = (tag: string[]) => {
@@ -99,7 +103,7 @@ export const MemberInfo = ({ setStep }: any) => {
                   value={backtags}
                   onChange={handleBackChange}
                   className="rounded-[0.4rem] border-[#9492A0] border-solid border-[0.08rem] w-[100%] pl-[0.3rem] h-[6.1rem] text-[#9492A0] text-[0.8rem] font-['Pretendard'] bg-transparent focus:border-white focus:text-white outline-none"
-                  inputProps={{ placeholder: '백엔드 팀원을 입력하세요.' }}
+                  inputProps={{ placeholder: '백엔드 팀원을 입력 후 엔터를 눌러주세요.' }}
                 />
               </label>
             </div>
@@ -110,7 +114,7 @@ export const MemberInfo = ({ setStep }: any) => {
                   value={fronttags}
                   onChange={handleFrontChange}
                   className="rounded-[0.4rem] border-[#9492A0] border-solid border-[0.08rem] w-[100%] pl-[0.3rem] h-[6.1rem] text-[#9492A0] text-[0.8rem] font-['Pretendard'] bg-transparent focus:border-white focus:text-white outline-none"
-                  inputProps={{ placeholder: '프론트엔드 팀원을 입력하세요.' }}
+                  inputProps={{ placeholder: '프론트엔드 팀원을 입력 후 엔터를 눌러주세요.' }}
                 />
               </label>
             </div>

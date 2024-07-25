@@ -138,15 +138,19 @@ const useStore = create<ProjectType>((set) => ({
         data.nonRegisterProjectMemberResponseList.find((member) => member.projectMemberTypeEnum === 'LEADER')?.name ||
         '',
       frontprojectMemberList:
-        data.nonRegisterProjectMemberResponseList.filter((member) => member.projectMemberTypeEnum === 'FRONTEND') || [],
+        data.nonRegisterProjectMemberResponseList
+          .filter((member) => member.projectMemberTypeEnum === 'FRONTEND')
+          .map((item) => item.name) || [],
       backprojectMemberList:
-        data.nonRegisterProjectMemberResponseList.filter((member) => member.projectMemberTypeEnum === 'BACKEND') || [],
+        data.nonRegisterProjectMemberResponseList
+          .filter((member) => member.projectMemberTypeEnum === 'BACKEND')
+          .map((item) => item.name) || [],
 
       frameworkResponseList: data.frameworkResponseList || [],
       frontframeworkRequestList:
-        data.frameworkResponseList.filter((framework) => framework.frameworkTypeEnum === 'FRONTEND') || [],
+        data.frameworkResponseList.filter((framework) => framework.frameworkTypeEnum === 'FRONTEND').map((item) => item.name) || [],
       backframeworkRequestList:
-        data.frameworkResponseList.filter((framework) => framework.frameworkTypeEnum === 'BACKEND') || [],
+        data.frameworkResponseList.filter((framework) => framework.frameworkTypeEnum === 'BACKEND').map((item) => item.name) || [],
     }),
 
   resetStore: () =>
