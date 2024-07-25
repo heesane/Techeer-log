@@ -51,11 +51,14 @@ export default function ProjectCard({ project }: propsProjects) {
             {/*<span className="container-17-sub-10"></span>*/}
             {project.projectStatusEnum === 'RUNNING' ? (
               <>
-                <span className="text-green-400">•</span>
+                <span className="text-[1.2rem] text-green-400">•</span>
                 <span> 서비스 운영중</span>
               </>
             ) : (
-              <span>• 서비스 중단</span>
+              <>
+                <span className="text-[1.2rem]">•</span>
+                <span> 서비스 중단</span>
+              </>
             )}
           </p>
           <span className="break-words font-['Pre-R'] font-normal text-[0.8rem] text-[#B0B0B0]">
