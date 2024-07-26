@@ -13,6 +13,7 @@ export const ProjectWrite = ({ setStep }: any) => {
   const [markdown, setMarkdown] = useState('');
   const {
     content,
+    mainImageUrl,
     changecontent,
     leader,
     changenonRegisterProjectMemberRequestList,
@@ -50,8 +51,19 @@ export const ProjectWrite = ({ setStep }: any) => {
       projectFrameworkList3.push({ name: item, frameworkTypeEnum: 'BACKEND' });
     });
     changeframeworkResponseList([...projectFrameworkList2, ...projectFrameworkList3]);
-    setMarkdown(content);
+
+    if (mainImageUrl) {
+      setMarkdown(`![](${mainImageUrl})` + '\n' + content);
+      changecontent(`![](${mainImageUrl})` + '\n' + content);
+    } else {
+      setMarkdown(content);
+      changecontent(content);
+    }
   }, []);
+
+  useEffect(() => {
+    changecontent(markdown);
+  }, [markdown]);
 
   // Markdown 내용이 변경될 때 호출되는 함수
   const onsetImageurl = (markdown: string) => {
@@ -97,11 +109,11 @@ export const ProjectWrite = ({ setStep }: any) => {
     if (markdown === '') setMarkdown(markdown + '[링크텍스트](이곳에 주소를 입력하세요.)');
     else setMarkdown(markdown + '\n[링크텍스트](이곳에 주소를 입력하세요.)');
   };
-
   const handleButtonQuoteChange = () => {
     if (markdown === '') setMarkdown('> ');
     else setMarkdown(markdown + '\n' + '> ');
   };
+
   return (
     <div>
       <div className="flex flex-row items-center w-full h-[2.5rem] bg-[#212121] pl-[2.7rem]">
@@ -176,9 +188,7 @@ export const ProjectWrite = ({ setStep }: any) => {
           <textarea
             value={markdown}
             onChange={handleMarkdownChange}
-            placeholder={content || '내용을 입력하세요. 가장 처음에 첨부된 이미지가 썸네일 이미지로 지정됩니다.'}
-            // rows={10}
-            // cols={100}
+            placeholder={'내용을 입력하세요. 가장 처음에 첨부된 이미지가 썸네일 이미지로 지정됩니다.'}
             className="bg-transparent inline-flex text-[1.2rem] outline-none cursor-text border-none text-gray-400 focus:text-white px-1 h-full w-full resize-none leading-6 overflow-y-auto"
           />
         </div>
