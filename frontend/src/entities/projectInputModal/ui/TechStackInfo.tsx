@@ -77,7 +77,7 @@ export const TechStackInfo = ({ setStep }: any) => {
           </div>
           <div className="flex flex-wrap content-start w-[100%] mb-[-1rem] items-center">
             <img src={infoIcon} className="w-[1.2rem] h-[1.2rem]"></img>
-            <div className="break-words font-['Pretendard'] font-semibold text-[1rem] leading-[1] ml-[0.3rem] text-[#9492A0]">
+            <div className="break-words font-['Pretendard'] font-semibold text-[1rem] leading-[1] ml-[0.3rem] text-[#5cd5bc]">
               각 기술에서 가장 처음에 등록된 태그가 대표 기술로 등록됩니다.
             </div>
           </div>
