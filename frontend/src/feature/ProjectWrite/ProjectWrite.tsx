@@ -182,7 +182,7 @@ export const ProjectWrite = ({ setStep }: any) => {
         </button>
       </div>
       {/* 텍스트 상자 */}
-      <div className="flex flex-wrap w-auto h-[67vh]">
+      <div className="flex flex-wrap w-auto h-[74vh]">
         {/* 왼쪽 박스 - editor */}
         <div className="flex flex-col w-1/2 border-solid border-r-[0.3rem] border-[#212121] h-full font-['Pretendard'] p-[2.5rem_3.5rem]">
           <textarea
@@ -193,7 +193,7 @@ export const ProjectWrite = ({ setStep }: any) => {
           />
         </div>
         {/* 오른쪽 박스 - preview */}
-        <div className="flex flex-col w-1/2 h-full font-['Pretendard'] p-[2.5rem_3.5rem] whitespace-pre-wrap">
+        <div className="flex flex-col w-1/2 h-full font-['Pretendard'] p-[2.5rem_3.5rem] whitespace-pre-wrap overflow-y-scroll">
           <MarkdownView markdown={markdown} />
         </div>
       </div>
