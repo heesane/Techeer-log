@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import check from '../../../shared/assets/image/modalImg/check.svg';
 import TagsInput from 'react-tagsinput';
 import 'react-tagsinput/react-tagsinput.css';
