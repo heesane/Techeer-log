@@ -6,6 +6,7 @@ interface propsProjects {
 export default function ProjectCard({ project }: propsProjects) {
   const firstFrontend = project.frameworkResponseList.find((framework) => framework.frameworkTypeEnum === 'FRONTEND');
   const firstBackend = project.frameworkResponseList.find((framework) => framework.frameworkTypeEnum === 'BACKEND');
+  // const teamName = project.projectTeamNameEnum;
 
   return (
     <Link to={`/projectview/${project.id}`}>

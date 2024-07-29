@@ -20,6 +20,7 @@ const filterOptions: Record<string, string> = {
 
 //프로젝트 가져온 후 필터링
 const useProjects = ({ selectedType, selectedYear, selectedPeriod }: ProjectListProps) => {
+  console.log(selectedYear, selectedPeriod, selectedType);
   const { data, hasNextPage, isFetching, isFetchingNextPage, fetchNextPage } = useGetProjectQuery();
   const projects = data?.pages.flat() ?? [];
   const filteredProjects = useMemo(() => {
@@ -54,6 +55,8 @@ export const ProjectList = ({ selectedType, selectedYear, selectedPeriod }: Proj
     selectedYear,
     selectedPeriod,
   });
+
+  console.log('projects', projects);
 
   const { ref, inView } = useInView();
 
