@@ -65,19 +65,15 @@ public class DummyMethod {
 
         List<Project> projects = new ArrayList<>();
         Long i = 1L;
-        for (; i <= 10; i++) {
+        ProjectTeamNameEnum[] teamNames = ProjectTeamNameEnum.values();
+
+        for (int j = 0; j < 15; j++) {
             projects.add(new Project(
-                    i, "mainImageUrl1", "title1", "subtitle1", "content1", LocalDate.now(), LocalDate.now(), PlatformEnum.WEB, ProjectTypeEnum.PERSONAL_PROJECT, ProjectTeamNameEnum.A, 2023, SemesterEnum.FIRST, RankEnum.NONE, ProjectStatusEnum.COMPLETED, "githubLink1", "blogLink1", "websiteLink1", member, new ArrayList<>(), new ArrayList<>(), new ArrayList<>(), new ArrayList<>(), new ArrayList<>()
-            ));
-        }
-        for (; i <= 20; i++) {
-            projects.add(new Project(
-                    i, "mainImageUrl1", "title1", "subtitle1", "content1", LocalDate.now(), LocalDate.now(), PlatformEnum.WEB, ProjectTypeEnum.PERSONAL_PROJECT, ProjectTeamNameEnum.B, 2023, SemesterEnum.FIRST, RankEnum.NONE, ProjectStatusEnum.COMPLETED, "githubLink1", "blogLink1", "websiteLink1", member, new ArrayList<>(), new ArrayList<>(), new ArrayList<>(), new ArrayList<>(), new ArrayList<>()
-            ));
-        }
-        for (; i <= 30; i++) {
-            projects.add(new Project(
-                    i, "mainImageUrl1", "title1", "subtitle1", "content1", LocalDate.now(), LocalDate.now(), PlatformEnum.WEB, ProjectTypeEnum.PERSONAL_PROJECT, ProjectTeamNameEnum.C, 2023, SemesterEnum.FIRST, RankEnum.NONE, ProjectStatusEnum.COMPLETED, "githubLink1", "blogLink1", "websiteLink1", member, new ArrayList<>(), new ArrayList<>(), new ArrayList<>(), new ArrayList<>(), new ArrayList<>()
+                    i++, "mainImageUrl" + i, "title" + i, "subtitle" + i, "content" + i,
+                    LocalDate.now(), LocalDate.now(), PlatformEnum.WEB, ProjectTypeEnum.PERSONAL_PROJECT,
+                    teamNames[j], 2024, SemesterEnum.SECOND, RankEnum.NONE, ProjectStatusEnum.COMPLETED,
+                    "githubLink" + i, "blogLink" + i, "websiteLink" + i, member,
+                    new ArrayList<>(), new ArrayList<>(), new ArrayList<>(), new ArrayList<>(), new ArrayList<>()
             ));
         }
 
