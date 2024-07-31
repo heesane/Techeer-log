@@ -42,7 +42,7 @@ export const router = createBrowserRouter([
     element: <ProjectEditPage />,
   },
   {
-    path: '/2024-summer-bootcamp/judge',
+    path: '/2024-summer-bootcamp/:param',
     element: <BootCampPage />,
   },
 ]);
