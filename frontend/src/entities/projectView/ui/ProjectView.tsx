@@ -59,7 +59,7 @@ export const ProjectView = (props: { data: ProjectData }) => {
 
   return (
     <div key={project.id} className="bg-[#0F1012] w-[100vw] box-sizing-border">
-      <div className="w-[1150px] pt-[5.5rem] relative ml-auto mr-auto">
+      <div className="w-[85rem] pt-[5.5rem] relative ml-auto mr-auto">
         <div className="m-[1rem_0_1.4rem_0] flex flex-col items-centerx break-words font-['Pretendard'] font-semibold text-[2rem] text-[#FFFFFF]">
           {project.title}
         </div>
@@ -104,7 +104,7 @@ export const ProjectView = (props: { data: ProjectData }) => {
           {/*소개*/}
           <div
             id="scroll-style"
-            className="rounded-[0.9rem] w-[49rem] h-[60rem] border border-solid border-[#CCCCCC] relative flex flex-col p-[2rem_2.4rem_3rem_2.4rem] box-sizing-border overflow-y-scroll"
+            className="rounded-[0.9rem] w-[62rem] h-[60rem] border border-solid border-[#CCCCCC] relative flex flex-col p-[2rem_2.4rem_3rem_2.4rem] box-sizing-border overflow-y-scroll"
           >
             <div className="justify-center flex rounded-[0.6rem] w-[100%] mb-[3rem] ">
               {project.mainImageUrl ? (
@@ -156,7 +156,7 @@ export const ProjectView = (props: { data: ProjectData }) => {
                     <span className="break-words font-['Pretendard'] h-12 font-normal text-[0.9rem] text-[#FFFFFF]">
                       {project.projectStatusEnum === 'RUNNING' ? '운영 중' : '운영 중단'}
                     </span>
-                    <div className="flex flex-row items-center box-sizing-border gap-4">
+                    <div className="flex flex-row items-center gap-4 box-sizing-border">
                       {project.githubLink && (
                         <div className="flex">
                           <a href={project.githubLink}>
