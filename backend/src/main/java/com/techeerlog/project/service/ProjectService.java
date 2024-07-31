@@ -183,7 +183,6 @@ public class ProjectService {
         String searchKeyword = projectListRequest.getSearchKeyword();
 
         Sort sort = Sort.by(
-                new Sort.Order(sortDirection, "projectTeamNameEnum"),
                 new Sort.Order(sortDirection, "id")
         );
 
