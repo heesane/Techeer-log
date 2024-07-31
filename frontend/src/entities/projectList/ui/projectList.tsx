@@ -20,7 +20,6 @@ const filterOptions: Record<string, string> = {
 
 //프로젝트 가져온 후 필터링
 const useProjects = ({ selectedType, selectedYear, selectedPeriod }: ProjectListProps) => {
-  console.log(selectedYear, selectedPeriod, selectedType);
   const { data, hasNextPage, isFetching, isFetchingNextPage, fetchNextPage } = useGetProjectQuery();
   const projects = data?.pages.flat() ?? [];
   const filteredProjects = useMemo(() => {
@@ -56,8 +55,6 @@ export const ProjectList = ({ selectedType, selectedYear, selectedPeriod }: Proj
     selectedPeriod,
   });
 
-  console.log('projects', projects);
-
   const { ref, inView } = useInView();
 
   useEffect(() => {
@@ -69,6 +66,7 @@ export const ProjectList = ({ selectedType, selectedYear, selectedPeriod }: Proj
   if (isFetching && !isFetchingNextPage) {
     return <div className="w-full h-full bg-transparent">Loading...</div>;
   }
+
   return (
     <div className="grid grid-rows-3 grid-cols-3 gap-4 m-4">
       {projects && projects.length > 0 ? (
