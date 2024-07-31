@@ -22,7 +22,7 @@ export const BootCampPage = () => {
     <div className="bg-[#111111] flex flex-col w-screen justify-center items-center">
       <Header />
       <div className="w-[75rem] mt-[8rem] flex flex-col justify-center items-center mb-[15rem]">
-        <div className="w-[95%] rounded-[0.3rem] bg-[#3c3c3c70] border-solid border-[0.1rem] border-[#444444] text-[#f1f1f1] flex flex-col gap-4 items-center p-[2rem]">
+        <div className="w-[91%] rounded-[0.3rem] bg-[#3c3c3c70] border-solid border-[0.1rem] border-[#444444] text-[#f1f1f1] flex flex-col gap-4 items-center p-[2rem]">
           <span className="font-['Pretendard-SemiBold'] text-[1.3rem]">
             모든 프로젝트를 살펴보신 후, 3개의 우수작을 선정해서 투표해주세요.
             <p className="text-[1.1rem] text-[#c9c9c9] font-['Pretendard'] my-[1rem] justify-center flex">
