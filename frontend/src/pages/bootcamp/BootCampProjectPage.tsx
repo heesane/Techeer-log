@@ -15,6 +15,7 @@ export const BootCampProjectPage = () => {
   return (
     <>
       <Header />
+      <div className="bg-[#111111] h-[2rem]" />
       <Project projectId={projectId} />
       <Footer />
     </>
