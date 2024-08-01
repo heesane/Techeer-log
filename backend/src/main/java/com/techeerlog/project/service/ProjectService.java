@@ -17,7 +17,6 @@ import com.techeerlog.member.exception.MemberNotFoundException;
 import com.techeerlog.member.repository.MemberRepository;
 import com.techeerlog.project.domain.*;
 import com.techeerlog.project.dto.*;
-import com.techeerlog.project.enums.ProjectTeamNameEnum;
 import com.techeerlog.project.enums.RankEnum;
 import com.techeerlog.project.enums.SearchFieldEnum;
 import com.techeerlog.project.enums.SemesterEnum;
@@ -37,7 +36,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 
@@ -306,22 +304,15 @@ public class ProjectService {
     }
 
     public ProjectItemListResponse findSortedProjectListResponse(ProjectListRequest projectListRequest, AuthInfo authInfo) {
-        Slice<Project> sortedProjectSlice = getSortedProjectSlice(projectListRequest, 2024, SemesterEnum.SECOND);
+        int year = 2024;
+        SemesterEnum semester = SemesterEnum.SECOND;
+        Slice<Project> sortedProjectSlice = getSortedProjectSlice(projectListRequest, year, semester);
         return projectListToProjectItemListResponse(sortedProjectSlice, authInfo);
     }
 
     private Slice<Project> getSortedProjectSlice(ProjectListRequest projectListRequest, int year, SemesterEnum semester) {
-        int pageStart = projectListRequest.getPageStart();
-        int pageSize = projectListRequest.getPageSize();
-        Sort.Direction sortDirection = projectListRequest.getSortDirection();
-
-        Sort sort = Sort.by(
-                new Sort.Order(sortDirection, "projectTeamNameEnum"),
-                new Sort.Order(sortDirection, "id")
-        );
-
-        Pageable pageable = PageRequest.of(pageStart, pageSize, sort);
-
+        Sort sort = Sort.by(Sort.Direction.ASC, "projectTeamNameEnum", "id");
+        Pageable pageable = PageRequest.of(projectListRequest.getPageStart(), projectListRequest.getPageSize(), sort);
         return projectRepository.findAllByYearAndSemesterSorted(year, semester, pageable);
     }
 
