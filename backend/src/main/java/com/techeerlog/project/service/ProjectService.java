@@ -20,6 +20,7 @@ import com.techeerlog.project.dto.*;
 import com.techeerlog.project.enums.ProjectTeamNameEnum;
 import com.techeerlog.project.enums.RankEnum;
 import com.techeerlog.project.enums.SearchFieldEnum;
+import com.techeerlog.project.enums.SemesterEnum;
 import com.techeerlog.project.exception.PageableAccessException;
 import com.techeerlog.project.exception.ProjectNotFoundException;
 import com.techeerlog.project.repository.NonRegisterProjectMemberRepository;
@@ -305,12 +306,11 @@ public class ProjectService {
     }
 
     public ProjectItemListResponse findSortedProjectListResponse(ProjectListRequest projectListRequest, AuthInfo authInfo) {
-        // projectTeamNameEnum 및 id를 기준으로 정렬된 프로젝트 리스트 조회
-        Slice<Project> sortedProjectSlice = getSortedProjectSlice(projectListRequest);
-
+        Slice<Project> sortedProjectSlice = getSortedProjectSlice(projectListRequest, 2024, SemesterEnum.SECOND);
         return projectListToProjectItemListResponse(sortedProjectSlice, authInfo);
     }
-    private Slice<Project> getSortedProjectSlice(ProjectListRequest projectListRequest) {
+
+    private Slice<Project> getSortedProjectSlice(ProjectListRequest projectListRequest, int year, SemesterEnum semester) {
         int pageStart = projectListRequest.getPageStart();
         int pageSize = projectListRequest.getPageSize();
         Sort.Direction sortDirection = projectListRequest.getSortDirection();
@@ -322,7 +322,7 @@ public class ProjectService {
 
         Pageable pageable = PageRequest.of(pageStart, pageSize, sort);
 
-        return projectRepository.findAll(pageable);
+        return projectRepository.findAllByYearAndSemesterSorted(year, semester, pageable);
     }
 
 }
