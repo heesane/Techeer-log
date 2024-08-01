@@ -7,8 +7,8 @@ import ProjectCard from '../../shared/ui/ProjectCard.tsx';
 
 export const BootCampPage = () => {
   const { data, isError, error } = useQuery<Project[]>({
-    queryKey: ['comments'],
-    queryFn: () => getBootCampProject({ pageStart: 0, size: 15 }),
+    queryKey: ['projectList'],
+    queryFn: () => getBootCampProject({ pageStart: 0, size: 16 }),
   });
 
   const ErrorMessage = () => (
@@ -26,11 +26,11 @@ export const BootCampPage = () => {
           <span className="font-['Pretendard-SemiBold'] text-[1.3rem]">
             모든 프로젝트를 살펴보신 후, 3개의 우수작을 선정해서 투표해 주세요.
             <p className="text-[1.1rem] text-[#c9c9c9] font-['Pretendard'] my-[1rem] justify-center flex">
-              발표 순서: A - B - C - D - E - F - G - H - I - J - K - L - M - N - O
+              발표 순서: E - J - L - D - B - A - M - F - C - N - H - G - I - K - O
             </p>
           </span>
           <a
-            href={'/'}
+            href={'https://forms.gle/oE6VzpLiX93V8njg9'}
             target="_blank"
             rel="noopener noreferrer"
             className="px-9 py-[0.8rem] border-[0.05rem] bg-[#3e3e3e] border-[#646464] border-solid font-['Pretendard-Medium'] text-[1.2rem] rounded-md hover:bg-[#444446] active:bg-[#444446] transition-colors"
