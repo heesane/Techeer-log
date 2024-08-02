@@ -26,7 +26,7 @@ export const BootCampPage = () => {
           <span className="font-['Pretendard-SemiBold'] text-[1.3rem]">
             모든 프로젝트를 살펴보신 후, 5개의 우수작을 선정해서 투표해 주세요.
             <p className="text-[1.1rem] text-[#c9c9c9] font-['Pretendard'] my-[1rem] justify-center flex">
-              발표 순서: E - J - L - D - B - A - M - F - C - N - H - G - I - K - O
+              발표 순서: I - A - L - D - B - J - M - F - C - N - H - G - E - K - O
             </p>
           </span>
           <a
