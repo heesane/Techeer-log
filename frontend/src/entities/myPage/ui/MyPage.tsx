@@ -1,30 +1,13 @@
 import Footer from '../../../shared/ui/Footer.tsx';
 import NavBar from '../../../shared/ui/NavBar.tsx';
+import { MyPageProfile } from '../index.ts';
 
 export const MyPage = () => {
   return (
     <div className="bg-[#111111] flex flex-col items-center w-[100vw] box-sizing-border">
       <NavBar scrollRef={null} />
       <div className="w-[1200px] ml-auto mr-auto mt-[8rem] mb-[8rem]">
-        <div className="rounded-[16.3rem] m-[0_0_11.1rem_0] flex flex-row w-[100%] box-sizing-border justify-center">
-          <div className="rounded-[16.3rem] bg-[url('shared/assests/BigProfileImg.png')] bg-[50%_50%] bg-cover bg-no-repeat m-[0_5.6rem_0_0] w-[9.4rem] h-[9.4rem]"></div>
-          <div className="m-[0_0_0.1rem_0] flex flex-col box-sizing-border">
-            <div className="m-[0_0_0.1rem_0] inline-block self-start break-words font-['Pre-S'] font-semibold text-[2.5rem] text-[#0047FF]">
-              thisisid
-            </div>
-            <div className="m-[0_0_2.7rem_0] flex flex-row self-start w-[fit-content] box-sizing-border">
-              <span className="m-[0_0.7rem_0_0] break-words font-['Pre-S'] font-semibold text-[1.5rem] text-[#B3B3B3]">
-                이이름
-              </span>
-              <span className="m-[0_0rem_0_0] break-words font-['Pre-R'] font-normal text-[1.5rem] text-[#B3B3B3]">
-                thistisemail@email.com
-              </span>
-            </div>
-            <span className="break-words font-['Pre-R'] font-normal text-[1.6rem] text-[#EDEDED]">
-              한 줄 소개입니다. 한 줄 소개입니다. 한 줄 소개입니다.
-            </span>
-          </div>
-        </div>
+        <MyPageProfile />
         <div className="m-[0_0_1.5rem_0] flex flex-row justify-between w-[100%] box-sizing-border">
           <span className="break-words font-['Pre-R'] font-medium text-[1.5rem] ml-28 text-[#0047FF]">
             업로드한 프로젝트
@@ -36,7 +19,7 @@ export const MyPage = () => {
           </span>
         </div>
         <div className="bg-[#444444] relative m-[0_0_6.8rem_0] w-[100%] h-[0.1rem]"></div>
-        <div className="grid grid-rows-3 grid-cols-3 gap-4 m-4">
+        <div className="grid grid-cols-3 grid-rows-3 gap-4 m-4">
           <div className="rounded-[0.3rem] border-solid border border-[#444444] flex flex-col p-[0_0_1rem_0] box-sizing-border w-[100%]">
             <div className="bg-[url('shared/assests/ThumbNailImg.png')] bg-cover rounded-[0.3rem] m-[0_0_1.3rem_0] w-[99.9%] h-[15rem]"></div>
             <div className="m-[0_1rem_0.4rem_1rem] inline-block self-start break-words font-['Pre-S'] font-semibold text-[1.3rem] bg-[#FFFFFF] text-[transparent] bg-clip-text">
