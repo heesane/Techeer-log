@@ -30,7 +30,7 @@ export const MyPageProfile = () => {
         {!isModal ? (
           <>
             <div className="rounded-[16.3rem] flex flex-row w-[100%] box-sizing-border justify-center">
-              <button className="cursor-default rounded-[16.3rem] border bg-[50%_50%] bg-cover bg-no-repeat m-[0_5.6rem_0_0] w-[9.4rem] h-[9.4rem]">
+              <button className="cursor-default rounded-[16.3rem] border bg-[50%_50%] bg-cover bg-no-repeat m-[1rem_5.6rem_0_0] w-[9.4rem] h-[9.4rem]">
                 <img className="w-full h-full rounded-[16.3rem]" src={data.profileImageUrl}></img>
               </button>
               <div className="m-[0_0_0.1rem_0] flex flex-col box-sizing-border">
@@ -49,7 +49,7 @@ export const MyPageProfile = () => {
             </div>
             <div
               onClick={modalOpen}
-              className="rounded-[0.3rem] m-[4rem_10rem_11.1rem_0] bg-[#8A8991] flex flex-row justify-center items-center w-[8rem] h-[2.1rem] box-sizing-border cursor-pointer"
+              className="rounded-[0.3rem] m-[4rem_7rem_11.1rem_0] bg-[#8A8991] flex flex-row justify-center items-center w-[8rem] h-[2.1rem] box-sizing-border cursor-pointer"
             >
               <span className="break-words font-medium text-[0.9rem] leading-[1.286] text-[#F1EEF9)]">
                 프로필 수정하기

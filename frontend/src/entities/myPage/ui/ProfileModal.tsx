@@ -41,18 +41,22 @@ export const ProfileModal = ({ setIsModal, id, img }: ProfileModalProps) => {
   });
 
   const submitProfileChange = () => {
-    const formData = new FormData();
-    const data = {
-      nickname: newNickname,
-      introduction: introduction,
-    };
-    const jsonData = JSON.stringify(data);
-    formData.append('data', jsonData);
-    if (nowImage) {
-      formData.append('part', nowImage);
+    if (newNickname === '' || introduction === '') {
+      alert('닉네임과 한 줄 소개를 입력해주세요.');
+    } else {
+      const formData = new FormData();
+      const data = {
+        nickname: newNickname,
+        introduction: introduction,
+      };
+      const jsonData = JSON.stringify(data);
+      formData.append('data', jsonData);
+      if (nowImage) {
+        formData.append('part', nowImage);
+      }
+      changeProfileMutation.mutate(formData);
+      setIsModal(false);
     }
-    changeProfileMutation.mutate(formData);
-    setIsModal(false);
   };
   // 프로필 수정
   const changeProfileMutation = useMutation({
@@ -78,9 +82,13 @@ export const ProfileModal = ({ setIsModal, id, img }: ProfileModalProps) => {
         />
         <button
           onClick={handleImageUpload}
-          className="rounded-[16.3rem] border bg-[50%_50%] bg-cover bg-no-repeat m-[3rem_5.6rem_0_0] w-[9.4rem] h-[9.4rem]"
+          className="rounded-[16.3rem] border bg-[50%_50%] bg-cover bg-no-repeat m-[1rem_5.6rem_0_0] w-[9.4rem] h-[9.4rem]"
         >
-          <img className="w-full h-full rounded-[16.3rem]" src={newProfileImageUrl}></img>
+          {newProfileImageUrl !== '' ? (
+            <img className="w-full h-full rounded-[16.3rem]" src={newProfileImageUrl}></img>
+          ) : (
+            <div className="text-white">이미지 변경하기</div>
+          )}
         </button>
         <div className="flex flex-col box-sizing-border">
           <div className="m-[0_0_1rem_0] inline-block self-start break-words font-['Pre-S'] font-semibold text-[2.5rem] text-[#0047FF]">
@@ -127,16 +135,16 @@ export const ProfileModal = ({ setIsModal, id, img }: ProfileModalProps) => {
           />
         </div>
       </div>
-      <div className="flex flex-row gap-[1rem]">
+      <div className="flex flex-row gap-[1rem] ml-[-3rem]">
         <div
           onClick={() => setIsModal(false)}
-          className="rounded-[0.3rem] m-[4rem_0rem_0_0] bg-[#8A8991] flex flex-row justify-center items-center w-[8rem] h-[2.1rem] box-sizing-border cursor-pointer"
+          className="rounded-[0.3rem] m-[2.8rem_0rem_0_0] bg-[#8A8991] flex flex-row justify-center items-center w-[8rem] h-[2.1rem] box-sizing-border cursor-pointer"
         >
           <span className="break-words font-medium text-[0.9rem] leading-[1.286] text-[#F1EEF9)]">취소</span>
         </div>
         <div
           onClick={() => submitProfileChange()}
-          className="rounded-[0.3rem] m-[4rem_0rem_11.1rem_0] bg-[#8A8991] flex flex-row justify-center items-center w-[8rem] h-[2.1rem] box-sizing-border cursor-pointer"
+          className="rounded-[0.3rem] m-[2.8rem_0rem_11.1rem_0] bg-[#8A8991] flex flex-row justify-center items-center w-[8rem] h-[2.1rem] box-sizing-border cursor-pointer"
         >
           <span className="break-words font-medium text-[0.9rem] leading-[1.286] text-[#F1EEF9)]">프로필 수정완료</span>
         </div>
