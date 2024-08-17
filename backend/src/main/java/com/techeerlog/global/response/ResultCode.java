@@ -43,6 +43,7 @@ public enum ResultCode {
     // Scrap
     SCRAP_CREATED_SUCCESS("S001", 201, "스크랩 성공"),
     SCRAP_DELETED_SUCCESS("S002", 200, "스크랩 취소"),
+    SCRAP_LIST_SUCCESS("S003", 200, "스크랩 리스트 조회 성공"),
     ;
 
 
