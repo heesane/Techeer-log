@@ -27,7 +27,7 @@ export default function ProjectCard({ project }: propsProjects) {
       >
         <div className="flex justify-center items-center rounded-[0.3rem] m-[0_0_1.3rem_0] w-[99.9%] h-[15rem]">
           {project.mainImageUrl ? (
-            <img alt="mainImg" className="w-full h-full object-contain" src={project.mainImageUrl} />
+            <img alt="mainImg" className="object-contain w-full h-full" src={project.mainImageUrl} />
           ) : (
             <></>
           )}
@@ -59,7 +59,7 @@ export default function ProjectCard({ project }: propsProjects) {
           )}
         </div>
         <div className="m-[0_1rem_0_1rem] flex flex-row justify-between w-[92%] box-sizing-border">
-          <p className="m-[0_0.5rem_0_0] break-words font-['Pre-R'] font-normal text-[0.8rem] text-[#B0B0B0]">
+          {/* <p className="m-[0_0.5rem_0_0] break-words font-['Pre-R'] font-normal text-[0.8rem] text-[#B0B0B0]">
             {project.projectStatusEnum === 'RUNNING' ? (
               <>
                 <span className="text-[1.2rem] text-green-400">•</span>
@@ -71,8 +71,14 @@ export default function ProjectCard({ project }: propsProjects) {
                 <span> 서비스 중단</span>
               </>
             )}
-          </p>
-          <span className="break-words font-['Pre-R'] font-normal text-[0.8rem] text-[#B0B0B0]">
+          </p> */}
+          <div className="flex flex-row">
+            <img className="w-[2rem] h-[2rem] rounded-[1rem]" src={project.writer.profileImageUrl}></img>
+            <p className="m-[0.2rem_0.5rem_0_0.5rem] break-words font-['Pre-R'] font-normal text-[1.2rem] text-[#B0B0B0]">
+              {project.writer.nickname}
+            </p>
+          </div>
+          <span className="mt-[1rem] break-words font-['Pre-R'] font-normal text-[0.8rem] text-[#B0B0B0]">
             ♥&nbsp;&nbsp;&nbsp;
             {project.loveCount}
           </span>

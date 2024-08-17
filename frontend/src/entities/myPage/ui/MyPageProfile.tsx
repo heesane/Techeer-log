@@ -34,25 +34,22 @@ export const MyPageProfile = () => {
                 <img className="w-full h-full rounded-[16.3rem]" src={data.profileImageUrl}></img>
               </button>
               <div className="m-[0_0_0.1rem_0] flex flex-col box-sizing-border">
-                <div className="m-[0_0_0.1rem_0] inline-block self-start break-words font-['Pre-S'] font-semibold text-[2.5rem] text-[#0047FF]">
-                  thisisid
+                <div className="m-[0_0_1.1rem_0] inline-block self-start break-words font-['Pre-S'] font-semibold text-[2.5rem] text-[#0047FF]">
+                  {data.loginId}
                 </div>
-                <div className="m-[0_0_2.7rem_0] flex flex-row self-start w-[fit-content] box-sizing-border">
+                <div className="m-[0_0_0.7rem_0] flex flex-row self-start w-[fit-content] box-sizing-border">
                   <span className="m-[0_0.7rem_0_0] break-words font-['Pre-S'] font-semibold text-[1.5rem] text-[#B3B3B3]">
                     {data.nickname}
                   </span>
-                  <span className="m-[0_0rem_0_0] break-words font-['Pre-R'] font-normal text-[1.5rem] text-[#B3B3B3]">
-                    thistisemail@email.com
-                  </span>
                 </div>
-                <span className="break-words font-['Pre-R'] font-normal text-[1.6rem] text-[#EDEDED]">
-                  한 줄 소개입니다. 한 줄 소개입니다. 한 줄 소개입니다.
+                <span className="w-[20rem] h-[5rem] overflow-y-scroll break-words font-['Pre-R'] font-normal text-[1.6rem] text-[#EDEDED]">
+                  {data.introduction}
                 </span>
               </div>
             </div>
             <div
               onClick={modalOpen}
-              className="rounded-[0.3rem] m-[4rem_39rem_11.1rem_0] bg-[#8A8991] flex flex-row justify-center items-center w-[8rem] h-[2.1rem] box-sizing-border cursor-pointer"
+              className="rounded-[0.3rem] m-[4rem_10rem_11.1rem_0] bg-[#8A8991] flex flex-row justify-center items-center w-[8rem] h-[2.1rem] box-sizing-border cursor-pointer"
             >
               <span className="break-words font-medium text-[0.9rem] leading-[1.286] text-[#F1EEF9)]">
                 프로필 수정하기
@@ -60,7 +57,7 @@ export const MyPageProfile = () => {
             </div>
           </>
         ) : (
-          <ProfileModal setIsModal={setIsModal} />
+          <ProfileModal setIsModal={setIsModal} id={data.loginId} img={data.profileImageUrl} />
         )}
       </div>
     );
