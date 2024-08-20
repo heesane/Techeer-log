@@ -1,1 +1,1 @@
-export { MyPage } from './ui/MyPage.tsx';
+export { MyPage } from '../../pages/MyPage';
