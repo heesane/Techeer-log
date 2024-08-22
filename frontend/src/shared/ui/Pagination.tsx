@@ -9,7 +9,7 @@ interface PaginationProps {
 export const Pagination: React.FC<PaginationProps> = ({ totalPages, currentPage, onPageChange }) => {
   const handleClick = (pageNumber: number) => {
     onPageChange(pageNumber);
-    // window.scrollTo(0, 0); // 페이지가 변경될 때 최상단으로 스크롤
+    window.scrollTo(0, 0); // 페이지가 변경될 때 최상단으로 스크롤
   };
 
   const previousPage = currentPage > 1 ? currentPage - 1 : null;
