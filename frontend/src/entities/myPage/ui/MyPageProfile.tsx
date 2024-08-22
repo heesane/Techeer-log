@@ -42,7 +42,7 @@ export const MyPageProfile = () => {
                     {data.nickname}
                   </span>
                 </div>
-                <span className="w-[20rem] h-[5rem] overflow-y-scroll break-words font-['Pre-R'] font-normal text-[1.6rem] text-[#EDEDED]">
+                <span className="w-[20rem] h-[5rem] break-words font-['Pre-R'] font-normal text-[1.6rem] text-[#EDEDED]">
                   {data.introduction}
                 </span>
               </div>
