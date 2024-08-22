@@ -145,7 +145,7 @@ public class ProjectService {
                 prizeProjectListRequest.getProjectTypeEnum(),
                 prizeProjectListRequest.getYear(),
                 prizeProjectListRequest.getSemesterEnum(),
-                List.of(RankEnum.FIRST, RankEnum.SECOND, RankEnum.THIRD)
+                List.of(RankEnum.FIRST, RankEnum.SECOND, RankEnum.THIRD, RankEnum.FOURTH, RankEnum.FIFTH)
         );
 
         return projectListToProjectItemListResponse(projectSlice, authInfo);
