@@ -74,8 +74,9 @@ public class DummyMethod {
 
             projects.add(new Project(
                     i++, "mainImageUrl" + i, "title" + i, "subtitle" + i, "content" + i,
-                    LocalDate.now(), LocalDate.now(), PlatformEnum.WEB, ProjectTypeEnum.PERSONAL_PROJECT,
-                    teamNames[j], 2024, SemesterEnum.SECOND, rank, ProjectStatusEnum.COMPLETED,
+                    LocalDate.now(), LocalDate.now(), PlatformEnum.WEB, ProjectTypeEnum.BOOTCAMP, // BOOTCAMP로 변경
+                    teamNames[j], 2024, SemesterEnum.FIRST, // SemesterEnum.FIRST로 변경
+                    rank, ProjectStatusEnum.COMPLETED,
                     "githubLink" + i, "blogLink" + i, "websiteLink" + i, member,
                     new ArrayList<>(), new ArrayList<>(), new ArrayList<>(), new ArrayList<>(), new ArrayList<>()
             ));
