@@ -4,10 +4,16 @@ volumes:
   build_folder: null
 
 services:
+  mysqldb:
+    image: jaebin19/console-log:mysqldb
+    container_name: mysqldb
+    env_file:
+      - "./db.env"
+    expose:
+      - "3306"
+
   nginx:
-    build:
-      context: ./nginx
-      dockerfile: Dockerfile-deploy
+    image: jaebin19/console-log:nginx
     container_name: nginx
     restart: unless-stopped
     ports:
@@ -23,43 +29,36 @@ services:
     command: '/bin/sh -c ''while :; do sleep 6h & wait $${!}; nginx -s reload; done & nginx -g "daemon off;"'''
 
   backend1:
-    build: ./backend
+    image: jaebin19/console-log:backend
     container_name: backend1
     restart: always
-    #    networks:
-    #      - pinpoint_pinpoint
-    #      - default
     env_file:
-      - "./backend/backend-secret-deploy.env"
-      - "./backend/spring-source-deploy.env"
+      - "./backend-secret.env"
+      - "./spring-source.env"
     environment:
       - SERVER_PORT=8080
+      - ACTIVE_PROFILE=deploy
+    depends_on:
+      - mysqldb
     ports:
       - "8080:8080"
-    #    command: [ "java", "-jar", "-javaagent:/usr/local/pinpoint-agent-2.5.3/pinpoint-bootstrap-2.5.3.jar", "-Dpinpoint.agentId=test", "-Dpinpoint.applicationName=consolelog","-Dpinpoint.config=/usr/local/pinpoint-agent-2.5.3/pinpoint-root.config", "/app.jar" ]
     command: [ "java", "-jar", "/app.jar" ]
 
   backend2:
-    build: ./backend
+    image: jaebin19/console-log:backend
     container_name: backend2
     restart: always
     env_file:
-      - "./backend/backend-secret-deploy.env"
-      - "./backend/spring-source-deploy.env"
+      - "./backend-secret.env"
+      - "./spring-source.env"
     environment:
       - SERVER_PORT=8081
+      - ACTIVE_PROFILE=deploy
+    depends_on:
+      - mysqldb
     ports:
       - "8081:8081"
     command: [ "java", "-jar", "/app.jar" ]
-
-  frontend:
-    build: ./frontend
-    restart: always
-    container_name: frontend
-    volumes:
-      - build_folder:/frontend/volume:rw
-    tty: true
-
 
   certbot:
     image: certbot/certbot
@@ -72,10 +71,10 @@ services:
     depends_on:
       - nginx
 
-#networks:
-#  pinpoint_pinpoint:
-#    external: true
-#  Entrypoint 로 명령어가 동작하지 않음. 직접 접속하여 명령을 수행하는 것은 가능
-#  docker exec -it frontend sh
-#  cp -rf /frontend/dist/* /frontend/volume/
-#  exit
+  frontend:
+    image: jaebin19/console-log:frontend
+    restart: always
+    container_name: frontend
+    volumes:
+      - build_folder:/frontend/volume:rw
+    tty: true
