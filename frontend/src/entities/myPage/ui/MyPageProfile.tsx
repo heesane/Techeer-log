@@ -49,7 +49,7 @@ export const MyPageProfile = () => {
             </div>
             <div
               onClick={modalOpen}
-              className="rounded-[0.3rem] m-[4rem_7rem_11.1rem_0] bg-[#8A8991] flex flex-row justify-center items-center w-[8rem] h-[2.1rem] box-sizing-border cursor-pointer"
+              className="rounded-[0.3rem] m-[3.8rem_7rem_11.1rem_0] bg-[#8A8991] flex flex-row justify-center items-center w-[8rem] h-[2.1rem] box-sizing-border cursor-pointer"
             >
               <span className="break-words font-medium text-[0.9rem] leading-[1.286] text-[#F1EEF9)]">
                 프로필 수정하기
@@ -57,7 +57,7 @@ export const MyPageProfile = () => {
             </div>
           </>
         ) : (
-          <ProfileModal setIsModal={setIsModal} id={data.loginId} img={data.profileImageUrl} />
+          <ProfileModal setIsModal={setIsModal} id={data.loginId} />
         )}
       </div>
     );

@@ -1,6 +1,6 @@
-import Footer from '../../../shared/ui/Footer.tsx';
-import NavBar from '../../../shared/ui/NavBar.tsx';
-import { MyPageProfile } from '../index.ts';
+import { MyPageProfile } from '../entities/myPage/index.ts';
+import Footer from '../shared/ui/Footer.tsx';
+import NavBar from '../shared/ui/NavBar.tsx';
 
 export const MyPage = () => {
   return (

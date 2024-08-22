@@ -7,9 +7,8 @@ import TextField from '@mui/material/TextField';
 type ProfileModalProps = {
   setIsModal: (value: boolean) => void;
   id: string;
-  img: string;
 };
-export const ProfileModal = ({ setIsModal, id, img }: ProfileModalProps) => {
+export const ProfileModal = ({ setIsModal, id }: ProfileModalProps) => {
   const fileInputRef = useRef(null);
   const [newNickname, setNewNickname] = useState('');
   const [introduction, setIntroduction] = useState('');
@@ -144,7 +143,7 @@ export const ProfileModal = ({ setIsModal, id, img }: ProfileModalProps) => {
         </div>
         <div
           onClick={() => submitProfileChange()}
-          className="rounded-[0.3rem] m-[2.8rem_0rem_11.1rem_0] bg-[#8A8991] flex flex-row justify-center items-center w-[8rem] h-[2.1rem] box-sizing-border cursor-pointer"
+          className="rounded-[0.3rem] m-[2.8rem_0rem_10.4rem_0] bg-[#8A8991] flex flex-row justify-center items-center w-[8rem] h-[2.1rem] box-sizing-border cursor-pointer"
         >
           <span className="break-words font-medium text-[0.9rem] leading-[1.286] text-[#F1EEF9)]">프로필 수정완료</span>
         </div>
