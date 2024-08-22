@@ -67,12 +67,15 @@ public class DummyMethod {
         List<Project> projects = new ArrayList<>();
         Long i = 1L;
         ProjectTeamNameEnum[] teamNames = ProjectTeamNameEnum.values();
+        RankEnum[] ranks = {RankEnum.FIRST, RankEnum.SECOND, RankEnum.THIRD, RankEnum.FOURTH, RankEnum.FIFTH};
 
         for (int j = 0; j < 15; j++) {
+            RankEnum rank = j < 5 ? ranks[j] : RankEnum.NONE;
+
             projects.add(new Project(
                     i++, "mainImageUrl" + i, "title" + i, "subtitle" + i, "content" + i,
                     LocalDate.now(), LocalDate.now(), PlatformEnum.WEB, ProjectTypeEnum.PERSONAL_PROJECT,
-                    teamNames[j], 2024, SemesterEnum.SECOND, RankEnum.NONE, ProjectStatusEnum.COMPLETED,
+                    teamNames[j], 2024, SemesterEnum.SECOND, rank, ProjectStatusEnum.COMPLETED,
                     "githubLink" + i, "blogLink" + i, "websiteLink" + i, member,
                     new ArrayList<>(), new ArrayList<>(), new ArrayList<>(), new ArrayList<>(), new ArrayList<>()
             ));
