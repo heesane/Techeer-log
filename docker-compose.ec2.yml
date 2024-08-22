@@ -23,7 +23,9 @@ services:
     command: '/bin/sh -c ''while :; do sleep 6h & wait $${!}; nginx -s reload; done & nginx -g "daemon off;"'''
 
   backend1:
-    build: ./backend
+    build:
+      context: ./backend
+      dockerfile: Dockerfile-deploy
     container_name: backend1
     restart: always
     #    networks:
@@ -40,7 +42,9 @@ services:
     command: [ "java", "-jar", "/app.jar" ]
 
   backend2:
-    build: ./backend
+    build:
+      context: ./backend
+      dockerfile: Dockerfile-deploy
     container_name: backend2
     restart: always
     env_file:
