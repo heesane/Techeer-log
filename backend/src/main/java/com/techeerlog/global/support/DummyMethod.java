@@ -69,19 +69,28 @@ public class DummyMethod {
         ProjectTeamNameEnum[] teamNames = ProjectTeamNameEnum.values();
         RankEnum[] ranks = {RankEnum.FIRST, RankEnum.SECOND, RankEnum.THIRD, RankEnum.FOURTH, RankEnum.FIFTH};
 
-        for (int j = 0; j < 15; j++) {
-            RankEnum rank = j < 5 ? ranks[j] : RankEnum.NONE;
+        int[] years = {2022, 2023, 2024};
+        SemesterEnum[] semesters = {SemesterEnum.FIRST, SemesterEnum.SECOND};
 
-            projects.add(new Project(
-                    i++, "mainImageUrl" + i, "title" + i, "subtitle" + i, "content" + i,
-                    LocalDate.now(), LocalDate.now(), PlatformEnum.WEB, ProjectTypeEnum.BOOTCAMP, // BOOTCAMP로 변경
-                    teamNames[j], 2024, SemesterEnum.FIRST, // SemesterEnum.FIRST로 변경
-                    rank, ProjectStatusEnum.COMPLETED,
-                    "githubLink" + i, "blogLink" + i, "websiteLink" + i, member,
-                    new ArrayList<>(), new ArrayList<>(), new ArrayList<>(), new ArrayList<>(), new ArrayList<>()
-            ));
+        for (int year : years) {
+            for (SemesterEnum semester : semesters) {
+                for (int j = 0; j < 5; j++) {
+                    RankEnum rank = ranks[j];
+
+                    projects.add(new Project(
+                            i++, "mainImageUrl" + i, "title" + i, "subtitle" + i, "content" + i,
+                            LocalDate.now(), LocalDate.now(), PlatformEnum.WEB, ProjectTypeEnum.BOOTCAMP,
+                            teamNames[j % teamNames.length], year, semester,
+                            rank, ProjectStatusEnum.COMPLETED,
+                            "githubLink" + i, "blogLink" + i, "websiteLink" + i, member,
+                            new ArrayList<>(), new ArrayList<>(), new ArrayList<>(), new ArrayList<>(), new ArrayList<>()
+                    ));
+                }
+            }
         }
 
         projectRepository.saveAll(projects);
     }
+
+
 }
