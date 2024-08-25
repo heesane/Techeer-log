@@ -83,6 +83,7 @@ export const bottomButtons = ({ setStep }: any) => {
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['projectList'] });
       navigate('/');
+
       resetStore(); // 완료 후 store 값 초기화
     },
     onError: (error) => {
