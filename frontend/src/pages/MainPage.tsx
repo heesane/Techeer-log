@@ -30,15 +30,14 @@ export default function MainPage() {
 
   const data: prizeDate = {
     projectTypeEnum: 'BOOTCAMP',
-    year: 2023,
-    semesterEnum: 'FIRST',
+    year: 2024,
+    semesterEnum: 'SECOND',
   };
   function renameSemester(semester: string) {
     if (semester === 'FIRST') return '동계';
     if (semester === 'SECOND') return '하계';
     else return '';
   }
-  // data.semesterEnum;
 
   return (
     <div className="bg-[#111111] flex flex-col w-screen justify-center items-center">
