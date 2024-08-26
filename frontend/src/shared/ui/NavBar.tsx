@@ -1,6 +1,10 @@
 import { useNavigate } from 'react-router-dom';
 import { useAuthStore } from '../store/authStore';
-export default function NavBar({ scrollRef }: { scrollRef: React.RefObject<HTMLDivElement> | null }) {
+import { HeaderDropDown } from './HeaderDropDown.tsx';
+import { useState } from 'react';
+export default function NavBar() {
+  const [selectedType, setSelectedType] = useState<string>('프로젝트');
+
   const { logout, nickname } = useAuthStore();
   const navigate = useNavigate();
 
@@ -15,27 +19,24 @@ export default function NavBar({ scrollRef }: { scrollRef: React.RefObject<HTMLD
   const goProjectWrite = () => {
     navigate('/projectwrite');
   };
-  const cursorMove = () => {
-    console.log(scrollRef);
-    scrollRef?.current?.scrollIntoView({ behavior: 'smooth' });
-  };
+
   return (
-    <div className="fixed top-0 w-screen flex justify-center items-center z-50 backdrop-blur-[4px]">
-      <div className="flex flex-row items-center justify-between py-2 px-3 w-[1200px] box-sizing-border">
+    <div className="fixed top-0 w-screen flex justify-center items-center z-50 backdrop-blur-[4px] bg-[#111111]">
+      <div className="flex flex-row items-center justify-between py-2 px-3 w-[1300px] box-sizing-border ">
         <div className="flex flex-row justify-center my-2">
           <span
             onClick={() => window.location.replace('/')}
-            className="cursor-pointer break-words font-['Bayon'] font-normal text-[2rem] text-[#EFEFEF]"
+            className="cursor-pointer break-words font-['Bayon'] font-normal text-[2.4rem] text-[#EFEFEF]"
           >
-            Techeer.log
+            TECHEER
           </span>
         </div>
-        <div className="flex flex-row justify-between gap-[1rem] h-[fit-content] box-sizing-border">
+        <div className="flex flex-row justify-between items-center gap-[2.5rem] h-[fit-content] box-sizing-border text-[1.2rem] font-[500]">
           <div className="flex flex-row justify-center box-sizing-border">
             {nickname && (
               <span
                 onClick={goProjectWrite}
-                className="cursor-pointer break-words font-['Pretendard'] font-normal text-[1rem] leading-[1.5] text-[#FFFFFF]"
+                className="cursor-pointer break-words font-['Pretendard'] leading-[1.5] text-[#FFFFFF]"
               >
                 새 프로젝트 작성
               </span>
@@ -45,32 +46,27 @@ export default function NavBar({ scrollRef }: { scrollRef: React.RefObject<HTMLD
             {nickname && (
               <span
                 onClick={() => navigate('/mypage')}
-                className="cursor-pointer break-words font-['Pretendard'] font-normal text-[1rem] leading-[1.5] text-[#FFFFFF]"
+                className="cursor-pointer break-words font-['Pretendard'] leading-[1.5] text-[#FFFFFF]"
               >
                 마이페이지
               </span>
             )}
           </div>
-          <div className="flex flex-row justify-center box-sizing-border">
-            <span
-              onClick={cursorMove}
-              className="cursor-pointer break-words font-['Pretendard'] font-normal text-[1rem] leading-[1.5] text-[#FFFFFF]"
-            >
-              프로젝트
-            </span>
+          <div className="flex flex-row justify-center box-sizing-border items-center">
+            <HeaderDropDown selectedType={selectedType} setSelectedType={setSelectedType} />
           </div>
           <div className="rounded-[0.3rem] flex flex-row justify-center box-sizing-border">
             {!nickname ? (
               <span
                 onClick={goLogin}
-                className="cursor-pointer break-words font-['Pretendard'] font-medium text-[1rem] leading-[1.5] text-[#FFFFFF]"
+                className="cursor-pointer break-words font-['Pretendard'] leading-[1.5] text-[#cccccc]"
               >
                 LOGIN
               </span>
             ) : (
               <span
                 onClick={handleLogout}
-                className="cursor-pointer break-words font-['Pretendard'] font-medium text-[1rem] leading-[1.5] text-[#FFFFFF]"
+                className="cursor-pointer break-words font-['Pretendard'] leading-[1.5] text-[#FFFFFF]"
               >
                 LOGOUT
               </span>
