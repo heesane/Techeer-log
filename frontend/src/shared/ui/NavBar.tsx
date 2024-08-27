@@ -13,6 +13,8 @@ export default function NavBar() {
     navigate('/login');
   };
 
+  console.log(nickname);
+
   return (
     <div className="fixed top-0 w-screen flex justify-center items-center z-50 backdrop-blur-[4px]">
       <div className="flex flex-row items-center justify-between py-2 px-3 w-[1300px] box-sizing-border ">
@@ -32,7 +34,7 @@ export default function NavBar() {
 
           <div className="rounded-[0.3rem] flex flex-row justify-center box-sizing-border">
             {nickname ? (
-              <UserDropDown defaultName={nickname} selectedType={selectedMenu} setSelectedType={setSelectedMenu} />
+              <UserDropDown defaultName={nickname} selectedMenu={selectedMenu} setSelectedMenu={setSelectedMenu} />
             ) : (
               <span
                 onClick={goLogin}

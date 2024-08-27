@@ -55,7 +55,7 @@ export function DropdownMenu({ defaultName, options, setSelectedOption }: Dropdo
           leaveFrom="transform opacity-100 scale-100"
           leaveTo="transform opacity-0 scale-95"
         >
-          <Menu.Items className="w-[9.5rem] absolute -left-1 z-10 mt-3 origin-top-right rounded-xl border ring-1 ring-[#CCCCCC80] p-1 bg-[#11111190] shadow-lg text-white transition duration-100 ease-out [--anchor-gap:var(--spacing-1)] focus:outline-none data-[closed]:scale-95 data-[closed]:opacity-0">
+          <Menu.Items className="w-[9.5rem] absolute -left-1 z-10 mt-3 origin-top-right rounded-xl border ring-1 ring-[#CCCCCC80] p-1 bg-[#11111190] shadow-lg text-white font-['Pretendard'] font-normal transition duration-100 ease-out [--anchor-gap:var(--spacing-1)] focus:outline-none data-[closed]:scale-95 data-[closed]:opacity-0">
             <div className="py-1">
               {options.map((option) => (
                 <Menu.Item key={option}>
@@ -64,7 +64,7 @@ export function DropdownMenu({ defaultName, options, setSelectedOption }: Dropdo
                       onClick={() => setSelectedOption(option)}
                       className={`${
                         active ? 'text-[#eeeeee]' : 'text-[#888888]'
-                      } block w-full px-4 py-3 text-left text-[1.1rem]`}
+                      } block w-full px-4 py-3 text-left text-[1rem]`}
                     >
                       {option}
                     </button>
