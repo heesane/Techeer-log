@@ -96,7 +96,7 @@ export const ProjectView = (props: { data: ProjectData }) => {
           </div>
           <div className="flex flex-row justify-between box-sizing-border mt-[0.5rem]">
             <ScrapButton projectId={project.id} scraped={project.scraped} />
-            <ShareButton />
+            {/* <ShareButton /> */}
           </div>
         </div>
         {/*글*/}
