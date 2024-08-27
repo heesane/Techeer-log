@@ -1,18 +1,13 @@
-import { SetStateAction, useState } from 'react';
-import { Fragment } from 'react';
+import { Fragment, SetStateAction, useState } from 'react';
 import { Menu, Transition } from '@headlessui/react';
 
 type DropDownProps = {
+  defaultName: string;
   selectedType: string;
   setSelectedType: React.Dispatch<SetStateAction<string>>;
 };
-type DropdownMenuProps = {
-  options: string[];
-  selectedOption: string;
-  setSelectedOption: React.Dispatch<SetStateAction<string>>;
-};
 
-export function HeaderDropDown({ selectedType, setSelectedType }: DropDownProps) {
+export function ProjectDropDown({ defaultName, selectedType, setSelectedType }: DropDownProps) {
   const projectType = ['전체', '부트캠프', '팀 프로젝트', '개인 프로젝트'];
   const handleProjectChange = (option: SetStateAction<string>) => {
     setSelectedType(option);
@@ -20,12 +15,24 @@ export function HeaderDropDown({ selectedType, setSelectedType }: DropDownProps)
 
   return (
     <div className="flex justify-center items-center">
-      <DropdownMenu options={projectType} selectedOption={selectedType} setSelectedOption={handleProjectChange} />
+      <DropdownMenu
+        defaultName={defaultName}
+        options={projectType}
+        selectedOption={selectedType}
+        setSelectedOption={handleProjectChange}
+      />
     </div>
   );
 }
 
-function DropdownMenu({ options, setSelectedOption }: DropdownMenuProps) {
+type DropdownMenuProps = {
+  defaultName: string;
+  options: string[];
+  selectedOption: string;
+  setSelectedOption: React.Dispatch<SetStateAction<string>>;
+};
+
+export function DropdownMenu({ defaultName, options, setSelectedOption }: DropdownMenuProps) {
   const [isOpen, setIsOpen] = useState(false);
 
   return (
@@ -34,9 +41,9 @@ function DropdownMenu({ options, setSelectedOption }: DropdownMenuProps) {
         <Menu.Button
           as="a"
           href="/your-target-page" // 클릭 시 이동할 페이지 경로
-          className="cursor-pointer break-words font-['Pretendard'] leading-[1.5] text-[#cccccc] hover:text-[#ffffff]"
+          className="flex flex-row gap-4 cursor-pointer break-words font-['Pretendard'] leading-[1.5] text-[#cccccc] hover:text-[#ffffff]"
         >
-          프로젝트
+          {defaultName}
         </Menu.Button>
         <Transition
           as={Fragment}
@@ -48,7 +55,7 @@ function DropdownMenu({ options, setSelectedOption }: DropdownMenuProps) {
           leaveFrom="transform opacity-100 scale-100"
           leaveTo="transform opacity-0 scale-95"
         >
-          <Menu.Items className="w-[9rem] absolute -left-1 z-10 mt-3 origin-top-right rounded-sm bg-[#111111] shadow-lg ring-1 ring-[#444444] focus:outline-none">
+          <Menu.Items className="w-[9.5rem] absolute -left-1 z-10 mt-3 origin-top-right rounded-xl border ring-1 ring-[#CCCCCC80] p-1 bg-[#11111190] shadow-lg text-white transition duration-100 ease-out [--anchor-gap:var(--spacing-1)] focus:outline-none data-[closed]:scale-95 data-[closed]:opacity-0">
             <div className="py-1">
               {options.map((option) => (
                 <Menu.Item key={option}>
@@ -57,7 +64,7 @@ function DropdownMenu({ options, setSelectedOption }: DropdownMenuProps) {
                       onClick={() => setSelectedOption(option)}
                       className={`${
                         active ? 'text-[#eeeeee]' : 'text-[#888888]'
-                      } block w-full px-4 py-3 text-left text-[1rem]`}
+                      } block w-full px-4 py-3 text-left text-[1.1rem]`}
                     >
                       {option}
                     </button>
