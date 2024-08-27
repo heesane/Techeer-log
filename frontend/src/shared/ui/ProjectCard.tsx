@@ -1,5 +1,7 @@
+import { useState } from 'react';
 import { Project } from '../types/projectList.ts';
 import { Link, useParams } from 'react-router-dom';
+import { MarkdownView } from '../../feature/ProjectWrite/index.ts';
 interface propsProjects {
   project: Project;
 }
@@ -12,6 +14,8 @@ export default function ProjectCard({ project }: propsProjects) {
   const moveProjectView =
     param === 'judge' ? `/2024-summer-bootcamp/project/${project.id}` : `/projectview/${project.id}`;
 
+  const [isHover, setIsHover] = useState(false);
+
   return (
     <Link to={moveProjectView}>
       {param === 'judge' ? (
@@ -23,8 +27,25 @@ export default function ProjectCard({ project }: propsProjects) {
       )}
       <div
         key={project.id}
-        className="rounded-[0.3rem] border-solid border border-[#444444] flex flex-col p-[0_0_1rem_0] box-sizing-border w-[100%] cursor-pointer"
+        className="rounded-[0.3rem] border-solid border border-[#444444] flex flex-col p-[0_0_1rem_0] box-sizing-border w-[100%] cursor-pointer relative"
+        onMouseOver={() => setIsHover(true)}
+        onMouseOut={() => setIsHover(false)}
       >
+        {isHover ? (
+          <div className="absolute z-10 w-full h-full p-6 text-white transition-opacity duration-500 ease-in-out bg-black rounded opacity-80">
+            <div className="w-80 inline-block self-start break-words font-['Pre-R'] font-normal text-[1.3rem] text-[#FFFFFF] overflow-hidden text-ellipsis whitespace-nowrap">
+              {project.title}
+            </div>
+            <div className="w-80 mt-[0.3rem] inline-block self-start break-words font-['Pre-R'] font-normal text-[0.9rem] text-[#CCCCCC] overflow-hidden text-ellipsis whitespace-nowrap">
+              {project.subtitle}
+            </div>
+            <div className="h-[80%] mt-[1rem] ml-[-0.25rem] inline-block self-start break-words font-['Pre-R'] font-normal text-[1.1rem] text-[#CCCCCC] overflow-y-hidden text-ellipsis whitespace-pre-line">
+              <MarkdownView markdown={project.subtitle} />
+            </div>
+          </div>
+        ) : (
+          <></>
+        )}
         <div className="flex justify-center items-center rounded-[0.3rem] m-[0_0_1.3rem_0] w-[99.9%] h-[15rem]">
           {project.mainImageUrl ? (
             <img alt="mainImg" className="object-contain w-full h-full" src={project.mainImageUrl} />
