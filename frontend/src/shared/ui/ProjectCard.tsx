@@ -9,6 +9,8 @@ export default function ProjectCard({ project }: propsProjects) {
   const firstFrontend = project.frameworkResponseList.find((framework) => framework.frameworkTypeEnum === 'FRONTEND');
   const firstBackend = project.frameworkResponseList.find((framework) => framework.frameworkTypeEnum === 'BACKEND');
   const teamName = project.projectTeamNameEnum;
+  const word = `### \uD83C\uDF33 모여봐요 동물의 숲 \uD83C\uDF33\n\n동물의 숲 캐릭터\uD83D\uDC3B와 함께하는 실제 전문가에 기반한 AI 멘토링 서비스\n\n\n### \uD83D\uDCCD 서비스 소개\uD83D\uDCCD \n\n현대 사회에서 청년층이 겪는 다양한 고민과 스트레스는 갈수록 증가하고 있습니다.\n\n그러나 이러한 문제를 해결하기 위한 멘토를 찾기란 쉽지 않습니다.\n\n**말해봐요 고민의 숲** 은 특정 분야 전문가들을 기반으로 만들어진 AI 멘토와 상담할 수 있는 기회를 제공합니다. \n\n동물의 숲 테마를 적용한 친근한 동물 멘토들을 통해 편안하고 따뜻한 분위기에서 고민을 나눌 수 있습니다.\n\n여러분의 이야기를 귀 기울여 듣고, 적절한 조언을 제공하는 **말해봐요 고민의 숲** 에서 마음의 짐을 덜어보세요. \n 제공합니다. \n 제공을 해요.
+  `;
 
   const { param } = useParams();
   const moveProjectView =
@@ -32,15 +34,16 @@ export default function ProjectCard({ project }: propsProjects) {
         onMouseOut={() => setIsHover(false)}
       >
         {isHover ? (
-          <div className="absolute z-10 w-full h-full p-6 text-white transition-opacity duration-500 ease-in-out bg-black rounded opacity-80">
+          <div className="absolute z-10 w-full h-full p-6 text-white transition-opacity duration-1000 ease-in-out bg-black rounded opacity-80">
             <div className="w-80 inline-block self-start break-words font-['Pre-R'] font-normal text-[1.3rem] text-[#FFFFFF] overflow-hidden text-ellipsis whitespace-nowrap">
               {project.title}
             </div>
             <div className="w-80 mt-[0.3rem] inline-block self-start break-words font-['Pre-R'] font-normal text-[0.9rem] text-[#CCCCCC] overflow-hidden text-ellipsis whitespace-nowrap">
               {project.subtitle}
             </div>
-            <div className="h-[80%] mt-[1rem] ml-[-0.25rem] inline-block self-start break-words font-['Pre-R'] font-normal text-[1.1rem] text-[#CCCCCC] overflow-y-hidden text-ellipsis whitespace-pre-line">
-              <MarkdownView markdown={project.subtitle} />
+            <div className="mt-[1rem] ml-[-0.25rem] inline-block self-start break-words font-['Pre-R'] font-normal text-[1.1rem] text-[#FFFFFF] overflow-hidden leading-10 text-ellipsis text-clamp">
+              {/* <MarkdownView markdown={project.content} /> */}
+              <MarkdownView markdown={word} />
             </div>
           </div>
         ) : (

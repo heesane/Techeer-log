@@ -114,7 +114,13 @@ export const ProjectView = (props: { data: ProjectData }) => {
               )}
             </div>
             <div className="whitespace-pre-wrap leading-5 self-start break-words font-['Pretendard'] font-normal text-[1rem] text-[#FFFFFF] w-full h-fit">
-              <MarkdownView markdown={project.content} />
+              <div
+                className={
+                  'bg-transparent w-[100%] h-fit text-[1.2rem] outline-none cursor-text border-none text-white focus:text-white px-1 leading-6'
+                }
+              >
+                <MarkdownView markdown={project.content} />
+              </div>
             </div>
           </div>
           {/*요약 박스*/}
