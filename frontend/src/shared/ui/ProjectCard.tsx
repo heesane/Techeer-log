@@ -73,8 +73,8 @@ export default function ProjectCard({ project }: propsProjects) {
             )}
           </p> */}
           <div className="flex flex-row">
-            <img className="w-[2rem] h-[2rem] rounded-[1rem]" src={project.writer.profileImageUrl}></img>
-            <p className="m-[0.2rem_0.5rem_0_0.5rem] break-words font-['Pre-R'] font-normal text-[1.2rem] text-[#B0B0B0]">
+            <img className="w-[1.5rem] h-[1.5rem] rounded-[1rem]" src={project.writer.profileImageUrl}></img>
+            <p className="m-[0.2rem_0.5rem_0_0.5rem] break-words font-['Pre-R'] font-normal text-[1rem] text-[#B0B0B0]">
               {project.writer.nickname}
             </p>
           </div>
