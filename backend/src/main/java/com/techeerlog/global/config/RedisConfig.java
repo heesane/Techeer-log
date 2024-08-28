@@ -16,12 +16,6 @@ public class RedisConfig {
     @Value("${spring.data.redis.port}")
     private int redisPort;
 
-    /*
-    RedisTemplate을 이용한 방식
-
-    RedisConnectionFactory 인터페이스를 통해
-    LettuceConnectionFactory를 생성하여 반환
-     */
     @Bean
     public RedisConnectionFactory redisConnectionFactory() {
         return new LettuceConnectionFactory(redisHost, redisPort);
