@@ -4,7 +4,6 @@ import com.techeerlog.project.domain.Project;
 import com.techeerlog.project.enums.ProjectTypeEnum;
 import com.techeerlog.project.enums.RankEnum;
 import com.techeerlog.project.enums.SemesterEnum;
-import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Slice;
 import org.springframework.data.jpa.repository.JpaRepository;
