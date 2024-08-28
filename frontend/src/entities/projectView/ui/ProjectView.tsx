@@ -4,7 +4,6 @@ import WebIcon from '../../../shared/assets/image/modalImg/Internet.svg';
 import { Framework, ProjectData, ProjectMember } from '../../../shared/types/project.ts';
 import { LikeButton } from './LikeButton.tsx';
 import { ScrapButton } from './ScrapButton.tsx';
-import { ShareButton } from './ShareButton.tsx';
 import { MarkdownView } from '../../../feature/ProjectWrite';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { deleteProject } from '../api/project.ts';

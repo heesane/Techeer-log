@@ -35,15 +35,15 @@ export default function ProjectCard({ project }: propsProjects) {
       >
         {isHover ? (
           <div className="absolute z-10 w-full h-full p-6 text-white transition-opacity duration-1000 ease-in-out bg-black rounded opacity-80">
-            <div className="w-80 inline-block self-start break-words font-['Pre-R'] font-normal text-[1.3rem] text-[#FFFFFF] overflow-hidden text-ellipsis whitespace-nowrap">
+            <div className="w-80 inline-block self-start break-words font-['Pre-R'] font-normal text-[1.7rem] text-[#FFFFFF] overflow-hidden text-ellipsis whitespace-nowrap">
               {project.title}
             </div>
-            <div className="w-80 mt-[0.3rem] inline-block self-start break-words font-['Pre-R'] font-normal text-[0.9rem] text-[#CCCCCC] overflow-hidden text-ellipsis whitespace-nowrap">
+            <div className="w-80 mt-[0.3rem] inline-block self-start break-words font-['Pre-R'] font-normal text-[1.2rem] text-[#CCCCCC] overflow-hidden text-ellipsis whitespace-nowrap">
               {project.subtitle}
             </div>
-            <div className="mt-[1rem] ml-[-0.25rem] inline-block self-start break-words font-['Pre-R'] font-normal text-[1.1rem] text-[#FFFFFF] overflow-hidden leading-10 text-ellipsis text-clamp">
-              {/* <MarkdownView markdown={project.content} /> */}
-              <MarkdownView markdown={word} />
+            <div className="mt-[1rem] inline-block self-start break-words font-['Pre-R'] font-normal text-[1.1rem] text-[#FFFFFF] overflow-hidden leading-10 text-ellipsis text-clamp max-h-[75%]">
+              {/*<MarkdownView markdown={word} />*/}
+              <MarkdownView markdown={project.content} />
             </div>
           </div>
         ) : (
