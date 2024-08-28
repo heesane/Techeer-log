@@ -1,6 +1,6 @@
 package com.techeerlog.auth.service;
 
-import com.techeerlog.auth.domain.RefreshToken;
+//import com.techeerlog.auth.domain.RefreshToken;
 import com.techeerlog.auth.repository.RefreshTokenRepository;
 import com.techeerlog.global.exception.InvalidRefreshTokenException;
 import com.techeerlog.global.support.token.TokenManager;
@@ -14,8 +14,8 @@ import java.util.concurrent.TimeUnit;
 @Service
 @Transactional(readOnly = true)
 public class RefreshTokenService {
-    private final RefreshTokenRepository refreshTokenRepository;
-    private final TokenManager tokenManager;
+//    private final RefreshTokenRepository refreshTokenRepository;
+//    private final TokenManager tokenManager;
 
     private final RedisTemplate<String, String> redisTemplate;
     private final long refreshTokenValidityMilliseconds;
@@ -24,8 +24,8 @@ public class RefreshTokenService {
                                TokenManager tokenManager,
                                RedisTemplate<String, String> redisTemplate,
                                @Value("${security.jwt.token.expire-length.refresh}") long refreshTokenValidityMilliseconds) {
-        this.refreshTokenRepository = refreshTokenRepository;
-        this.tokenManager = tokenManager;
+//        this.refreshTokenRepository = refreshTokenRepository;
+//        this.tokenManager = tokenManager;
         this.redisTemplate = redisTemplate;
         this.refreshTokenValidityMilliseconds = refreshTokenValidityMilliseconds;
     }
@@ -50,7 +50,7 @@ public class RefreshTokenService {
                 TimeUnit.MILLISECONDS
         );
 
-        System.out.println("refresh token 저장");
+//        System.out.println("refresh token 저장");
     }
 
     @Transactional
@@ -58,8 +58,7 @@ public class RefreshTokenService {
 //        RefreshToken savedToken = refreshTokenRepository.findRefreshTokenByMemberId(memberId)
 //                .orElseThrow(InvalidRefreshTokenException::new);
 //
-//        // db에 저장된 refreshToken 이 유효기간이 지났지 않은지 체크
-//        if (!tokenManager.isValid(savedToken.getToken())) {
+//        // db에 저장된 refreshToken 이 유효기간이 지/oken())) {
 //            refreshTokenRepository.delete(savedToken);
 //            throw new InvalidRefreshTokenException();
 //        }
@@ -75,6 +74,6 @@ public class RefreshTokenService {
     public void deleteToken(Long memberId) {
 //        refreshTokenRepository.deleteAllByMemberId(memberId);
         redisTemplate.delete(memberId.toString());
-        System.out.println("refresh token 삭제");
+//        System.out.println("refresh token 삭제");
     }
 }
