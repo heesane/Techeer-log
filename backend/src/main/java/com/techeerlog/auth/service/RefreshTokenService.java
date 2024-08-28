@@ -44,8 +44,8 @@ public class RefreshTokenService {
 //        }
         // Redis에 저장 - 만료 시간 설정을 통해 자동 삭제 처리
         redisTemplate.opsForValue().set(
-                token,
                 memberId.toString(),
+                token,
                 refreshTokenValidityMilliseconds,
                 TimeUnit.MILLISECONDS
         );
@@ -55,19 +55,26 @@ public class RefreshTokenService {
 
     @Transactional
     public void matches(String refreshToken, Long memberId) {
-        RefreshToken savedToken = refreshTokenRepository.findRefreshTokenByMemberId(memberId)
-                .orElseThrow(InvalidRefreshTokenException::new);
+//        RefreshToken savedToken = refreshTokenRepository.findRefreshTokenByMemberId(memberId)
+//                .orElseThrow(InvalidRefreshTokenException::new);
+//
+//        // db에 저장된 refreshToken 이 유효기간이 지났지 않은지 체크
+//        if (!tokenManager.isValid(savedToken.getToken())) {
+//            refreshTokenRepository.delete(savedToken);
+//            throw new InvalidRefreshTokenException();
+//        }
+//        savedToken.validateSameToken(refreshToken);
+        String savedToken = redisTemplate.opsForValue().get(memberId.toString());
 
-        // db에 저장된 refreshToken 이 유효기간이 지났지 않은지 체크
-        if (!tokenManager.isValid(savedToken.getToken())) {
-            refreshTokenRepository.delete(savedToken);
+        if (savedToken == null || !savedToken.equals(refreshToken)) {
             throw new InvalidRefreshTokenException();
         }
-        savedToken.validateSameToken(refreshToken);
     }
 
     @Transactional
     public void deleteToken(Long memberId) {
-        refreshTokenRepository.deleteAllByMemberId(memberId);
+//        refreshTokenRepository.deleteAllByMemberId(memberId);
+        redisTemplate.delete(memberId.toString());
+        System.out.println("refresh token 삭제");
     }
 }

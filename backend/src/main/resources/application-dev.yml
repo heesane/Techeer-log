@@ -43,7 +43,7 @@ security:
       secret: ${JWT_TOKEN}
       expire-length:
         access: 3600000
-        refresh: 10000
+        refresh: 1210000000
 
 cloud:
   aws:
