@@ -18,8 +18,7 @@ const filterOptions: Record<string, string> = {
   '하계': 'SECOND',
 };
 
-//프로젝트 가져온 후 필터링
-const useProjects = ({ selectedType, selectedYear, selectedPeriod }: ProjectListProps) => {
+const useFilterProjects = ({ selectedType, selectedYear, selectedPeriod }: ProjectListProps) => {
   const { data, hasNextPage, isFetching, isFetchingNextPage, fetchNextPage } = useGetProjectQuery();
   const projects = data?.pages.flat() ?? [];
   const filteredProjects = useMemo(() => {
@@ -48,8 +47,9 @@ const useProjects = ({ selectedType, selectedYear, selectedPeriod }: ProjectList
     fetchNextPage,
   };
 };
+
 export const ProjectList = ({ selectedType, selectedYear, selectedPeriod }: ProjectListProps) => {
-  const { projects, hasNextPage, isFetching, isFetchingNextPage, fetchNextPage } = useProjects({
+  const { projects, hasNextPage, isFetching, isFetchingNextPage, fetchNextPage } = useFilterProjects({
     selectedType,
     selectedYear,
     selectedPeriod,

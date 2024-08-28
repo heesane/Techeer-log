@@ -21,7 +21,7 @@ export interface Project {
   year: number;
   semesterEnum: 'FIRST' | 'SECOND' | 'ALL'; // 학기 정보
   projectStatusEnum: 'RUNNING' | 'COMPLETED' | 'PREPARING';
-  rankEnum: 'FIRST' | 'SECOND' | 'THIRD' | 'NONE';
+  rankEnum: 'FIRST' | 'SECOND' | 'THIRD' | 'FOURTH' | 'FIFTH' | 'NONE';
   loveCount: number;
   writer: Writer;
   frameworkResponseList: Framework[];
