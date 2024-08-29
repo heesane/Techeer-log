@@ -7,13 +7,12 @@ export default function NavBar() {
   const { nickname } = useAuthStore();
   const [selectedType, setSelectedType] = useState<string>('프로젝트');
   const [selectedMenu, setSelectedMenu] = useState<string>(nickname || '');
+  const [activeTab] = useState<string>('소개');
 
   const navigate = useNavigate();
-  const goLogin = () => {
-    navigate('/login');
+  const handleNavigation = (path: string) => {
+    navigate(path);
   };
-
-  console.log(nickname);
 
   return (
     <div className="fixed top-0 w-screen flex justify-center items-center z-50 backdrop-blur-[4px]">
@@ -28,7 +27,15 @@ export default function NavBar() {
         </div>
         <div className="flex flex-row justify-between items-center gap-[2.5rem] h-[fit-content] box-sizing-border text-[1.2rem] font-[500]">
           <div className="flex flex-row items-center text-[1.2rem] text-[#cccccc] font-[500]  gap-[2.5rem] mt-[0.2rem]">
-            <span>소개</span>
+            <span
+              onClick={() => handleNavigation('/')}
+              className={`cursor-pointer hover:text-[#FFFFFF] ${
+                activeTab === '소개' ? 'text-[#FFFFFF]' : 'text-[#cccccc]'
+              }`}
+            >
+              소개
+            </span>
+
             <ProjectDropDown defaultName="프로젝트" selectedType={selectedType} setSelectedType={setSelectedType} />
           </div>
 
@@ -37,8 +44,10 @@ export default function NavBar() {
               <UserDropDown defaultName={nickname} selectedMenu={selectedMenu} setSelectedMenu={setSelectedMenu} />
             ) : (
               <span
-                onClick={goLogin}
-                className="cursor-pointer break-words font-['Pretendard'] leading-[1.5] text-[#cccccc]"
+                onClick={() => handleNavigation('/login')}
+                className={`cursor-pointer break-words font-['Pretendard'] leading-[1.5] ${
+                  activeTab === 'login' ? 'text-[#FFFFFF]' : 'text-[#cccccc]'
+                } hover:text-[#FFFFFF]`}
               >
                 LOGIN
               </span>

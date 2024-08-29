@@ -1,5 +1,6 @@
 import { Fragment, SetStateAction, useState } from 'react';
 import { Menu, Transition } from '@headlessui/react';
+import { useNavigate } from 'react-router-dom';
 
 type DropDownProps = {
   defaultName: string;
@@ -35,13 +36,18 @@ type DropdownMenuProps = {
 export function DropdownMenu({ defaultName, options, setSelectedOption }: DropdownMenuProps) {
   const [isOpen, setIsOpen] = useState(false);
 
+  const navigate = useNavigate();
+  const handleNavigation = () => {
+    navigate('/project');
+  };
+
   return (
-    <Menu as="div" className="relative inline-block text-left font-['Pretendard-Thin']">
+    <Menu as="div" className="relative inline-block text-left">
       <div onMouseEnter={() => setIsOpen(true)} onMouseLeave={() => setIsOpen(false)}>
         <Menu.Button
-          as="a"
-          href="/your-target-page" // 클릭 시 이동할 페이지 경로
-          className="flex flex-row gap-4 cursor-pointer break-words font-['Pretendard'] leading-[1.5] text-[#cccccc] hover:text-[#ffffff]"
+          as="button"
+          onClick={handleNavigation}
+          className="flex flex-row gap-4 cursor-pointer break-words font-['Pretendard'] leading-[1.5] text-[#cccccc] hover:text-[#FFFFFF]"
         >
           {defaultName}
         </Menu.Button>
