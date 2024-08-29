@@ -4,7 +4,7 @@ import { Comments } from './Project/ui/Comments.tsx';
 import NavBar from '../shared/ui/NavBar.tsx';
 import Footer from '../shared/ui/Footer.tsx';
 
-export const ProjectPage = () => {
+export const ProjectDetailPage = () => {
   const { param } = useParams<string>();
   if (!param) {
     console.log('Project ID not found');
@@ -15,12 +15,10 @@ export const ProjectPage = () => {
 
   return (
     <>
-      <NavBar scrollRef={null} />
+      <NavBar />
       <Project projectId={projectId} />
       <Comments projectId={projectId} />
       <Footer />
     </>
   );
 };
-
-export default ProjectPage;
