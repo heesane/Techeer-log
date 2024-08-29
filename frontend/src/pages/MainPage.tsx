@@ -42,7 +42,7 @@ export default function MainPage() {
 
   return (
     <div className="bg-[#111111] flex flex-col w-screen justify-center items-center">
-      <NavBar scrollRef={scrollRef} />
+      <NavBar />
       {/* 메인페이지-소개 */}
       <div className="w-[100vw] h-[41.6vw] bg-cover bg-[url('./shared/assets/image/mainImg/Background-Main.png')] flex justify-center items-center">
         <div className="w-[100vw] h-[100vw] flex flex-col justify-center items-center font-['Pretendard-Regular'] font-normal text-[#FFFFFF]">
