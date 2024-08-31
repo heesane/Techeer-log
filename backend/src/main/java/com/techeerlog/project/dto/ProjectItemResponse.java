@@ -30,6 +30,9 @@ public class ProjectItemResponse {
     private SemesterEnum semesterEnum;
     private RankEnum rankEnum;
     private ProjectStatusEnum projectStatusEnum;
+    private String githubLink;
+    private String blogLink;
+    private String websiteLink;
     private int loveCount = 0;
     private boolean isLoved;
     private boolean isScraped;
