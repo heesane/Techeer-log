@@ -18,7 +18,7 @@ export default function MainPage() {
   const queryParams = new URLSearchParams(location.search);
   const searchQuery = queryParams.get('search') || '';
   const [selectedType, setSelectedType] = useState<string>('프로젝트 종류');
-  const [selectedYear, setSelectedYear] = useState<string>('프로젝트 기간');
+  const [selectedYear, setSelectedYear] = useState<string>('진행 연도');
   const [selectedPeriod, setSelectedPeriod] = useState<string>('전체');
 
   const scrollRef = useRef<HTMLDivElement | null>(null);
@@ -38,7 +38,6 @@ export default function MainPage() {
     if (semester === 'SECOND') return '하계';
     else return '';
   }
-  // data.semesterEnum;
 
   return (
     <div className="bg-[#111111] flex flex-col w-screen justify-center items-center">
