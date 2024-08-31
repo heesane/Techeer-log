@@ -1,11 +1,9 @@
 import { useNavigate } from 'react-router-dom';
 import { useAuthStore } from '../store/authStore';
-import { ProjectDropDown } from './ProjectDropDown.tsx';
 import { useState } from 'react';
 import { UserDropDown } from './UserDropDown.tsx';
 export default function NavBar() {
   const { nickname } = useAuthStore();
-  const [selectedType, setSelectedType] = useState<string>('프로젝트');
   const [selectedMenu, setSelectedMenu] = useState<string>(nickname || '');
   const [activeTab] = useState<string>('소개');
 
@@ -35,8 +33,14 @@ export default function NavBar() {
             >
               소개
             </span>
-
-            <ProjectDropDown defaultName="프로젝트" selectedType={selectedType} setSelectedType={setSelectedType} />
+            <span
+              onClick={() => handleNavigation('/project')}
+              className={`cursor-pointer hover:text-[#FFFFFF] ${
+                activeTab === '프로젝트' ? 'text-[#FFFFFF]' : 'text-[#cccccc]'
+              }`}
+            >
+              프로젝트
+            </span>
           </div>
 
           <div className="rounded-[0.3rem] flex flex-row justify-center box-sizing-border">
