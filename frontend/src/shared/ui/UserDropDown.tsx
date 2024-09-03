@@ -1,4 +1,4 @@
-import { Fragment, SetStateAction, useState } from 'react';
+import { Fragment, useState } from 'react';
 import { Menu, Transition } from '@headlessui/react';
 import iconDropdown from '../../entities/filter/image/Icon-Dropdown.png';
 import { useAuthStore } from '../store/authStore.ts';
@@ -6,17 +6,18 @@ import { useNavigate } from 'react-router-dom';
 
 type DropDownProps = {
   defaultName: string | null;
-  selectedMenu: string;
-  setSelectedMenu: React.Dispatch<SetStateAction<string>>;
+  // selectedMenu: string;
+  // setSelectedMenu: React.Dispatch<SetStateAction<string>>;
 };
 
-export function UserDropDown({ defaultName, selectedMenu, setSelectedMenu }: DropDownProps) {
+export function UserDropDown({ defaultName }: DropDownProps) {
+  const [selectedMenu, setSelectedMenu] = useState<string>('');
+
   const { logout } = useAuthStore();
   const navigate = useNavigate();
 
   const handleUserLogout = () => {
     logout();
-    console.log('??');
     window.location.replace('/');
   };
 
@@ -24,11 +25,9 @@ export function UserDropDown({ defaultName, selectedMenu, setSelectedMenu }: Dro
     navigate('/mypage');
   };
 
-  const navigateToProjectCreation = () => {
+  const navigateToProjectWrite = () => {
     navigate('/projectwrite');
   };
-
-  const userMenuOptions = ['마이페이지', '프로젝트 등록', '로그아웃'];
 
   const handleMenuSelect = (option: string) => {
     setSelectedMenu(option);
@@ -38,7 +37,7 @@ export function UserDropDown({ defaultName, selectedMenu, setSelectedMenu }: Dro
         navigateToMyPage();
         break;
       case '프로젝트 등록':
-        navigateToProjectCreation();
+        navigateToProjectWrite();
         break;
       case '로그아웃':
         handleUserLogout();
@@ -47,6 +46,8 @@ export function UserDropDown({ defaultName, selectedMenu, setSelectedMenu }: Dro
         break;
     }
   };
+
+  const userMenuOptions = ['마이페이지', '프로젝트 등록', '로그아웃'];
 
   return (
     <div className="flex justify-center items-center">
@@ -67,14 +68,14 @@ type DropdownMenuProps = {
   setSelectedOption: (value: string) => void;
 };
 
-export function DropdownMenu({ defaultName, options, setSelectedOption }: DropdownMenuProps) {
+export function DropdownMenu({ defaultName, options, selectedOption, setSelectedOption }: DropdownMenuProps) {
   const [open, setOpen] = useState(false);
 
   return (
     <Menu as="div" className="relative inline-block text-left font-['Pretendard-Thin']">
       <div>
         <Menu.Button
-          className="flex flex-row gap-4 cursor-pointer break-words font-['Pretendard'] leading-[1.5] text-[#cccccc] hover:text-[#ffffff]"
+          className={`flex flex-row gap-4 cursor-pointer break-words font-['Pretendard'] leading-[1.5] hover:text-[#ffffff] ${selectedOption === '마이페이지' ? 'text-[#FFFFFF]' : 'text-[#cccccc]'} `}
           onClick={() => setOpen(!open)}
         >
           {defaultName} 님

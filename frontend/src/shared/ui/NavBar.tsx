@@ -59,7 +59,7 @@ export default function NavBar() {
 
           <div className="rounded-[0.3rem] flex flex-row justify-center box-sizing-border">
             {nickname ? (
-              <UserDropDown defaultName={nickname} selectedMenu={selectedMenu} setSelectedMenu={setSelectedMenu} />
+              <UserDropDown defaultName={nickname} />
             ) : (
               <span
                 onClick={() => handleNavigation('/login')}
