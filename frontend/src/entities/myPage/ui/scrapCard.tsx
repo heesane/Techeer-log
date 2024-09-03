@@ -9,7 +9,7 @@ export default function ScrapCard({ scrap }: propsScraps) {
   const firstFrontend = scrap.frameworkResponseList.find((framework) => framework.frameworkTypeEnum === 'FRONTEND');
   const firstBackend = scrap.frameworkResponseList.find((framework) => framework.frameworkTypeEnum === 'BACKEND');
 
-  const moveProjectView = `/projectview/${scrap.projectId}`;
+  const moveProjectView = `/project/${scrap.projectId}`;
 
   return (
     <Link to={moveProjectView}>

@@ -111,7 +111,7 @@ export const bottomButtons = ({ setStep }: any) => {
     mutationFn: (projectId: number) => api.putProject({ projectData, projectId }),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['projectList'] });
-      navigate(`/projectview/${projectId}`);
+      navigate(`/project/${projectId}`);
       resetStore(); // 완료 후 store 값 초기화
     },
     onError: (error) => {

@@ -93,7 +93,7 @@ export const EmblaCarousel: React.FC<PropType> = (props) => {
         <div className="embla__container">
           {data?.map((project: Project, index: number) => (
             <div className="embla__slide" key={index}>
-              <Link to={`/projectview/${project.id}`}>
+              <Link to={`/project/${project.id}`}>
                 <div className="embla__slide__number cursor-pointer">
                   <img src={project.mainImageUrl} className="w-full h-full object-cover" />
                   <div className="hover-content ">

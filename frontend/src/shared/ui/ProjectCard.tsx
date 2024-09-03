@@ -9,8 +9,7 @@ export default function ProjectCard({ project }: propsProjects) {
   const teamName = project.projectTeamNameEnum;
 
   const { param } = useParams();
-  const moveProjectView =
-    param === 'judge' ? `/2024-summer-bootcamp/project/${project.id}` : `/projectview/${project.id}`;
+  const moveProjectView = param === 'judge' ? `/2024-summer-bootcamp/project/${project.id}` : `/project/${project.id}`;
 
   return (
     <Link to={moveProjectView}>
