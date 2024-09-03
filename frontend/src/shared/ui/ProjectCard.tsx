@@ -27,7 +27,7 @@ export default function ProjectCard({ project }: propsProjects) {
       )}
       <div
         key={project.id}
-        className="rounded-[0.3rem] border-solid border border-[#444444] flex flex-col p-[0_0_1rem_0] box-sizing-border w-[100%] relative transform transition-transform duration-300 ease-in-out hover:scale-105"
+        className="h-[24rem] rounded-[0.3rem] border-solid border border-[#444444] flex flex-col p-[0_0_1rem_0] box-sizing-border w-[100%] relative transform transition-transform duration-300 ease-in-out hover:scale-105"
         onMouseOver={() => setIsHover(true)}
         onMouseOut={() => setIsHover(false)}
       >
@@ -89,10 +89,10 @@ export default function ProjectCard({ project }: propsProjects) {
             <></>
           )}
         </div>
-        <div className="w-80 m-[0_1rem_0.4rem_1rem] inline-block self-start break-words font-['Pre-S'] font-semibold text-[1.3rem] bg-[#FFFFFF] text-[transparent] bg-clip-text overflow-hidden text-ellipsis whitespace-nowrap">
+        <div className="w-80 m-[0_1rem_0.4rem_1rem] inline-block self-start break-words font-['Pre-S'] font-semibold text-[1.5rem] bg-[#FFFFFF] text-[transparent] bg-clip-text overflow-hidden text-ellipsis whitespace-nowrap">
           {project.title}
         </div>
-        <div className="w-80 m-[0_1rem_0.7rem_1rem] inline-block self-start break-words font-['Pre-R'] font-normal text-[0.9rem] text-[#CCCCCC] overflow-hidden text-ellipsis whitespace-nowrap">
+        <div className="w-80 m-[0.4rem_1rem_0.7rem_1rem] inline-block self-start break-words font-['Pre-R'] font-normal text-[1.1rem] text-[#CCCCCC] overflow-hidden text-ellipsis whitespace-nowrap text-clamp">
           {project.subtitle}
         </div>
         <div className="m-[0_1rem_0_1rem] flex flex-row justify-between w-[92%] box-sizing-border">
