@@ -28,7 +28,7 @@ const useFilterProjects = ({ selectedType, selectedYear, selectedPeriod }: Proje
       p = p.filter(({ projectTypeEnum }) => projectTypeEnum === filterOptions[selectedType]);
     }
 
-    if (selectedYear !== '프로젝트 기간' && selectedYear !== '전체') {
+    if (selectedYear !== '진행 연도' && selectedYear !== '전체') {
       p = p.filter(({ year }) => year === parseInt(selectedYear));
     }
 

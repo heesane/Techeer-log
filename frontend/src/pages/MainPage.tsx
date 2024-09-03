@@ -18,7 +18,7 @@ export default function MainPage() {
   const queryParams = new URLSearchParams(location.search);
   const searchQuery = queryParams.get('search') || '';
   const [selectedType, setSelectedType] = useState<string>('프로젝트 종류');
-  const [selectedYear, setSelectedYear] = useState<string>('프로젝트 기간');
+  const [selectedYear, setSelectedYear] = useState<string>('진행 연도');
   const [selectedPeriod, setSelectedPeriod] = useState<string>('전체');
 
   const scrollRef = useRef<HTMLDivElement | null>(null);
@@ -41,7 +41,7 @@ export default function MainPage() {
 
   return (
     <div className="bg-[#111111] flex flex-col w-screen justify-center items-center">
-      <NavBar scrollRef={scrollRef} />
+      <NavBar />
       {/* 메인페이지-소개 */}
       <div className="w-[100vw] h-[41.6vw] bg-cover bg-[url('./shared/assets/image/mainImg/Background-Main.png')] flex justify-center items-center">
         <div className="w-[100vw] h-[100vw] flex flex-col justify-center items-center font-['Pretendard-Regular'] font-normal text-[#FFFFFF]">

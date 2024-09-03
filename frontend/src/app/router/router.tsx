@@ -3,10 +3,9 @@ import MainPage from '../../pages/MainPage.tsx';
 import { SignUp } from '../../entities/signup';
 import { LogIn } from '../../entities/login';
 import { ProjectInfo } from '../../entities/projectInputModal';
-import { MyPage, ProjectPage, ProjectWritePage } from '../../pages';
+import { MyPage, ProjectDetailPage, ProjectWritePage } from '../../pages';
 import { ProjectEditPage } from '../../pages/ProjectEditPage.tsx';
-import { BootCampPage } from '../../pages/bootcamp/BootCampPage.tsx';
-import { BootCampProjectPage } from '../../pages/bootcamp/BootCampProjectPage.tsx';
+import { ProjectPage } from '../../pages/Project/ProjectPage.tsx';
 
 export const router = createBrowserRouter([
   {
@@ -26,8 +25,8 @@ export const router = createBrowserRouter([
     element: <LogIn />,
   },
   {
-    path: '/projectview/:param',
-    element: <ProjectPage />,
+    path: '/project/:param',
+    element: <ProjectDetailPage />,
   },
   {
     path: '/modal',
@@ -42,11 +41,15 @@ export const router = createBrowserRouter([
     element: <ProjectEditPage />,
   },
   {
-    path: '/2024-summer-bootcamp/:param',
-    element: <BootCampPage />,
+    path: '/project',
+    element: <ProjectPage />,
   },
-  {
-    path: '/2024-summer-bootcamp/project/:param',
-    element: <BootCampProjectPage />,
-  },
+  // {
+  //   path: '/2024-summer-bootcamp/:param',
+  //   element: <BootCampPage />,
+  // },
+  // {
+  //   path: '/2024-summer-bootcamp/project/:param',
+  //   element: <BootCampProjectPage />,
+  // },
 ]);
