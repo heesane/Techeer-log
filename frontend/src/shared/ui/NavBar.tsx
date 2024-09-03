@@ -1,13 +1,27 @@
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import { useAuthStore } from '../store/authStore';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { UserDropDown } from './UserDropDown.tsx';
 export default function NavBar() {
   const { nickname } = useAuthStore();
-  const [selectedMenu, setSelectedMenu] = useState<string>(nickname || '');
-  const [activeTab] = useState<string>('소개');
+  // const [selectedMenu, setSelectedMenu] = useState<string>('');
 
   const navigate = useNavigate();
+  const location = useLocation();
+
+  const getActiveTab = (pathname: string) => {
+    if (pathname === '/') return '소개';
+    if (pathname.startsWith('/project')) return '프로젝트';
+    if (pathname.startsWith('/mypage')) return '마이페이지';
+    return '';
+  };
+
+  const [activeTab, setActiveTab] = useState<string>(getActiveTab(location.pathname));
+
+  useEffect(() => {
+    setActiveTab(getActiveTab(location.pathname));
+  }, [location.pathname]);
+
   const handleNavigation = (path: string) => {
     navigate(path);
   };
