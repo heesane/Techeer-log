@@ -15,18 +15,18 @@ export const MyPage = () => {
         <div className="m-[0_0_1.5rem_0] flex flex-row justify-center gap-[30rem] w-[100%] box-sizing-border">
           <span
             className={`break-words font-['Pre-R'] font-medium text-[1.5rem] ${
-              selectedTab === 'uploaded' ? 'text-[#0047FF]' : 'text-[#CCCCCC]'
+              selectedTab === 'uploaded' ? 'text-[#fafafa]' : 'text-[#CCCCCC]'
             } cursor-pointer`}
             onClick={() => setSelectedTab('uploaded')}
           >
             업로드한 프로젝트
             {selectedTab === 'uploaded' && (
-              <div className="bg-[#0047FF] z-[2] absolute w-[10.8rem] h-[0.2rem] mt-[1.45rem]"></div>
+              <div className="bg-[#0047FF] z-[2] absolute w-[11rem] h-[0.2rem] -ml-1 mt-[1.45rem]"></div>
             )}
           </span>
           <span
             className={`break-words font-['Pre-R'] font-normal text-[1.5rem] ${
-              selectedTab === 'scrapped' ? 'text-[#0047FF]' : 'text-[#CCCCCC]'
+              selectedTab === 'scrapped' ? 'text-[#fafafa]' : 'text-[#CCCCCC]'
             } cursor-pointer`}
             onClick={() => setSelectedTab('scrapped')}
           >
