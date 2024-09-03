@@ -27,6 +27,9 @@ export interface Project {
   frameworkResponseList: Framework[];
   loved: boolean;
   scraped: boolean;
+  content: string;
+  githubLink: string;
+  blogLink: string;
 }
 
 // ProjectList 타입 정의
