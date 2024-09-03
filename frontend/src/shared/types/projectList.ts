@@ -28,6 +28,8 @@ export interface Project {
   loved: boolean;
   scraped: boolean;
   content: string;
+  githubLink: string;
+  blogLink: string;
 }
 
 // ProjectList 타입 정의

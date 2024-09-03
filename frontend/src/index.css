@@ -51,7 +51,7 @@
 .text-clamp {
     display: -webkit-box;
     -webkit-box-orient: vertical;
-    -webkit-line-clamp: 7; /* 보이는 줄 수를 설정합니다 */
+    -webkit-line-clamp: 2; /* 보이는 줄 수를 설정합니다 */
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: normal;
