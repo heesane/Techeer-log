@@ -26,21 +26,21 @@ export const MyPageProfile = () => {
 
   if (data) {
     return (
-      <div className="flex flex-col items-center">
+      <div className="flex flex-col items-center mb-[8rem]">
         {!isModal ? (
           <>
-            <div className="rounded-[16.3rem] flex flex-row w-[100%] box-sizing-border justify-center">
+            <div className="rounded-[16.3rem] flex flex-row w-[100%] box-sizing-border justify-center items-center">
               <button className="cursor-default rounded-[16.3rem] border bg-[50%_50%] bg-cover bg-no-repeat m-[1rem_5.6rem_0_0] w-[9.4rem] h-[9.4rem]">
                 <img className="w-full h-full rounded-[16.3rem]" src={data.profileImageUrl}></img>
               </button>
-              <div className="m-[0_0_0.1rem_0] flex flex-col box-sizing-border">
-                <div className="m-[0_0_1.1rem_0] inline-block self-start break-words font-['Pre-S'] font-semibold text-[2.5rem] text-[#0047FF]">
-                  {data.loginId}
-                </div>
-                <div className="m-[0_0_0.7rem_0] flex flex-row self-start w-[fit-content] box-sizing-border">
-                  <span className="m-[0_0.7rem_0_0] break-words font-['Pre-S'] font-semibold text-[1.5rem] text-[#B3B3B3]">
+              <div className="m-[0_0_0.1rem_0] flex flex-col box-sizing-border gap-4">
+                <div className="flex flex-row gap-8 items-end text-center h-fit pt-4">
+                  <div className="inline-block break-words font-['Pre-S'] font-semibold text-[2.5rem] text-[#0047FF]">
                     {data.nickname}
-                  </span>
+                  </div>
+                  <div className="flex flex-row items-end w-fit box-sizing-border pb-[0.3rem] font-['Pre'] font-[500] text-[1.5rem] text-[#B3B3B3]">
+                    {data.loginId}
+                  </div>
                 </div>
                 <span className="w-[20rem] h-[5rem] break-words font-['Pre-R'] font-normal text-[1.6rem] text-[#EDEDED]">
                   {data.introduction}
@@ -49,11 +49,9 @@ export const MyPageProfile = () => {
             </div>
             <div
               onClick={modalOpen}
-              className="rounded-[0.3rem] m-[3.8rem_7rem_11.1rem_0] bg-[#8A8991] flex flex-row justify-center items-center w-[8rem] h-[2.1rem] box-sizing-border cursor-pointer"
+              className="rounded-[0.3rem] bg-[#0047FF] ml-[2rem] flex flex-row justify-center items-center w-[8rem] h-[2.1rem] box-sizing-border cursor-pointer"
             >
-              <span className="break-words font-medium text-[0.9rem] leading-[1.286] text-[#F1EEF9)]">
-                프로필 수정하기
-              </span>
+              <span className="break-words font-medium text-[0.9rem] leading-[1.286] text-[#d8d8d8]">프로필 수정</span>
             </div>
           </>
         ) : (
