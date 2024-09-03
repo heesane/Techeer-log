@@ -52,14 +52,14 @@ export default function ProjectCard({ project }: propsProjects) {
             </div>
             <div className="absolute bottom-[2rem] flex flex-row gap-[1rem]">
               <Link to={moveProjectView}>
-                <button className="flex flex-row gap-[0.5rem] cursor-pointer">
+                <button className="flex flex-row gap-[0.3rem] cursor-pointer">
                   <p className="text-[1.3rem] font-semibold">Detail</p>
                   <img className="h-[1.4rem] w-[1.4rem] mt-[0.08rem]" src={arrow}></img>
                 </button>
               </Link>
               {project.githubLink ? (
                 <Link to={project.githubLink}>
-                  <button className="flex flex-row gap-[0.5rem] cursor-pointer">
+                  <button className="flex flex-row gap-[0.3rem] cursor-pointer">
                     <p className="text-[1.3rem] font-semibold">Github</p>
                     <img className="h-[1.4rem] w-[1.4rem] mt-[0.08rem]" src={arrow}></img>
                   </button>
@@ -69,7 +69,7 @@ export default function ProjectCard({ project }: propsProjects) {
               )}
               {project.blogLink ? (
                 <Link to={project.blogLink}>
-                  <button className="flex flex-row gap-[0.5rem] cursor-pointer">
+                  <button className="flex flex-row gap-[0.3rem] cursor-pointer">
                     <p className="text-[1.3rem] font-semibold">Blog</p>
                     <img className="h-[1.4rem] w-[1.4rem] mt-[0.08rem]" src={arrow}></img>
                   </button>
