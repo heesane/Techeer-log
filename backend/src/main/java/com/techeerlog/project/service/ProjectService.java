@@ -28,6 +28,7 @@ import com.techeerlog.project.repository.ProjectMemberRepository;
 import com.techeerlog.project.repository.ProjectRepository;
 import com.techeerlog.scrap.repository.ScrapRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Slice;
@@ -44,7 +45,6 @@ import java.util.Optional;
 @Transactional(readOnly = true)
 public class ProjectService {
     private final ProjectRepository projectRepository;
-    private final ViewCountManager viewCountManager;
     private final UtilMethod utilMethod;
     private final ProjectMapper projectMapper;
     private final MemberMapper memberMapper;
@@ -57,7 +57,7 @@ public class ProjectService {
     private final LoveRepository loveRepository;
     private final ScrapRepository scrapRepository;
 
-    @Transactional
+    @Cacheable(value = "project", key = "#projectId")
     public ProjectResponse findProjectResponse(Long projectId, AuthInfo authInfo) {
 
         Project findProject = findProjectById(projectId);
