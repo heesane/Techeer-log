@@ -1,7 +1,8 @@
-import ProjectCard from '../../../shared/ui/ProjectBoxCard.tsx';
+import ProjectBoxCard from '../../../shared/ui/ProjectBoxCard.tsx';
 import { useGetProjectQuery } from '../query/useGetProjectQuery.tsx';
 import { useInView } from 'react-intersection-observer';
 import { useEffect, useMemo } from 'react';
+import ProjectListCard from '../../../shared/ui/ProjectListCard.tsx';
 type ProjectListProps = {
   selectedType: string;
   selectedYear: string;
@@ -64,7 +65,7 @@ export const ProjectList = ({ selectedType, selectedYear, selectedPeriod, alignm
       {alignment !== 'right' ? (
         <div className="grid grid-cols-3 grid-rows-3 gap-4 m-4">
           {projects && projects.length > 0 ? (
-            projects.map((project) => <ProjectCard key={project.id} project={project} />)
+            projects.map((project) => <ProjectBoxCard key={project.id} project={project} />)
           ) : (
             <div>No projects found.</div>
           )}
@@ -73,7 +74,7 @@ export const ProjectList = ({ selectedType, selectedYear, selectedPeriod, alignm
       ) : (
         <div className="m-4">
           {projects && projects.length > 0 ? (
-            projects.map((project) => <ProjectCard key={project.id} project={project} />)
+            projects.map((project) => <ProjectListCard key={project.id} project={project} />)
           ) : (
             <div>No projects found.</div>
           )}

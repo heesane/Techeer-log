@@ -46,7 +46,7 @@ export default function MainPage() {
   //토글 버튼
   const [alignment, setAlignment] = useState<string | null>('left');
 
-  const handleAlignment = (event: React.MouseEvent<HTMLElement>, newAlignment: string | null) => {
+  const handleAlignment = (_event: React.MouseEvent<HTMLElement>, newAlignment: string | null) => {
     setAlignment(newAlignment);
   };
 
