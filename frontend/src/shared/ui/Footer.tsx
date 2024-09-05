@@ -22,28 +22,28 @@ const Footer = () => {
 
         <div className="flex flex-row gap-[1.5rem] ">
           <a href="mailto:techeerlog@gmail.com">
-            <div className="bg-[#474749] h-[3.5rem] w-[3.5rem] rounded-[50%]">
-              <img className="flex justify-center items-center scale-[55%]" src={mail} alt="Mail" />
+            <div className="bg-[#474749] h-[3.5rem] w-[3.5rem] rounded-[50%] justify-center flex items-center">
+              <img className="flex scale-[55%]" src={mail} alt="Mail" />
             </div>
           </a>
           <a href="https://www.instagram.com/techeer_in_sv" target="_blank" rel="noopener noreferrer">
-            <div className="bg-[#474749] h-[3.5rem] w-[3.5rem] rounded-[50%]">
-              <img className="flex justify-center items-center scale-[50%]" src={instagram} alt="Instagram" />
+            <div className="bg-[#474749] h-[3.5rem] w-[3.5rem] justify-center flex items-center rounded-[50%] mt-[0.1rem]">
+              <img className="flex scale-[50%]" src={instagram} alt="Instagram" />
             </div>
           </a>
           <a href="https://techeer.net" target="_blank" rel="noopener noreferrer">
-            <div className="bg-[#474749] h-[3.5rem] w-[3.5rem] rounded-[50%]">
-              <img className="flex justify-center items-center scale-[60%]" src={notion} alt="Notion" />
+            <div className="bg-[#474749] h-[3.5rem] w-[3.5rem] rounded-[50%] justify-center flex items-center">
+              <img className="flex scale-[60%]" src={notion} alt="Notion" />
             </div>
           </a>
           <a href="https://blog.techeer.net" target="_blank" rel="noopener noreferrer">
-            <div className="bg-[#474749] h-[3.5rem] w-[3.5rem] rounded-[50%]">
-              <img className="flex justify-center items-center scale-[60%]" src={medium} alt="Medium" />
+            <div className="bg-[#474749] h-[3.5rem] w-[3.5rem] rounded-[50%] justify-center flex items-center">
+              <img className="flex scale-[60%]" src={medium} alt="Medium" />
             </div>
           </a>
           <a href="https://github.com/techeer-sv" target="_blank" rel="noopener noreferrer">
-            <div className="bg-[#474749] h-[3.5rem] w-[3.5rem] rounded-[50%]">
-              <img className="flex justify-center items-center scale-[65%]" src={github} alt="GitHub" />
+            <div className="bg-[#474749] h-[3.5rem] w-[3.5rem] rounded-[50%] justify-center flex items-center">
+              <img className="flex scale-[65%]" src={github} alt="GitHub" />
             </div>
           </a>
         </div>
