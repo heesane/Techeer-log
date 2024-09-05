@@ -23,6 +23,7 @@ export default function ListToggle({ alignment, setAlign }: ProjectToggle) {
         }}
         value="left"
         aria-label="box aligned"
+        disabled={alignment === 'left'}
       >
         <img className="h-[1rem] w-[1rem]" src={boxIcon} />
       </ToggleButton>
@@ -38,6 +39,7 @@ export default function ListToggle({ alignment, setAlign }: ProjectToggle) {
         }}
         value="right"
         aria-label="list aligned"
+        disabled={alignment === 'right'}
       >
         <img className="h-[1rem] w-[1rem]" src={listIcon} />
       </ToggleButton>
