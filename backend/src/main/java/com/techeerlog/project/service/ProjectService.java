@@ -28,6 +28,7 @@ import com.techeerlog.project.repository.ProjectMemberRepository;
 import com.techeerlog.project.repository.ProjectRepository;
 import com.techeerlog.scrap.repository.ScrapRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -70,7 +71,6 @@ public class ProjectService {
         projectResponse.setProjectMemberResponseList(getProjectMemberResponseList(findProject.getProjectMemberList()));
         projectResponse.setNonRegisterProjectMemberResponseList(getNonRegisterProjectMemberResponseList(findProject.getNonRegisterProjectMemberList()));
         projectResponse.setFrameworkResponseList(getFrameworkResponseList(findProject.getProjectFrameworkList()));
-
         return projectResponse;
     }
 
@@ -128,6 +128,7 @@ public class ProjectService {
 
 
     @Transactional
+    @CacheEvict(value = "project", key = "#id")
     public void deleteProject(Long id, AuthInfo authInfo) {
         Project project = findProjectById(id);
         validateOwner(authInfo, project);
