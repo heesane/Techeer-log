@@ -36,3 +36,8 @@ export interface Project {
 export interface ProjectList {
   data: Project[];
 }
+
+export interface ProjectToggle {
+  alignment: string | null;
+  setAlign: (alignment: string | null) => void;
+}

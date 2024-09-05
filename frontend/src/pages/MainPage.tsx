@@ -10,10 +10,7 @@ import { useLocation } from 'react-router-dom';
 import ProjectCard from '../shared/ui/ProjectBoxCard.tsx';
 import { prizeDate } from '../shared/types/prizeDate.ts';
 import iconPoint from '../shared/assets/image/mainImg/Icon-Point.png';
-import ToggleButton from '@mui/material/ToggleButton';
-import ToggleButtonGroup from '@mui/material/ToggleButtonGroup';
-import listIcon from '../shared/assets/image/listImg/ListIcon.png';
-import boxIcon from '../shared/assets/image/listImg/BoxIcon.png';
+import ListToggle from '../shared/ui/listToggle.tsx';
 
 export default function MainPage() {
   const OPTIONS: EmblaOptionsType = { loop: true };
@@ -43,11 +40,10 @@ export default function MainPage() {
     else return '';
   }
 
-  //토글 버튼
   const [alignment, setAlignment] = useState<string | null>('left');
 
-  const handleAlignment = (_event: React.MouseEvent<HTMLElement>, newAlignment: string | null) => {
-    setAlignment(newAlignment);
+  const setAlign = (align: string | null) => {
+    setAlignment(align);
   };
 
   return (
@@ -105,38 +101,7 @@ export default function MainPage() {
                 selectedPeriod={selectedPeriod}
                 setSelectedPeriod={setSelectedPeriod}
               />
-              <ToggleButtonGroup value={alignment} exclusive onChange={handleAlignment} aria-label="alignment">
-                <ToggleButton
-                  sx={{
-                    borderColor: '#919191',
-                    '&.Mui-selected': {
-                      backgroundColor: '#6e6e6e !important', // 선택 시 배경색을 투명하게 설정
-                    },
-                    '&:hover': {
-                      backgroundColor: '#474747', // 원하는 hover 색상 지정
-                    },
-                  }}
-                  value="left"
-                  aria-label="box aligned"
-                >
-                  <img className="h-[1rem] w-[1rem]" src={boxIcon} />
-                </ToggleButton>
-                <ToggleButton
-                  sx={{
-                    borderColor: '#919191',
-                    '&.Mui-selected': {
-                      backgroundColor: '#6e6e6e !important', // 선택 시 배경색을 투명하게 설정
-                    },
-                    '&:hover': {
-                      backgroundColor: '#474747', // 원하는 hover 색상 지정
-                    },
-                  }}
-                  value="right"
-                  aria-label="list aligned"
-                >
-                  <img className="h-[1rem] w-[1rem]" src={listIcon} />
-                </ToggleButton>
-              </ToggleButtonGroup>
+              <ListToggle alignment={alignment} setAlign={setAlign} />
             </div>
             <ProjectList
               selectedType={selectedType}
