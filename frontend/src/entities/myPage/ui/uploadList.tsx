@@ -1,5 +1,5 @@
 import { useGetProjectQuery } from '../../projectList/query/useGetProjectQuery';
-import ProjectCard from '../../../shared/ui/ProjectCard';
+import ProjectCard from '../../../shared/ui/ProjectBoxCard';
 import Pagination from '../../../shared/ui/Pagination';
 import { useState } from 'react';
 import { useAuthStore } from '../../../shared/store/authStore';

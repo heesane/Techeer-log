@@ -1,4 +1,4 @@
-import ProjectCard from '../../../shared/ui/ProjectCard.tsx';
+import ProjectCard from '../../../shared/ui/ProjectBoxCard.tsx';
 import { useGetProjectQuery } from '../query/useGetProjectQuery.tsx';
 import { useInView } from 'react-intersection-observer';
 import { useEffect, useMemo } from 'react';
@@ -6,6 +6,7 @@ type ProjectListProps = {
   selectedType: string;
   selectedYear: string;
   selectedPeriod: string;
+  alignment: string | null;
 };
 /* prettier-ignore */
 const filterOptions: Record<string, string> = {
@@ -42,11 +43,12 @@ const useProjects = ({ selectedType, selectedYear, selectedPeriod }: ProjectList
     fetchNextPage,
   };
 };
-export const ProjectList = ({ selectedType, selectedYear, selectedPeriod }: ProjectListProps) => {
+export const ProjectList = ({ selectedType, selectedYear, selectedPeriod, alignment }: ProjectListProps) => {
   const { projects, hasNextPage, isFetching, isFetchingNextPage, fetchNextPage } = useProjects({
     selectedType,
     selectedYear,
     selectedPeriod,
+    alignment,
   });
   const { ref, inView } = useInView();
   useEffect(() => {
@@ -58,13 +60,26 @@ export const ProjectList = ({ selectedType, selectedYear, selectedPeriod }: Proj
     return <div className="w-full h-full bg-transparent">Loading...</div>;
   }
   return (
-    <div className="grid grid-cols-3 grid-rows-3 gap-4 m-4">
-      {projects && projects.length > 0 ? (
-        projects.map((project) => <ProjectCard key={project.id} project={project} />)
+    <>
+      {alignment !== 'right' ? (
+        <div className="grid grid-cols-3 grid-rows-3 gap-4 m-4">
+          {projects && projects.length > 0 ? (
+            projects.map((project) => <ProjectCard key={project.id} project={project} />)
+          ) : (
+            <div>No projects found.</div>
+          )}
+          {isFetchingNextPage ? <div className="w-full h-full bg-transparent">Loading...</div> : <div ref={ref} />}
+        </div>
       ) : (
-        <div>No projects found.</div>
+        <div className="m-4">
+          {projects && projects.length > 0 ? (
+            projects.map((project) => <ProjectCard key={project.id} project={project} />)
+          ) : (
+            <div>No projects found.</div>
+          )}
+          {isFetchingNextPage ? <div className="w-full h-full bg-transparent">Loading...</div> : <div ref={ref} />}
+        </div>
       )}
-      {isFetchingNextPage ? <div className="w-full h-full bg-transparent">Loading...</div> : <div ref={ref} />}
-    </div>
+    </>
   );
 };

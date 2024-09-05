@@ -7,9 +7,13 @@ import { useEffect, useRef, useState } from 'react';
 import { ProjectList } from '../entities/projectList';
 import Footer from '../shared/ui/Footer.tsx';
 import { useLocation } from 'react-router-dom';
-import ProjectCard from '../shared/ui/ProjectCard.tsx';
+import ProjectCard from '../shared/ui/ProjectBoxCard.tsx';
 import { prizeDate } from '../shared/types/prizeDate.ts';
 import iconPoint from '../shared/assets/image/mainImg/Icon-Point.png';
+import ToggleButton from '@mui/material/ToggleButton';
+import ToggleButtonGroup from '@mui/material/ToggleButtonGroup';
+import listIcon from '../shared/assets/image/listImg/ListIcon.png';
+import boxIcon from '../shared/assets/image/listImg/BoxIcon.png';
 
 export default function MainPage() {
   const OPTIONS: EmblaOptionsType = { loop: true };
@@ -38,6 +42,13 @@ export default function MainPage() {
     if (semester === 'SECOND') return '하계';
     else return '';
   }
+
+  //토글 버튼
+  const [alignment, setAlignment] = useState<string | null>('left');
+
+  const handleAlignment = (event: React.MouseEvent<HTMLElement>, newAlignment: string | null) => {
+    setAlignment(newAlignment);
+  };
 
   return (
     <div className="bg-[#111111] flex flex-col w-screen justify-center items-center">
@@ -84,15 +95,55 @@ export default function MainPage() {
                 테커 모든 <a className="font-['Pretendard-Bold']">프로젝트</a>
               </span>
             </div>
-            <DropDown
+            <div className="flex flex-row justify-between p-[1rem]">
+              <div className="w-[7rem]"></div>
+              <DropDown
+                selectedType={selectedType}
+                setSelectedType={setSelectedType}
+                selectedYear={selectedYear}
+                setSelectedYear={setSelectedYear}
+                selectedPeriod={selectedPeriod}
+                setSelectedPeriod={setSelectedPeriod}
+              />
+              <ToggleButtonGroup value={alignment} exclusive onChange={handleAlignment} aria-label="alignment">
+                <ToggleButton
+                  sx={{
+                    borderColor: '#919191',
+                    '&.Mui-selected': {
+                      backgroundColor: '#6e6e6e !important', // 선택 시 배경색을 투명하게 설정
+                    },
+                    '&:hover': {
+                      backgroundColor: '#474747', // 원하는 hover 색상 지정
+                    },
+                  }}
+                  value="left"
+                  aria-label="box aligned"
+                >
+                  <img className="h-[1rem] w-[1rem]" src={boxIcon} />
+                </ToggleButton>
+                <ToggleButton
+                  sx={{
+                    borderColor: '#919191',
+                    '&.Mui-selected': {
+                      backgroundColor: '#6e6e6e !important', // 선택 시 배경색을 투명하게 설정
+                    },
+                    '&:hover': {
+                      backgroundColor: '#474747', // 원하는 hover 색상 지정
+                    },
+                  }}
+                  value="right"
+                  aria-label="list aligned"
+                >
+                  <img className="h-[1rem] w-[1rem]" src={listIcon} />
+                </ToggleButton>
+              </ToggleButtonGroup>
+            </div>
+            <ProjectList
               selectedType={selectedType}
-              setSelectedType={setSelectedType}
               selectedYear={selectedYear}
-              setSelectedYear={setSelectedYear}
               selectedPeriod={selectedPeriod}
-              setSelectedPeriod={setSelectedPeriod}
+              alignment={alignment}
             />
-            <ProjectList selectedType={selectedType} selectedYear={selectedYear} selectedPeriod={selectedPeriod} />
           </>
         )}
       </div>
