@@ -7,12 +7,13 @@ import { EmblaOptionsType } from 'embla-carousel';
 import { prizeDate } from '../../../shared/types/prizeDate';
 import ProjectCard from '../../../shared/ui/ProjectCard';
 import useScrollCount from '../hook/useScrollHook';
-import useScrollFadeIn from '../hook/useScrollFadIn';
+// import useScrollFadeIn from '../hook/useScrollFadIn';
 import { motion } from 'framer-motion';
 
 export default function Bootcamp() {
   const OPTIONS: EmblaOptionsType = { loop: true };
   const [result, setResult] = useState<any>([]);
+  console.log(setResult);
   const queryParams = new URLSearchParams(location.search);
   const searchQuery = queryParams.get('search') || '';
 
@@ -163,12 +164,12 @@ export default function Bootcamp() {
                 <a className="font-['Pretendard-Bold']"> 우수 선정작</a>
               </span>
             </div>
+            <div className="overflow-x-hidden w-[98%] mx-auto mb-[6.25rem]">
+              <EmblaCarousel options={OPTIONS} date={data} />
+              <div ref={scrollRef}></div>
+            </div>
           </>
         )}
-      </div>
-      <div className="overflow-x-hidden w-[98%] mx-auto mb-[6.25rem]">
-        <EmblaCarousel options={OPTIONS} date={data} />
-        <div ref={scrollRef}></div>
       </div>
     </div>
   );

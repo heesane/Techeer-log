@@ -1,8 +1,8 @@
-import { useEffect, useRef, useState } from 'react';
+// import { useEffect, useRef, useState } from 'react';
 import { motion } from 'framer-motion';
 
 export default function Intro() {
-  const techRef = useRef<HTMLDivElement>(null);
+  // const techRef = useRef<HTMLDivElement>(null);
   // const topTechRef = useRef<HTMLDivElement>(null);
   // const bottomTechRef = useRef<HTMLDivElement>(null);
 

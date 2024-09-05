@@ -22,7 +22,7 @@ export default function Project() {
   ];
 
   return (
-    <div className="w-[100vw] h-[100vw] flex flex-col my-20 items-center text-white">
+    <div className="w-[100vw] h-[100vw] flex flex-col mt-[40rem] my-[10rem] items-center text-white">
       {/* 텍스트 */}
       <div className="w-[100vw] h-[100vw] my-[10rem] flex flex-col">
         <motion.div
@@ -88,11 +88,11 @@ export default function Project() {
             viewport={{ once: false }}
             transition={{
               ease: 'easeInOut',
-              duration: 1,
+              duration: 0.7,
               delay: 0.4,
             }}
           >
-            <img className="w-[70vw] h-[25rem] flex mx-auto mt-[10rem] bg-clip-content" src={folder} alt="" />
+            <img className="w-[80rem] h-[25rem] flex mx-auto mt-[3rem] bg-clip-content" src={folder} alt="" />
           </motion.div>
           {/** 캐러셀 */}
           <div className="w-[100vw] h-[20rem] flex flex-col mt-[10rem] items-center gap-[1rem]">

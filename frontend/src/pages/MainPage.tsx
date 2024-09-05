@@ -1,10 +1,9 @@
 import NavBar from '../shared/ui/NavBar.tsx';
 import { Search } from '../entities/search';
-import { EmblaOptionsType } from 'embla-carousel';
+// import { EmblaOptionsType } from 'embla-carousel';
 import { useEffect, useRef, useState } from 'react';
 import Footer from '../shared/ui/Footer.tsx';
 import { useLocation } from 'react-router-dom';
-import { prizeDate } from '../shared/types/prizeDate.ts';
 import Intro from '../entities/onboarding/ui/Intro.tsx';
 import Bootcamp from '../entities/onboarding/ui/Bootcamp.tsx';
 import Project from '../entities/onboarding/ui/Project.tsx';
@@ -14,6 +13,7 @@ import { motion } from 'framer-motion';
 
 export default function MainPage() {
   const [result, setResult] = useState<any>([]);
+  console.log(result);
   const location = useLocation();
   const queryParams = new URLSearchParams(location.search);
   const searchQuery = queryParams.get('search') || '';
