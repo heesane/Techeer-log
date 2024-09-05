@@ -3,7 +3,7 @@ import Footer from '../../shared/ui/Footer.tsx';
 import { getBootCampProject } from './api/getBootCampProject.ts';
 import { Project } from '../../shared/types/projectList.ts';
 import { useQuery } from '@tanstack/react-query';
-import ProjectCard from '../../shared/ui/ProjectCard.tsx';
+import ProjectCard from '../../shared/ui/ProjectBoxCard.tsx';
 
 export const BootCampPage = () => {
   const { data, isError, error } = useQuery<Project[]>({

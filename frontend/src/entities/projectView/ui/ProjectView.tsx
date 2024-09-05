@@ -163,21 +163,21 @@ export const ProjectView = (props: { data: ProjectData }) => {
                     </span>
                     <div className="flex flex-row items-center gap-4 box-sizing-border">
                       {project.githubLink && (
-                        <div className="flex">
+                        <div className="flex hover:scale-110">
                           <a href={project.githubLink} target="_blank" rel="noopener noreferrer">
                             <img src={GithubIcon} className="cursor-pointer w-[1.6rem] h-[1.5rem]" />
                           </a>
                         </div>
                       )}
                       {project.blogLink && (
-                        <div className="flex">
+                        <div className="flex hover:scale-110">
                           <a href={project.blogLink} target="_blank" rel="noopener noreferrer">
                             <img src={BlogIcon} className="cursor-pointer ml-1 w-[1.3rem] h-[1.3rem]" />
                           </a>
                         </div>
                       )}
                       {project.websiteLink && (
-                        <div className="flex">
+                        <div className="flex hover:scale-110">
                           <a href={project.websiteLink} target="_blank" rel="noopener noreferrer">
                             <img src={WebIcon} className="cursor-pointer w-[1.6rem] h-[1.6rem]" />
                           </a>
