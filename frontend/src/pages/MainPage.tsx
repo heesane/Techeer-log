@@ -7,9 +7,10 @@ import { useEffect, useRef, useState } from 'react';
 import { ProjectList } from '../entities/projectList';
 import Footer from '../shared/ui/Footer.tsx';
 import { useLocation } from 'react-router-dom';
-import ProjectCard from '../shared/ui/ProjectCard.tsx';
+import ProjectCard from '../shared/ui/ProjectBoxCard.tsx';
 import { prizeDate } from '../shared/types/prizeDate.ts';
 import iconPoint from '../shared/assets/image/mainImg/Icon-Point.png';
+import ListToggle from '../shared/ui/listToggle.tsx';
 
 export default function MainPage() {
   const OPTIONS: EmblaOptionsType = { loop: true };
@@ -38,6 +39,12 @@ export default function MainPage() {
     if (semester === 'SECOND') return '하계';
     else return '';
   }
+
+  const [alignment, setAlignment] = useState<string | null>('left');
+
+  const setAlign = (align: string | null) => {
+    setAlignment(align);
+  };
 
   return (
     <div className="bg-[#111111] flex flex-col w-screen justify-center items-center">
@@ -84,15 +91,24 @@ export default function MainPage() {
                 테커 모든 <a className="font-['Pretendard-Bold']">프로젝트</a>
               </span>
             </div>
-            <DropDown
+            <div className="flex flex-row justify-between p-[1rem]">
+              <div className="w-[7rem]"></div>
+              <DropDown
+                selectedType={selectedType}
+                setSelectedType={setSelectedType}
+                selectedYear={selectedYear}
+                setSelectedYear={setSelectedYear}
+                selectedPeriod={selectedPeriod}
+                setSelectedPeriod={setSelectedPeriod}
+              />
+              <ListToggle alignment={alignment} setAlign={setAlign} />
+            </div>
+            <ProjectList
               selectedType={selectedType}
-              setSelectedType={setSelectedType}
               selectedYear={selectedYear}
-              setSelectedYear={setSelectedYear}
               selectedPeriod={selectedPeriod}
-              setSelectedPeriod={setSelectedPeriod}
+              alignment={alignment}
             />
-            <ProjectList selectedType={selectedType} selectedYear={selectedYear} selectedPeriod={selectedPeriod} />
           </>
         )}
       </div>

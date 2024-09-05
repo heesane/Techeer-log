@@ -5,7 +5,7 @@ import arrow from '../assets/image/mainImg/arrow.png';
 interface propsProjects {
   project: Project;
 }
-export default function ProjectCard({ project }: propsProjects) {
+export default function ProjectBoxCard({ project }: propsProjects) {
   const firstFrontend = project.frameworkResponseList.find((framework) => framework.frameworkTypeEnum === 'FRONTEND');
   const firstBackend = project.frameworkResponseList.find((framework) => framework.frameworkTypeEnum === 'BACKEND');
   const teamName = project.projectTeamNameEnum;
