@@ -26,16 +26,16 @@ export default function ProjectCard({ project }: propsProjects) {
       )}
       <div
         key={project.id}
-        className="h-[24rem] rounded-[0.3rem] border-solid border border-[#444444] flex flex-col p-[0_0_1rem_0] box-sizing-border w-[100%] relative transform transition-transform duration-300 ease-in-out hover:scale-105"
+        className="h-[24rem] rounded-[0.3rem] border-solid border border-[#444444] flex flex-col box-sizing-border w-[100%] relative transform transition-transform duration-300 ease-in-out"
         onMouseOver={() => setIsHover(true)}
         onMouseOut={() => setIsHover(false)}
       >
         {isHover ? (
-          <div className="absolute z-10 w-full h-full p-6 text-white transition-opacity duration-1000 ease-in-out bg-black rounded opacity-80">
-            <div className="w-80 inline-block self-start break-words font-['Pre-R'] font-bold text-[1.7rem] text-[#FFFFFF] overflow-hidden text-ellipsis whitespace-nowrap">
+          <div className="absolute z-10 w-full h-full px-[2rem] py-[2.5rem] text-white transition-opacity backdrop-blur-[0.9rem] duration-1000 ease-in-out bg-[#0b0b0bf5] rounded opacity-[0.99]">
+            <div className="w-80 inline-block self-start break-words font-['Pre'] font-bold text-[1.6rem] text-[#fafafa] overflow-hidden text-ellipsis whitespace-nowrap">
               {project.title}
             </div>
-            <div className="w-80 mt-[0.3rem] inline-block self-start break-words font-['Pre-R'] font-normal text-[1.2rem] text-[#CCCCCC] overflow-hidden text-ellipsis whitespace-nowrap text-clamp">
+            <div className="w-80 mt-[0.5rem] inline-block self-start break-words font-['Pre-R'] font-normal text-[1.1rem] text-[#B2B2B2] overflow-hidden text-ellipsis whitespace-nowrap text-clamp">
               {project.year}
               {project.semesterEnum === 'FIRST'
                 ? ' 동계 부트캠프'
@@ -43,34 +43,47 @@ export default function ProjectCard({ project }: propsProjects) {
                   ? ' 하계 부트캠프'
                   : ''}
             </div>
-            <div className="w-80 mt-[1rem] inline-block self-start break-words font-['Pre-R'] font-normal text-[1.4rem] text-[#FFFFFF] overflow-hidden text-ellipsis whitespace-nowrap text-clamp">
-              한 줄 소개 : {project.subtitle}
+            <div className="w-80 mt-[1.5rem] inline-block self-start break-words font-['Pre-R'] font-normal text-[1.1rem] text-[#fafafa] overflow-hidden text-ellipsis whitespace-nowrap text-clamp">
+              {project.subtitle}
             </div>
-            <div className="w-80 mt-[1rem] inline-block self-start break-words font-['Pre-R'] font-normal text-[1.4rem] text-[#FFFFFF] overflow-hidden text-ellipsis whitespace-nowrap text-clamp">
-              대표 기술 : {firstFrontend?.name}, {firstBackend?.name}
+            <div className="rounded-[0.3rem] flex flex-row flex-wrap self-start w-[90%] h-[2rem] box-sizing-border mt-[2.5rem]">
+              {firstFrontend ? (
+                <div className="rounded-[0.3rem] bg-[#333333] m-[0_0.8rem_0.4rem_0rem] flex flex-row justify-center p-[0.3rem_0.7rem_0.3rem_0.7rem] box-sizing-border">
+                  <span className="break-words font-['Pre-R'] text-[0.9rem] text-[#FFFFFF]">{firstFrontend.name}</span>
+                </div>
+              ) : (
+                <></>
+              )}
+              {firstBackend ? (
+                <div className="rounded-[0.3rem] bg-[#333333] m-[0_0.8rem_0.4rem_0rem] flex flex-row justify-center p-[0.3rem_0.7rem_0.3rem_0.7rem] box-sizing-border">
+                  <span className="break-words font-['Pre-R'] text-[0.9rem] text-[#FFFFFF]">{firstBackend.name}</span>
+                </div>
+              ) : (
+                <></>
+              )}
             </div>
-            <div className="absolute bottom-[2rem] flex flex-row gap-[1rem]">
+            <div className="absolute bottom-[2rem] flex flex-row gap-[1.4rem] font-['Pre'] text-[1.5rem]">
               <Link to={moveProjectView}>
                 <button className="flex flex-row gap-[0.3rem] cursor-pointer">
-                  <p className="text-[1.3rem] font-semibold">Detail</p>
-                  <img className="h-[1.4rem] w-[1.4rem] mt-[0.08rem]" src={arrow}></img>
+                  <p className="text-[#0047FF] font-bold">Detail </p>
+                  <img className="h-[1.2rem] w-[1rem] ml-[0.1rem] mt-[0.2rem]" src={arrow}></img>
                 </button>
               </Link>
-              {project.githubLink ? (
+              {!project.githubLink ? (
                 <Link to={project.githubLink}>
                   <button className="flex flex-row gap-[0.3rem] cursor-pointer">
-                    <p className="text-[1.3rem] font-semibold">Github</p>
-                    <img className="h-[1.4rem] w-[1.4rem] mt-[0.08rem]" src={arrow}></img>
+                    <p className="text-[#0047FF] font-bold">Github </p>
+                    <img className="h-[1.2rem] w-[1rem] ml-[0.1rem] mt-[0.2rem]" src={arrow}></img>
                   </button>
                 </Link>
               ) : (
                 <></>
               )}
-              {project.blogLink ? (
+              {!project.blogLink ? (
                 <Link to={project.blogLink}>
                   <button className="flex flex-row gap-[0.3rem] cursor-pointer">
-                    <p className="text-[1.3rem] font-semibold">Blog</p>
-                    <img className="h-[1.4rem] w-[1.4rem] mt-[0.08rem]" src={arrow}></img>
+                    <p className="text-[#0047FF] font-bold">Blog </p>
+                    <img className="h-[1.2rem] w-[1rem] ml-[0.1rem] mt-[0.2rem]" src={arrow}></img>
                   </button>
                 </Link>
               ) : (
@@ -81,33 +94,20 @@ export default function ProjectCard({ project }: propsProjects) {
         ) : (
           <></>
         )}
-        <div className="flex justify-center items-center rounded-[0.3rem] m-[0_0_1.3rem_0] w-[99.9%] h-[15rem]">
+        <div className="flex justify-center items-center rounded-[0.3rem] w-[99.9%] h-[15rem]">
           {project.mainImageUrl ? (
             <img alt="mainImg" className="object-contain w-full h-full" src={project.mainImageUrl} />
           ) : (
             <></>
           )}
         </div>
-        <div className="w-80 m-[0_1rem_0.4rem_1rem] inline-block self-start break-words font-['Pre-S'] font-semibold text-[1.5rem] bg-[#FFFFFF] text-[transparent] bg-clip-text overflow-hidden text-ellipsis whitespace-nowrap">
-          {project.title}
-        </div>
-        <div className="w-80 m-[0.4rem_1rem_0.7rem_1rem] inline-block self-start break-words font-['Pre-R'] font-normal text-[1.1rem] text-[#CCCCCC] overflow-hidden text-ellipsis whitespace-nowrap text-clamp">
-          {project.subtitle}
-        </div>
-        <div className="m-[0_1rem_0_1rem] flex flex-row justify-between w-[92%] box-sizing-border">
-          {/* <p className="m-[0_0.5rem_0_0] break-words font-['Pre-R'] font-normal text-[0.8rem] text-[#B0B0B0]">
-            {project.projectStatusEnum === 'RUNNING' ? (
-              <>
-                <span className="text-[1.2rem] text-green-400">•</span>
-                <span> 서비스 운영중</span>
-              </>
-            ) : (
-              <>
-                <span className="text-[1.2rem]">•</span>
-                <span> 서비스 중단</span>
-              </>
-            )}
-          </p> */}
+        <div className="flex flex-col bg-[#111111] h-[9rem] py-[1.2rem] px-2">
+          <div className="w-[85%] m-[0.3rem_0rem_0.4rem_1rem] inline-block self-start break-words font-['Pre-S'] font-semibold text-[1.5rem] bg-[#FFFFFF] text-[transparent] bg-clip-text overflow-hidden text-ellipsis whitespace-nowrap">
+            {project.title}
+          </div>
+          <div className="w-[85%] m-[0.2rem_0rem_0.7rem_1rem] inline-block self-start break-words font-['Pre-R'] font-normal text-[1.05rem] text-[#CCCCCC] overflow-hidden text-ellipsis whitespace-nowrap text-clamp">
+            {project.subtitle}
+          </div>
         </div>
       </div>
     </>

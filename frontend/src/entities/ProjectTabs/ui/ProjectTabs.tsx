@@ -2,10 +2,12 @@ interface TabProps {
   selectedType: string;
   setSelectedType: (type: string) => void;
   setSelectedYear: (type: string) => void;
+  setSelectedPeriod: (type: string) => void;
 }
-export const ProjectTabs = ({ selectedType, setSelectedType, setSelectedYear }: TabProps) => {
+export const ProjectTabs = ({ selectedType, setSelectedType, setSelectedYear, setSelectedPeriod }: TabProps) => {
   const handleTabClick = (category: string) => {
     setSelectedYear('진행 연도');
+    setSelectedPeriod('전체');
     setSelectedType(category);
   };
 
