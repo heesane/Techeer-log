@@ -82,7 +82,7 @@ export default function ProjectListCard({ project }: propsProjects) {
                   src={project.mainImageUrl}
                 />
               ) : (
-                <></>
+                <div className="w-[18rem] h-[10rem] rounded-[0.3rem] max-w-none" />
               )}
             </div>
             <div className="flex flex-col ml-[1.5rem]">
@@ -90,7 +90,7 @@ export default function ProjectListCard({ project }: propsProjects) {
                 <div className="max-w-[15rem] m-[0_1rem_0.4rem_1rem] inline-block self-start break-words font-['Pre-S'] font-semibold text-[1.5rem] bg-[#FFFFFF] text-[transparent] bg-clip-text overflow-hidden text-ellipsis whitespace-nowrap">
                   {project.title}
                 </div>
-                <div className="w-80 mt-[0.2rem] inline-block self-start break-words font-['Pre-R'] font-normal text-[1.2rem] text-[#CCCCCC] overflow-hidden text-ellipsis whitespace-nowrap text-clamp">
+                <div className="w-80 mt-[0.4rem] inline-block self-start break-words font-['Pre-R'] font-normal text-[0.9rem] text-[#CCCCCC] overflow-hidden text-ellipsis whitespace-nowrap text-clamp">
                   {project.year}
                   {project.semesterEnum === 'FIRST'
                     ? ' 동계 부트캠프'
