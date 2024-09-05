@@ -27,43 +27,6 @@ export default function ProjectListCard({ project }: propsProjects) {
           key={project.id}
           className="h-[14rem] rounded-[0.3rem] border-solid border border-[#444444] flex p-[1rem] box-sizing-border w-[100%] relative transform transition-transform duration-300 ease-in-out hover:scale-105 mb-[1.3rem]"
         >
-          {/* <div className="absolute z-10 w-full h-full p-6 text-white transition-opacity duration-1000 ease-in-out bg-black rounded opacity-80">
-            <div className="w-80 inline-block self-start break-words font-['Pre-R'] font-bold text-[1.7rem] text-[#FFFFFF] overflow-hidden text-ellipsis whitespace-nowrap">
-              {project.title}
-            </div>
-            <div className="w-80 mt-[1rem] inline-block self-start break-words font-['Pre-R'] font-normal text-[1.4rem] text-[#FFFFFF] overflow-hidden text-ellipsis whitespace-nowrap text-clamp">
-              한 줄 소개 : {project.subtitle}
-            </div>
-            <div className="w-80 mt-[1rem] inline-block self-start break-words font-['Pre-R'] font-normal text-[1.4rem] text-[#FFFFFF] overflow-hidden text-ellipsis whitespace-nowrap text-clamp">
-              대표 기술 : {firstFrontend?.name}, {firstBackend?.name}
-            </div>
-            <div className="absolute bottom-[2rem] flex flex-row gap-[1rem]">
-              <button className="flex flex-row gap-[0.3rem] cursor-pointer">
-                <p className="text-[1.3rem] font-semibold">Detail</p>
-                <img className="h-[1.4rem] w-[1.4rem] mt-[0.08rem]" src={arrow}></img>
-              </button>
-              {project.githubLink ? (
-                <Link to={project.githubLink}>
-                  <button className="flex flex-row gap-[0.3rem] cursor-pointer">
-                    <p className="text-[1.3rem] font-semibold">Github</p>
-                    <img className="h-[1.4rem] w-[1.4rem] mt-[0.08rem]" src={arrow}></img>
-                  </button>
-                </Link>
-              ) : (
-                <></>
-              )}
-              {project.blogLink ? (
-                <Link to={project.blogLink}>
-                  <button className="flex flex-row gap-[0.3rem] cursor-pointer">
-                    <p className="text-[1.3rem] font-semibold">Blog</p>
-                    <img className="h-[1.4rem] w-[1.4rem] mt-[0.08rem]" src={arrow}></img>
-                  </button>
-                </Link>
-              ) : (
-                <></>
-              )}
-            </div>
-          </div> */}
           {project.rankEnum !== 'NONE' ? (
             <div className="absolute w-0 h-0 border-solid border-0 border-r-[5rem] border-b-[5rem] border-transparent border-r-[#2B00AD] top-0 right-0">
               <p className="absolute w-[3rem] ml-[2rem] mt-[1.3rem] text-[1rem] font-semibold text-white rotate-[45deg]">
