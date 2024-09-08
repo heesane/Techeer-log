@@ -4,7 +4,7 @@ import { DropDown } from '../../entities/filter';
 import { ProjectList } from '../../entities/projectList';
 import { useState } from 'react';
 import { ProjectTabs } from '../../entities/ProjectTabs/ui/ProjectTabs.tsx';
-import ListToggle from '../../shared/ui/listToggle.tsx';
+import ListToggle from '../../shared/ui/ListToggle.tsx';
 
 export const ProjectPage = () => {
   const [selectedType, setSelectedType] = useState<string>('부트캠프');
