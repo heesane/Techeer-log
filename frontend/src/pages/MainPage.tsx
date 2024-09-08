@@ -10,7 +10,7 @@ import { useLocation } from 'react-router-dom';
 import ProjectCard from '../shared/ui/ProjectBoxCard.tsx';
 import { prizeDate } from '../shared/types/prizeDate.ts';
 import iconPoint from '../shared/assets/image/mainImg/Icon-Point.png';
-import ListToggle from '../shared/ui/listToggle.tsx';
+import ListToggle from '../shared/ui/ListToggle.tsx';
 
 export default function MainPage() {
   const OPTIONS: EmblaOptionsType = { loop: true };
