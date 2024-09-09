@@ -17,6 +17,7 @@ import com.techeerlog.member.exception.MemberNotFoundException;
 import com.techeerlog.member.repository.MemberRepository;
 import com.techeerlog.project.domain.*;
 import com.techeerlog.project.dto.*;
+import com.techeerlog.project.enums.ProjectTeamNameEnum;
 import com.techeerlog.project.enums.RankEnum;
 import com.techeerlog.project.enums.SearchFieldEnum;
 import com.techeerlog.project.enums.SemesterEnum;
@@ -71,7 +72,9 @@ public class ProjectService {
         projectResponse.setProjectMemberResponseList(getProjectMemberResponseList(findProject.getProjectMemberList()));
         projectResponse.setNonRegisterProjectMemberResponseList(getNonRegisterProjectMemberResponseList(findProject.getNonRegisterProjectMemberList()));
         projectResponse.setFrameworkResponseList(getFrameworkResponseList(findProject.getProjectFrameworkList()));
+
         return projectResponse;
+//        return createProjectResponse(findProject, authInfo);
     }
 
     private List<NonRegisterProjectMemberResponse> getNonRegisterProjectMemberResponseList(List<NonRegisterProjectMember> nonRegisterProjectMemberList) {
@@ -90,6 +93,7 @@ public class ProjectService {
         Member writer = utilMethod.findMemberByAuthInfo(authInfo);
         Project project = projectMapper.projectRequestToProject(projectRequest);
         project.setMember(writer);
+        project.setProjectTeamNameEnum(ProjectTeamNameEnum.P); // 임시 추가 마지막 커밋 때 삭제
 
         Optional<Project> projectOptional = Optional.of(projectRepository.save(project));
         Project savedProject = projectOptional.orElseThrow(ProjectNotFoundException::new);
@@ -315,6 +319,19 @@ public class ProjectService {
         Sort sort = Sort.by(Sort.Direction.ASC, "projectTeamNameEnum", "id");
         Pageable pageable = PageRequest.of(projectListRequest.getPageStart(), projectListRequest.getPageSize(), sort);
         return projectRepository.findAllByYearAndSemesterSorted(year, semester, pageable);
+    }
+
+    private ProjectResponse createProjectResponse(Project project, AuthInfo authInfo){
+        ProjectResponse projectResponse = projectMapper.projectToProjectResponse(project);
+        projectResponse.setWriter(memberMapper.memberToMemberResponse(project.getMember()));
+        projectResponse.setLoveCount(project.getLoveList().size());
+        projectResponse.setLoved(loveRepository.findByMemberIdAndProjectId(authInfo.getId(), project.getId()).isPresent());
+        projectResponse.setScraped(scrapRepository.findByMemberIdAndProjectId(authInfo.getId(), project.getId()).isPresent());
+        projectResponse.setProjectMemberResponseList(getProjectMemberResponseList(project.getProjectMemberList()));
+        projectResponse.setNonRegisterProjectMemberResponseList(getNonRegisterProjectMemberResponseList(project.getNonRegisterProjectMemberList()));
+        projectResponse.setFrameworkResponseList(getFrameworkResponseList(project.getProjectFrameworkList()));
+//        projectResponse.setProjectTeamNameEnum(ProjectTeamNameEnum.D);
+        return projectResponse;
     }
 
 }
