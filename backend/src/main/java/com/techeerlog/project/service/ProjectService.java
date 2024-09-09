@@ -30,6 +30,7 @@ import com.techeerlog.project.repository.ProjectRepository;
 import com.techeerlog.scrap.repository.ScrapRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.CachePut;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -64,17 +65,7 @@ public class ProjectService {
 
         Project findProject = findProjectById(projectId);
 
-        ProjectResponse projectResponse = projectMapper.projectToProjectResponse(findProject);
-        projectResponse.setWriter(memberMapper.memberToMemberResponse(findProject.getMember()));
-        projectResponse.setLoveCount(findProject.getLoveList().size());
-        projectResponse.setLoved(loveRepository.findByMemberIdAndProjectId(authInfo.getId(), findProject.getId()).isPresent());
-        projectResponse.setScraped(scrapRepository.findByMemberIdAndProjectId(authInfo.getId(), findProject.getId()).isPresent());
-        projectResponse.setProjectMemberResponseList(getProjectMemberResponseList(findProject.getProjectMemberList()));
-        projectResponse.setNonRegisterProjectMemberResponseList(getNonRegisterProjectMemberResponseList(findProject.getNonRegisterProjectMemberList()));
-        projectResponse.setFrameworkResponseList(getFrameworkResponseList(findProject.getProjectFrameworkList()));
-
-        return projectResponse;
-//        return createProjectResponse(findProject, authInfo);
+        return createProjectResponse(findProject, authInfo);
     }
 
     private List<NonRegisterProjectMemberResponse> getNonRegisterProjectMemberResponseList(List<NonRegisterProjectMember> nonRegisterProjectMemberList) {
@@ -93,7 +84,6 @@ public class ProjectService {
         Member writer = utilMethod.findMemberByAuthInfo(authInfo);
         Project project = projectMapper.projectRequestToProject(projectRequest);
         project.setMember(writer);
-        project.setProjectTeamNameEnum(ProjectTeamNameEnum.P); // 임시 추가 마지막 커밋 때 삭제
 
         Optional<Project> projectOptional = Optional.of(projectRepository.save(project));
         Project savedProject = projectOptional.orElseThrow(ProjectNotFoundException::new);
@@ -114,7 +104,8 @@ public class ProjectService {
     }
 
     @Transactional
-    public void updateProject(Long id, ProjectRequest projectRequest, AuthInfo authInfo) {
+    @CachePut(value = "project", key = "#id")
+    public ProjectResponse updateProject(Long id, ProjectRequest projectRequest, AuthInfo authInfo) {
         Project project = findProjectById(id);
         validateOwner(authInfo, project);
 
@@ -128,6 +119,8 @@ public class ProjectService {
         saveProjectMemberList(project, projectRequest.getProjectMemberRequestList());
         saveProjectNonRegisterProjectMemberList(project, projectRequest.getNonRegisterProjectMemberRequestList());
         saveProjectFrameworkList(project, projectRequest.getFrameworkRequestList());
+
+        return createProjectResponse(project, authInfo);
     }
 
 
@@ -330,7 +323,6 @@ public class ProjectService {
         projectResponse.setProjectMemberResponseList(getProjectMemberResponseList(project.getProjectMemberList()));
         projectResponse.setNonRegisterProjectMemberResponseList(getNonRegisterProjectMemberResponseList(project.getNonRegisterProjectMemberList()));
         projectResponse.setFrameworkResponseList(getFrameworkResponseList(project.getProjectFrameworkList()));
-//        projectResponse.setProjectTeamNameEnum(ProjectTeamNameEnum.D);
         return projectResponse;
     }
 
