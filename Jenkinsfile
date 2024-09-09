@@ -67,7 +67,7 @@ pipeline {
                         ssh -o StrictHostKeyChecking=no ${DEPLOY_SERVER} << EOF
                           cd ~/Techeer-log
                           git checkout DO/feat/#345 && git pull
-                          chmod +x deploy_to_ec2.sh
+                          chmod +x deploy.sh
                           ./deploy.sh
                         EOF
                         """
