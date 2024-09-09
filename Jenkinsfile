@@ -64,11 +64,11 @@ pipeline {
                 script {
                     sshagent(['deploy-server-ssh']) {
                         sh """
-                        ssh -o StrictHostKeyChecking=no ${DEPLOY_SERVER}'
+                        ssh -o StrictHostKeyChecking=no ${DEPLOY_SERVER} '
                         cd ~/Techeer-log
                         git pull
                         chmod +x deploy_to_ec2.sh
-                        ./deploy_to_ec2.sh
+                        ./deploy_to_ec2.sh'
                         """
                     }
                 }
