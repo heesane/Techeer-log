@@ -1,6 +1,6 @@
 echo "This Deploy Script is Testing"
 
-#cd Techeer-log
+#cd ~/Techeer-log
 #git pull
-#chmode +x deploy_to_ec2.sh
+#chmod +x deploy_to_ec2.sh
 #./deploy_to_ec2.sh

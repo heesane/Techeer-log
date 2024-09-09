@@ -9,18 +9,18 @@ pipeline {
         stage('Checkout') {
             steps {
                 cleanWs()
-                git branch: 'DO/feat/#345', url: 'https://github.com/Techeer-log/Techeer-log.git'
+                git branch: 'develop', url: 'https://github.com/Techeer-log/Techeer-log.git'
             }
         }
 
         stage('Test') {
-                    steps {
-                        script {
-                            sh "docker --version"
-                            sh "docker compose --version"
-                        }
-                    }
+            steps {
+                script {
+                    sh "docker --version"
+                    sh "docker compose --version"
                 }
+            }
+        }
 
         stage('Get Commit Message') {
             steps {
@@ -42,8 +42,6 @@ pipeline {
                       chmod +x backend-build.sh
                       ./backend-build.sh
                     """
-
-
                 }
             }
         }
@@ -53,12 +51,7 @@ pipeline {
                 anyOf {
                     branch 'main'
                     branch 'develop'
-                    branch 'DO/feat/#345'
                 }
-//                 expression {
-//                     def commitMessage = sh(script: "git log -1 --pretty=%B", returnStdout: true).trim()
-//                     return commitMessage.contains("Merge")
-//                 }
             }
             steps {
                 script {
@@ -66,7 +59,7 @@ pipeline {
                         sh """
                         ssh -o StrictHostKeyChecking=no ${DEPLOY_SERVER} << EOF
                           cd ~/Techeer-log
-                          git checkout DO/feat/#345 && git pull
+                          git pull
                           chmod +x deploy.sh
                           ./deploy.sh
                         EOF
