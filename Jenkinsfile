@@ -9,7 +9,7 @@ pipeline {
         stage('Checkout') {
             steps {
                 cleanWs()
-                git branch: 'develop', url: 'https://github.com/Techeer-log/Techeer-log.git'
+                git branch: 'DO/feat/#345', url: 'https://github.com/Techeer-log/Techeer-log.git'
             }
         }
 
