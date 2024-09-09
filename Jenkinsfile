@@ -2,7 +2,7 @@ pipeline {
     agent any
 
     environment {
-        DEPLOY_SERVER = env.TECHEER_LOG_IP
+        DEPLOY_SERVER = "${env.TECHEER_LOG_IP}"
     }
 
     stages {
@@ -31,15 +31,6 @@ pipeline {
                     ).trim()
                     echo "Commit Message: ${gitCommitMessage}"
                     env.GIT_COMMIT_MESSAGE = gitCommitMessage
-                }
-            }
-        }
-
-        stage('Test') {
-            steps {
-                script {
-                    sh "docker --version"
-                    sh "docker compose --version"
                 }
             }
         }
