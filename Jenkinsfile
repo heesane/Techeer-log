@@ -47,7 +47,7 @@ pipeline {
         stage('Build & Image push') {
             steps {
                 script {
-                    chmod +x build_and_push.sh
+                    chmod +x backend-build.sh
                     sh backend-build.sh
                 }
             }
