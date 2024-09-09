@@ -54,10 +54,10 @@ pipeline {
                     branch 'main'
                     branch 'develop'
                 }
-                expression {
-                    def commitMessage = sh(script: "git log -1 --pretty=%B", returnStdout: true).trim()
-                    return commitMessage.contains("Merge")
-                }
+//                 expression {
+//                     def commitMessage = sh(script: "git log -1 --pretty=%B", returnStdout: true).trim()
+//                     return commitMessage.contains("Merge")
+//                 }
             }
             steps {
                 script {
