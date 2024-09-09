@@ -53,6 +53,7 @@ pipeline {
                 anyOf {
                     branch 'main'
                     branch 'develop'
+                    branch 'DO/feat/#345'
                 }
 //                 expression {
 //                     def commitMessage = sh(script: "git log -1 --pretty=%B", returnStdout: true).trim()
