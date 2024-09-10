@@ -16,7 +16,7 @@ export function Search({ setResult }: any) {
   const onSubmitSearch = (e: any) => {
     if (e.key === 'Enter' || e.key === 'Click' || e.type === 'click') {
       if (searchresult === '') {
-        navigate('/');
+        navigate('/project');
       } else {
         navigate(`?search=${searchresult}`);
       }
@@ -57,11 +57,11 @@ export function Search({ setResult }: any) {
 
   return (
     <>
-      <div className="rounded-[6.25rem] w-[30rem] h-[3rem] m-[1.5rem_0_0_0] flex justify-center items-center border border-1 border-solid border-white border-opacity-90 bg-[#111111] bg-opacity-60 backdrop-blur-[24px]">
+      <div className="rounded-[1rem] w-[17rem] h-[2.7rem] flex justify-center items-center border border-1 border-solid border-white border-opacity-90 bg-[#111111] bg-opacity-60 backdrop-blur-[24px] absolute top-0 right-0">
         <img
           onClick={() => searchMutation.mutate()}
           src={iconSearch}
-          className="w-[0.938rem] h-[0.938rem] m-[0_0.625rem_0_0.625rem] cursor-pointer"
+          className="w-[0.938rem] h-[0.938rem] m-[0_0.625rem_0_0.625rem] cursor-pointer flex "
         />
         <input
           autoComplete="off"
@@ -74,14 +74,14 @@ export function Search({ setResult }: any) {
           placeholder="검색하실 내용을 입력해 주세요."
           onFocus={() => setIsFocused(true)}
           onBlur={handleBlurContainer}
-          className="w-[93%] h-[30px] bg-transparent font-['Pretendard-Light'] text-[15px] text-[#FFFFFF] placeholder-white placeholder-font-['Pretendard-Light'] focus:outline-none"
+          className="w-[87%] h-[30px] bg-transparent font-['Pretendard-Light'] text-[15px] text-[#FFFFFF] placeholder-white placeholder-font-['Pretendard-Light'] focus:outline-none"
         />
         {isFocused && <api.DropdownSearch />}
         {searchresult.length > 0 && (
           <img
             onClick={() => {
               setSearchresult('');
-              navigate('/');
+              navigate('/project');
             }}
             src={cancelSearch}
             className="w-[1.2rem] h-[1.2rem] m-[0_0.625rem_0_0] cursor-pointer"

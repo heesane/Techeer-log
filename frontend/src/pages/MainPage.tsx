@@ -1,33 +1,21 @@
 import NavBar from '../shared/ui/NavBar.tsx';
 import { DropDown } from '../entities/filter';
-import { Search } from '../entities/search';
 import { EmblaCarousel } from '../entities/carousel';
 import { EmblaOptionsType } from 'embla-carousel';
-import { useEffect, useRef, useState } from 'react';
+import { useRef, useState } from 'react';
 import { ProjectList } from '../entities/projectList';
 import Footer from '../shared/ui/Footer.tsx';
-import { useLocation } from 'react-router-dom';
-import ProjectCard from '../shared/ui/ProjectBoxCard.tsx';
 import { prizeDate } from '../shared/types/prizeDate.ts';
 import iconPoint from '../shared/assets/image/mainImg/Icon-Point.png';
 import ListToggle from '../shared/ui/ListToggle.tsx';
 
 export default function MainPage() {
   const OPTIONS: EmblaOptionsType = { loop: true };
-  const [result, setResult] = useState<any>([]);
-  const location = useLocation();
-  const queryParams = new URLSearchParams(location.search);
-  const searchQuery = queryParams.get('search') || '';
   const [selectedType, setSelectedType] = useState<string>('프로젝트 종류');
   const [selectedYear, setSelectedYear] = useState<string>('진행 연도');
   const [selectedPeriod, setSelectedPeriod] = useState<string>('전체');
 
   const scrollRef = useRef<HTMLDivElement | null>(null);
-  useEffect(() => {
-    if (searchQuery) {
-      scrollRef.current?.scrollIntoView({ behavior: 'smooth' });
-    }
-  }, [searchQuery]);
 
   const data: prizeDate = {
     projectTypeEnum: 'BOOTCAMP',
@@ -56,61 +44,46 @@ export default function MainPage() {
           <span className="font-['Pretendard-Thin'] text-[1.875rem]">
             테커에서 진행하는 <a className="font-['Pretendard-Medium']">다양한 프로젝트를 한눈에</a>
           </span>
-          <Search setResult={setResult} nowRef={scrollRef} />
         </div>
       </div>
       <div className="w-[75rem] mt-[6.063rem] flex flex-col justify-center mb-[15rem]">
-        {searchQuery ? (
-          <div ref={scrollRef} className="grid grid-cols-3 grid-rows-3 gap-4 m-4">
-            {result && result.length > 0 ? (
-              result.map((results: any) => <ProjectCard key={results.id} project={results} />)
-            ) : (
-              <div className="flex justify-center text-[1.875rem] text-[#FFFFFF] font-['Pretendard-Thin']">
-                No projects found.
-              </div>
-            )}
-          </div>
-        ) : (
-          <>
-            {/* 우수선정작 */}
-            <div className="flex flex-col items-center justify-center mb-12">
-              <img src={iconPoint} className="w-[1.875rem] h-[0.75rem] mb-[1rem]" />
-              <span className="font-['Pretendard-Thin'] text-[1.875rem] text-white">
-                {data.year} {renameSemester(data.semesterEnum)} 부트캠프
-                <a className="font-['Pretendard-Bold']"> 우수 선정작</a>
-              </span>
-            </div>
-            <div className="overflow-x-hidden w-[98%] mx-auto mb-[6.25rem]">
-              <EmblaCarousel options={OPTIONS} date={data} />
-              <div ref={scrollRef}></div>
-            </div>
-            {/*프로젝트 전체*/}
-            <div className="flex flex-col items-center justify-center mb-12">
-              <img src={iconPoint} className="w-[1.875rem] h-[0.75rem] mb-[1rem]" />
-              <span className="font-['Pretendard-Thin'] text-[1.875rem] text-white">
-                테커 모든 <a className="font-['Pretendard-Bold']">프로젝트</a>
-              </span>
-            </div>
-            <div className="flex flex-row justify-between p-[1rem]">
-              <div className="w-[7rem]"></div>
-              <DropDown
-                selectedType={selectedType}
-                setSelectedType={setSelectedType}
-                selectedYear={selectedYear}
-                setSelectedYear={setSelectedYear}
-                selectedPeriod={selectedPeriod}
-                setSelectedPeriod={setSelectedPeriod}
-              />
-              <ListToggle alignment={alignment} setAlign={setAlign} />
-            </div>
-            <ProjectList
-              selectedType={selectedType}
-              selectedYear={selectedYear}
-              selectedPeriod={selectedPeriod}
-              alignment={alignment}
-            />
-          </>
-        )}
+        {/* 우수선정작 */}
+        <div className="flex flex-col items-center justify-center mb-12">
+          <img src={iconPoint} className="w-[1.875rem] h-[0.75rem] mb-[1rem]" />
+          <span className="font-['Pretendard-Thin'] text-[1.875rem] text-white">
+            {data.year} {renameSemester(data.semesterEnum)} 부트캠프
+            <a className="font-['Pretendard-Bold']"> 우수 선정작</a>
+          </span>
+        </div>
+        <div className="overflow-x-hidden w-[98%] mx-auto mb-[6.25rem]">
+          <EmblaCarousel options={OPTIONS} date={data} />
+          <div ref={scrollRef}></div>
+        </div>
+        {/*프로젝트 전체*/}
+        <div className="flex flex-col items-center justify-center mb-12">
+          <img src={iconPoint} className="w-[1.875rem] h-[0.75rem] mb-[1rem]" />
+          <span className="font-['Pretendard-Thin'] text-[1.875rem] text-white">
+            테커 모든 <a className="font-['Pretendard-Bold']">프로젝트</a>
+          </span>
+        </div>
+        <div className="flex flex-row justify-between p-[1rem]">
+          <div className="w-[7rem]"></div>
+          <DropDown
+            selectedType={selectedType}
+            setSelectedType={setSelectedType}
+            selectedYear={selectedYear}
+            setSelectedYear={setSelectedYear}
+            selectedPeriod={selectedPeriod}
+            setSelectedPeriod={setSelectedPeriod}
+          />
+          <ListToggle alignment={alignment} setAlign={setAlign} />
+        </div>
+        <ProjectList
+          selectedType={selectedType}
+          selectedYear={selectedYear}
+          selectedPeriod={selectedPeriod}
+          alignment={alignment}
+        />
       </div>
       <Footer />
     </div>

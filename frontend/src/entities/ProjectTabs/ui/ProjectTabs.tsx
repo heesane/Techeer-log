@@ -1,10 +1,21 @@
+import { Search } from '../../../entities/search/index.ts';
+
 interface TabProps {
   selectedType: string;
+  scrollRef: React.RefObject<HTMLDivElement>;
   setSelectedType: (type: string) => void;
   setSelectedYear: (type: string) => void;
   setSelectedPeriod: (type: string) => void;
+  setResult: (result: string) => void;
 }
-export const ProjectTabs = ({ selectedType, setSelectedType, setSelectedYear, setSelectedPeriod }: TabProps) => {
+export const ProjectTabs = ({
+  selectedType,
+  scrollRef,
+  setSelectedType,
+  setSelectedYear,
+  setSelectedPeriod,
+  setResult,
+}: TabProps) => {
   const handleTabClick = (category: string) => {
     setSelectedYear('진행 연도');
     setSelectedPeriod('전체');
@@ -30,7 +41,7 @@ export const ProjectTabs = ({ selectedType, setSelectedType, setSelectedYear, se
 
   return (
     <>
-      <div className="flex flex-row gap-[4rem] w-[100%] pb-[1rem] border-b-[0.1rem] border-solid border-[#444444] box-sizing-border">
+      <div className="flex flex-row gap-[4rem] w-[100%] pb-[1rem] border-b-[0.1rem] border-solid border-[#444444] box-sizing-border relative">
         <span
           className={`break-words font-['Pre'] font-[600] text-[1.7rem] w-fit ml-1 text-center ${
             selectedType === '부트캠프' ? 'text-[#fafafa]' : 'text-[#a1a1a1]'
@@ -53,6 +64,7 @@ export const ProjectTabs = ({ selectedType, setSelectedType, setSelectedYear, se
             <div className="bg-[#0047FF] z-[2] absolute w-[8rem] -ml-[0.5rem] h-[0.2rem] mt-[0.92rem]"></div>
           )}
         </span>
+        <Search setResult={setResult} nowRef={scrollRef} />
       </div>
       <div className="flex flex-col items-start justify-center text-[1.25rem] px-[0.5rem] mb-[2rem] font-[400] text-[#90909a]">
         {selectedTab.description}
