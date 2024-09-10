@@ -12,6 +12,7 @@ export function Search({ setResult }: any) {
   const searchQuery = queryParams.get('search') || '';
   const [isFocused, setIsFocused] = useState<boolean>(false);
   const inputRef = useRef<HTMLInputElement>(null);
+  const [placeholder, setPlaceholder] = useState<string>('검색할 프로젝트를 입력해 주세요.');
   const onSubmitSearch = (e: any) => {
     if (e.key === 'Enter' || e.key === 'Click' || e.type === 'click') {
       if (searchresult === '') {
@@ -31,9 +32,15 @@ export function Search({ setResult }: any) {
   const onChangeSearch = (e: any) => {
     setSearchresult(e.target.value);
   };
+  const onFocus = () => {
+    setIsFocused(true);
+    setPlaceholder('');
+  };
+
   const handleBlurContainer = () => {
     setTimeout(() => {
       setIsFocused(false);
+      setPlaceholder('검색할 프로젝트를 입력해 주세요.');
     }, 200);
   };
   const searchMutation = useMutation({
@@ -70,10 +77,11 @@ export function Search({ setResult }: any) {
           onChange={onChangeSearch}
           type="text"
           name="search"
-          placeholder="검색하실 내용을 입력해 주세요."
-          onFocus={() => setIsFocused(true)}
+          placeholder={placeholder}
+          autoFocus
+          onFocus={onFocus}
           onBlur={handleBlurContainer}
-          className="w-[87%] h-[30px] bg-transparent font-['Pretendard-Light'] text-[15px] text-[#FFFFFF] placeholder-white placeholder-font-['Pretendard-Light'] focus:outline-none"
+          className="w-[87%] h-[30px] bg-transparent font-['Pretendard-Light'] text-[15px] text-[#FFFFFF] placeholder-font-['Pretendard-Light'] focus:outline-none"
         />
         {isFocused && <api.DropdownSearch />}
         {searchresult.length > 0 && (
