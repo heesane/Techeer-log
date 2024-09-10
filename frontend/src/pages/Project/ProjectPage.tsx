@@ -5,7 +5,6 @@ import { ProjectList } from '../../entities/projectList';
 import { useEffect, useRef, useState } from 'react';
 import { ProjectTabs } from '../../entities/ProjectTabs/ui/ProjectTabs.tsx';
 import ListToggle from '../../shared/ui/ListToggle.tsx';
-import ProjectBoxCard from '../../shared/ui/ProjectBoxCard.tsx';
 
 export const ProjectPage = () => {
   const [selectedType, setSelectedType] = useState<string>('부트캠프');
@@ -21,7 +20,7 @@ export const ProjectPage = () => {
   //검색 기능 자동 스크롤
   const queryParams = new URLSearchParams(location.search);
   const searchQuery = queryParams.get('search') || '';
-  const [result, setResult] = useState<any>([]);
+  const [_, setResult] = useState<any>([]);
   const scrollRef = useRef<HTMLDivElement | null>(null);
 
   useEffect(() => {
@@ -57,29 +56,18 @@ export const ProjectPage = () => {
           />
           <ListToggle alignment={alignment} setAlign={setAlign} />
         </div>
-        {searchQuery ? (
-          <div className="grid grid-cols-3 grid-rows-3 gap-4 m-4">
-            {result && result.length > 0 ? (
-              result.map((results: any) => <ProjectBoxCard key={results.id} project={results} />)
-            ) : (
-              <div className="flex justify-center text-[1.875rem] text-[#FFFFFF] font-['Pretendard-Thin']">
-                No projects found.
-              </div>
-            )}
-          </div>
-        ) : (
-          <div className="flex flex-col w-[1200px]">
-            <ProjectList
-              selectedType={selectedType}
-              selectedYear={selectedYear}
-              selectedPeriod={selectedPeriod}
-              alignment={alignment}
-            />
-          </div>
-        )}
+        <div className="flex flex-col w-[1200px]">
+          <ProjectList
+            selectedType={selectedType}
+            selectedYear={selectedYear}
+            selectedPeriod={selectedPeriod}
+            alignment={alignment}
+            result={searchQuery}
+          />
+        </div>
         <div className="mb-[25rem]"></div>
-        <Footer />
       </div>
+      <Footer />
     </div>
   );
 };

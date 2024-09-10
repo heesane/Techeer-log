@@ -73,7 +73,7 @@ export default function ProjectBoxCard({ project }: propsProjects) {
                   <img className="h-[1.2rem] w-[1rem] ml-[0.1rem] mt-[0.2rem]" src={arrow}></img>
                 </button>
               </Link>
-              {!project.githubLink ? (
+              {project.githubLink ? (
                 <Link to={project.githubLink}>
                   <button className="flex flex-row gap-[0.3rem] cursor-pointer">
                     <p className="text-[#0047FF] font-bold">Github </p>
@@ -83,7 +83,7 @@ export default function ProjectBoxCard({ project }: propsProjects) {
               ) : (
                 <></>
               )}
-              {!project.blogLink ? (
+              {project.blogLink ? (
                 <Link to={project.blogLink}>
                   <button className="flex flex-row gap-[0.3rem] cursor-pointer">
                     <p className="text-[#0047FF] font-bold">Blog </p>

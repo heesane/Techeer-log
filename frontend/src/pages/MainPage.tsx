@@ -14,6 +14,7 @@ export default function MainPage() {
   const [selectedType, setSelectedType] = useState<string>('프로젝트 종류');
   const [selectedYear, setSelectedYear] = useState<string>('진행 연도');
   const [selectedPeriod, setSelectedPeriod] = useState<string>('전체');
+  const empty = '';
 
   const scrollRef = useRef<HTMLDivElement | null>(null);
 
@@ -83,6 +84,7 @@ export default function MainPage() {
           selectedYear={selectedYear}
           selectedPeriod={selectedPeriod}
           alignment={alignment}
+          result={empty}
         />
       </div>
       <Footer />

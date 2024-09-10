@@ -1,10 +1,8 @@
 import { useEffect, useState } from 'react';
 import iconSearch from '../../../shared/assets/image/searchImg/Icon-Search.png';
-import { useNavigate } from 'react-router-dom';
 
 export function DropdownSearch() {
   const [recentSearches, setRecentSearches] = useState<string[]>([]);
-  const navigate = useNavigate();
   useEffect(() => {
     const searches = localStorage.getItem('recentSearches');
 
@@ -14,9 +12,9 @@ export function DropdownSearch() {
   }, []);
   const handleSearchClick = (search: string) => {
     if (search === '') {
-      navigate('/project');
+      window.location.replace('/project');
     } else {
-      navigate(`?search=${search}`);
+      window.location.replace(`?search=${search}`);
     }
   };
   return (
@@ -31,7 +29,7 @@ export function DropdownSearch() {
             }}
             className="flex flex-row mb-[0.4rem] h-[1.3rem] w-[100%]"
           >
-            <img src={iconSearch} className="w-[0.938rem] h-[0.938rem] m-[0.25rem_0.625rem_0_0]" />
+            <img src={iconSearch} className="w-[0.938rem] h-[0.938rem] m-[0.2rem_0.625rem_0_0]" />
             <p className="text-left text-white">{recent}</p>
           </button>
         ))}

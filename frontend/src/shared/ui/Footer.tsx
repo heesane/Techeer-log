@@ -8,7 +8,7 @@ const Footer = () => {
   return (
     <div className="bg-[#212121] flex flex-row justify-center items-center w-screen py-8">
       <div className="flex flex-row justify-between items-center w-[1300px] px-4">
-        <div className="flex flex-col gap-2 justify-center">
+        <div className="flex flex-col justify-center gap-2">
           <span className="break-words font-['Bayon'] font-normal text-[2.2rem] leading-[1.5] text-[#FFFFFF]">
             TECHEER
           </span>

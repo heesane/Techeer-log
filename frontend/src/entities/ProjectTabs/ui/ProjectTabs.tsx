@@ -8,7 +8,7 @@ interface TabProps {
   setSelectedPeriod: (type: string) => void;
   setResult: (result: string) => void;
 }
-export const ProjectTabs = ({
+export const  ProjectTabs = ({
   selectedType,
   scrollRef,
   setSelectedType,

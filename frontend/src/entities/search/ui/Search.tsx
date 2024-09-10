@@ -1,14 +1,13 @@
 import { useEffect, useRef, useState } from 'react';
 import * as api from '../index';
 import { useMutation } from '@tanstack/react-query';
-import { useLocation, useNavigate } from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
 import cancelSearch from '../../../shared/assets/image/searchImg/Cancel-Search.svg';
 import iconSearch from '../../../shared/assets/image/searchImg/Icon-Search.png';
 
 export function Search({ setResult }: any) {
   const [searchresult, setSearchresult] = useState('');
   const location = useLocation();
-  const navigate = useNavigate();
   const queryParams = new URLSearchParams(location.search);
   const searchQuery = queryParams.get('search') || '';
   const [isFocused, setIsFocused] = useState<boolean>(false);
@@ -16,9 +15,9 @@ export function Search({ setResult }: any) {
   const onSubmitSearch = (e: any) => {
     if (e.key === 'Enter' || e.key === 'Click' || e.type === 'click') {
       if (searchresult === '') {
-        navigate('/project');
+        window.location.replace('/project');
       } else {
-        navigate(`?search=${searchresult}`);
+        window.location.replace(`?search=${searchresult}`);
       }
     }
   };
@@ -81,7 +80,7 @@ export function Search({ setResult }: any) {
           <img
             onClick={() => {
               setSearchresult('');
-              navigate('/project');
+              window.location.replace('/project');
             }}
             src={cancelSearch}
             className="w-[1.2rem] h-[1.2rem] m-[0_0.625rem_0_0] cursor-pointer"

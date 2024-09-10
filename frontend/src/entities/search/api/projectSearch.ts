@@ -4,10 +4,10 @@ export const projectSearch = async (keyword: string) => {
   const response = await axiosInstance.get('/api/v1/projects/list', {
     params: {
       pageStart: 0,
-      pageSize: 30,
+      pageSize: 20,
       searchKeyword: keyword,
-      searchFieldEnum: 'ALL',
-      sortDirection: 'ASC',
+      searchFieldEnum: 'TITLE',
+      sortDirection: 'DESC',
     },
     headers: {
       'Content-Type': 'multipart/form-data',

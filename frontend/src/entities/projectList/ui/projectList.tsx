@@ -8,6 +8,7 @@ type ProjectListProps = {
   selectedYear: string;
   selectedPeriod: string;
   alignment: string | null;
+  result: string;
 };
 /* prettier-ignore */
 const filterOptions: Record<string, string> = {
@@ -18,8 +19,8 @@ const filterOptions: Record<string, string> = {
   '하계': 'SECOND',
 };
 //프로젝트 가져온 후 필터링
-const useProjects = ({ selectedType, selectedYear, selectedPeriod }: ProjectListProps) => {
-  const { data, hasNextPage, isFetching, isFetchingNextPage, fetchNextPage } = useGetProjectQuery();
+const useProjects = ({ selectedType, selectedYear, selectedPeriod, result }: ProjectListProps) => {
+  const { data, hasNextPage, isFetching, isFetchingNextPage, fetchNextPage } = useGetProjectQuery(result);
   const projects = data?.pages.flat() ?? [];
   const filteredProjects = useMemo(() => {
     let p = [...projects];
@@ -35,7 +36,7 @@ const useProjects = ({ selectedType, selectedYear, selectedPeriod }: ProjectList
       p = p.filter(({ semesterEnum }) => semesterEnum === filterOptions[selectedPeriod]);
     }
     return p;
-  }, [projects, selectedType, selectedYear, selectedPeriod, filterOptions]);
+  }, [projects, selectedType, selectedYear, selectedPeriod, filterOptions, result]);
   return {
     projects: filteredProjects,
     hasNextPage,
@@ -44,12 +45,13 @@ const useProjects = ({ selectedType, selectedYear, selectedPeriod }: ProjectList
     fetchNextPage,
   };
 };
-export const ProjectList = ({ selectedType, selectedYear, selectedPeriod, alignment }: ProjectListProps) => {
+export const ProjectList = ({ selectedType, selectedYear, selectedPeriod, alignment, result }: ProjectListProps) => {
   const { projects, hasNextPage, isFetching, isFetchingNextPage, fetchNextPage } = useProjects({
     selectedType,
     selectedYear,
     selectedPeriod,
     alignment,
+    result,
   });
   const { ref, inView } = useInView();
   useEffect(() => {
