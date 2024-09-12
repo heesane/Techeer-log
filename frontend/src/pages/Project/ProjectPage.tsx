@@ -5,6 +5,7 @@ import { ProjectList } from '../../entities/projectList';
 import { useEffect, useRef, useState } from 'react';
 import { ProjectTabs } from '../../entities/ProjectTabs/ui/ProjectTabs.tsx';
 import ListToggle from '../../shared/ui/ListToggle.tsx';
+import { useLocation } from 'react-router';
 
 export const ProjectPage = () => {
   const [selectedType, setSelectedType] = useState<string>('부트캠프');
@@ -22,12 +23,16 @@ export const ProjectPage = () => {
   const searchQuery = queryParams.get('search') || '';
   const [_, setResult] = useState<any>([]);
   const scrollRef = useRef<HTMLDivElement | null>(null);
+  const { pathname } = useLocation();
 
   useEffect(() => {
     if (searchQuery) {
       scrollRef.current?.scrollIntoView({ behavior: 'smooth' });
     }
   }, [searchQuery]);
+  useEffect(() => {
+    if (!searchQuery) window.scrollTo(0, 0);
+  }, [pathname]);
 
   return (
     <div className="w-screen bg-[#111111] flex flex-col justify-center items-center">
@@ -39,7 +44,6 @@ export const ProjectPage = () => {
       >
         <ProjectTabs
           selectedType={selectedType}
-          scrollRef={scrollRef}
           setSelectedType={setSelectedType}
           setSelectedYear={setSelectedYear}
           setSelectedPeriod={setSelectedPeriod}

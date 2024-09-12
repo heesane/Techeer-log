@@ -2,15 +2,13 @@ import { Search } from '../../../entities/search/index.ts';
 
 interface TabProps {
   selectedType: string;
-  scrollRef: React.RefObject<HTMLDivElement>;
   setSelectedType: (type: string) => void;
   setSelectedYear: (type: string) => void;
   setSelectedPeriod: (type: string) => void;
   setResult: (result: string) => void;
 }
-export const  ProjectTabs = ({
+export const ProjectTabs = ({
   selectedType,
-  scrollRef,
   setSelectedType,
   setSelectedYear,
   setSelectedPeriod,
@@ -64,7 +62,7 @@ export const  ProjectTabs = ({
             <div className="bg-[#0047FF] z-[2] absolute w-[8rem] -ml-[0.5rem] h-[0.2rem] mt-[0.92rem]"></div>
           )}
         </span>
-        <Search setResult={setResult} nowRef={scrollRef} />
+        <Search setResult={setResult} />
       </div>
       <div className="flex flex-col items-start justify-center text-[1.25rem] px-[0.5rem] mb-[2rem] font-[400] text-[#90909a]">
         {selectedTab.description}

@@ -78,10 +78,9 @@ export function Search({ setResult }: any) {
           type="text"
           name="search"
           placeholder={placeholder}
-          autoFocus
           onFocus={onFocus}
           onBlur={handleBlurContainer}
-          className="w-[87%] h-[30px] bg-transparent font-['Pretendard-Light'] text-[15px] text-[#FFFFFF] placeholder-font-['Pretendard-Light'] focus:outline-none"
+          className="w-[87%] h-[30px] bg-transparent font-['Pretendard-Light'] text-[0.92rem] text-[#FFFFFF] placeholder-font-['Pretendard-Light'] focus:outline-none"
         />
         {isFocused && <api.DropdownSearch />}
         {searchresult.length > 0 && (
