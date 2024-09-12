@@ -4,7 +4,6 @@ import { Search } from '../entities/search';
 import { useEffect, useRef, useState } from 'react';
 import Footer from '../shared/ui/Footer.tsx';
 import { useLocation } from 'react-router-dom';
-import Intro from '../entities/onboarding/ui/Intro.tsx';
 import Bootcamp from '../entities/onboarding/ui/Bootcamp.tsx';
 import Project from '../entities/onboarding/ui/Project.tsx';
 import circle1 from '../entities/onboarding/image/circle1.png';
@@ -83,7 +82,6 @@ export default function MainPage() {
           <Search setResult={setResult} nowRef={scrollRef} />
         </div>
       </div>
-      {/* <Intro /> */}
       {/* 부트캠프 소개*/}
       <Bootcamp />
       {/* 프로젝트 소개*/}
