@@ -27,9 +27,17 @@ export interface Project {
   frameworkResponseList: Framework[];
   loved: boolean;
   scraped: boolean;
+  content: string;
+  githubLink: string;
+  blogLink: string;
 }
 
 // ProjectList 타입 정의
 export interface ProjectList {
   data: Project[];
+}
+
+export interface ProjectToggle {
+  alignment: string | null;
+  setAlign: (alignment: string | null) => void;
 }

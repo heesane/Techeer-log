@@ -5,7 +5,7 @@ import { EmblaCarousel } from '../../../entities/carousel';
 import { useEffect, useRef, useState } from 'react';
 import { EmblaOptionsType } from 'embla-carousel';
 import { prizeDate } from '../../../shared/types/prizeDate';
-import ProjectCard from '../../../shared/ui/ProjectCard';
+import ProjectCard from '../../../shared/ui/ProjectListCard';
 import useScrollCount from '../hook/useScrollHook';
 // import useScrollFadeIn from '../hook/useScrollFadIn';
 import { motion } from 'framer-motion';

@@ -4,7 +4,6 @@ import WebIcon from '../../../shared/assets/image/modalImg/Internet.svg';
 import { Framework, ProjectData, ProjectMember } from '../../../shared/types/project.ts';
 import { LikeButton } from './LikeButton.tsx';
 import { ScrapButton } from './ScrapButton.tsx';
-import { ShareButton } from './ShareButton.tsx';
 import { MarkdownView } from '../../../feature/ProjectWrite';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { deleteProject } from '../api/project.ts';
@@ -96,7 +95,7 @@ export const ProjectView = (props: { data: ProjectData }) => {
           </div>
           <div className="flex flex-row justify-between box-sizing-border mt-[0.5rem]">
             <ScrapButton projectId={project.id} scraped={project.scraped} />
-            <ShareButton />
+            {/* <ShareButton /> */}
           </div>
         </div>
         {/*글*/}
@@ -114,7 +113,13 @@ export const ProjectView = (props: { data: ProjectData }) => {
               )}
             </div>
             <div className="whitespace-pre-wrap leading-5 self-start break-words font-['Pretendard'] font-normal text-[1rem] text-[#FFFFFF] w-full h-fit">
-              <MarkdownView markdown={project.content} />
+              <div
+                className={
+                  'bg-transparent w-[100%] h-fit text-[1.2rem] outline-none cursor-text border-none text-white focus:text-white px-1 leading-6'
+                }
+              >
+                <MarkdownView markdown={project.content} />
+              </div>
             </div>
           </div>
           {/*요약 박스*/}
@@ -158,21 +163,21 @@ export const ProjectView = (props: { data: ProjectData }) => {
                     </span>
                     <div className="flex flex-row items-center gap-4 box-sizing-border">
                       {project.githubLink && (
-                        <div className="flex">
+                        <div className="flex hover:scale-110">
                           <a href={project.githubLink} target="_blank" rel="noopener noreferrer">
                             <img src={GithubIcon} className="cursor-pointer w-[1.6rem] h-[1.5rem]" />
                           </a>
                         </div>
                       )}
                       {project.blogLink && (
-                        <div className="flex">
+                        <div className="flex hover:scale-110">
                           <a href={project.blogLink} target="_blank" rel="noopener noreferrer">
                             <img src={BlogIcon} className="cursor-pointer ml-1 w-[1.3rem] h-[1.3rem]" />
                           </a>
                         </div>
                       )}
                       {project.websiteLink && (
-                        <div className="flex">
+                        <div className="flex hover:scale-110">
                           <a href={project.websiteLink} target="_blank" rel="noopener noreferrer">
                             <img src={WebIcon} className="cursor-pointer w-[1.6rem] h-[1.6rem]" />
                           </a>

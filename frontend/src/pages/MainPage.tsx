@@ -26,16 +26,6 @@ export default function MainPage() {
     }
   }, [searchQuery]);
 
-  // const data: prizeDate = {
-  //   projectTypeEnum: 'BOOTCAMP',
-  //   year: 2024,
-  //   semesterEnum: 'SECOND',
-  // };
-  // function renameSemester(semester: string) {
-  //   if (semester === 'FIRST') return '동계';
-  //   if (semester === 'SECOND') return '하계';
-  //   else return '';
-  // }
   const interBubble = useRef<HTMLDivElement | null>(null);
 
   useEffect(() => {
@@ -66,9 +56,15 @@ export default function MainPage() {
     };
   }, []);
 
+  const [alignment, setAlignment] = useState<string | null>('left');
+
+  const setAlign = (align: string | null) => {
+    setAlignment(align);
+  };
+
   return (
     <div className="bg-[#111111] flex flex-col w-screen justify-center items-center">
-      <NavBar scrollRef={scrollRef} />
+      <NavBar />
       {/* 메인페이지-소개 */}
       <div className="w-[100vw] h-[41.6vw] flex justify-center items-center gradient-bg">
         <div className="gradients-container absolute inset-0">
@@ -87,7 +83,7 @@ export default function MainPage() {
           <Search setResult={setResult} nowRef={scrollRef} />
         </div>
       </div>
-      <Intro />
+      {/* <Intro /> */}
       {/* 부트캠프 소개*/}
       <Bootcamp />
       {/* 프로젝트 소개*/}
