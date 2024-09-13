@@ -2,6 +2,7 @@ import arrow from '../image/arrow.png';
 import object from '../image/object.png';
 import iconPoint from '../../../shared/assets/image/mainImg/Icon-Point.png';
 import { EmblaCarousel } from '../../../entities/carousel';
+import { useEffect, useRef } from 'react';
 import { EmblaOptionsType } from 'embla-carousel';
 import { prizeDate } from '../../../shared/types/prizeDate';
 import useScrollCount from '../hook/useScrollHook';
@@ -11,6 +12,8 @@ import { Link } from 'react-router-dom';
 
 export default function Bootcamp() {
   const OPTIONS: EmblaOptionsType = { loop: true };
+  const queryParams = new URLSearchParams(location.search);
+  const searchQuery = queryParams.get('search') || '';
 
   const animatedItem1 = useScrollCount(8, 0, 1000);
   const animatedItem2 = useScrollCount(600, 0, 1000);
@@ -21,6 +24,13 @@ export default function Bootcamp() {
   //   1: useScrollFadeIn('up', 1, 0.2),
   //   2: useScrollFadeIn('up', 1, 0.3),
   // };
+
+  const scrollRef = useRef<HTMLDivElement | null>(null);
+  useEffect(() => {
+    if (searchQuery) {
+      scrollRef.current?.scrollIntoView({ behavior: 'smooth' });
+    }
+  }, [searchQuery]);
 
   const data: prizeDate = {
     projectTypeEnum: 'BOOTCAMP',
@@ -134,15 +144,18 @@ export default function Bootcamp() {
         </motion.div>
       </div>
       {/* 우수 선정작 */}
-      <div className="flex flex-col items-center justify-center my-12">
-        <img src={iconPoint} className="w-[1.875rem] h-[0.75rem] mb-[1rem]" />
-        <span className="font-['Pretendard-Thin'] text-[1.875rem] text-white">
-          {data.year} {renameSemester(data.semesterEnum)} 부트캠프
-          <a className="font-['Pretendard-Bold']"> 우수 선정작</a>
-        </span>
-      </div>
-      <div className="overflow-x-hidden w-[98%] mx-auto mb-[6.25rem]">
-        <EmblaCarousel options={OPTIONS} date={data} />
+      <div className="w-[75rem] mt-[6.063rem] flex flex-col justify-center mb-[15rem]">
+        <div className="flex flex-col items-center justify-center my-12">
+          <img src={iconPoint} className="w-[1.875rem] h-[0.75rem] mb-[1rem]" />
+          <span className="font-['Pretendard-Thin'] text-[1.875rem] text-white">
+            {data.year} {renameSemester(data.semesterEnum)} 부트캠프
+            <a className="font-['Pretendard-Bold']"> 우수 선정작</a>
+          </span>
+        </div>
+        <div className="overflow-x-hidden w-[98%] mx-auto mb-[6.25rem]">
+          <EmblaCarousel options={OPTIONS} date={data} />
+          <div ref={scrollRef}></div>
+        </div>
       </div>
     </div>
   );
