@@ -4,6 +4,8 @@ import { useMutation } from '@tanstack/react-query';
 import { useLocation } from 'react-router-dom';
 import cancelSearch from '../../../shared/assets/image/searchImg/Cancel-Search.svg';
 import iconSearch from '../../../shared/assets/image/searchImg/Icon-Search.png';
+import { Input } from '@headlessui/react';
+import clsx from 'clsx';
 
 export function Search({ setResult }: any) {
   const [searchresult, setSearchresult] = useState('');
@@ -63,13 +65,17 @@ export function Search({ setResult }: any) {
 
   return (
     <>
-      <div className="rounded-[1rem] w-[17rem] h-[2.7rem] flex justify-center items-center border border-1 border-solid border-white border-opacity-90 bg-[#111111] bg-opacity-60 backdrop-blur-[24px] absolute top-0 right-0">
+      <div className="rounded-[1rem] w-[17rem] h-[2.7rem] flex justify-end items-center absolute top-0 right-0">
         <img
           onClick={() => searchMutation.mutate()}
           src={iconSearch}
           className="w-[0.938rem] h-[0.938rem] m-[0_0.625rem_0_0.625rem] cursor-pointer flex "
         />
-        <input
+        <Input
+          className={clsx(
+            'block w-[87%] h-[2.1rem] rounded-lg border-none bg-white/5 py-1.5 px-3 text-sm/6 text-white font-[Pretendard-Light] text-[0.92rem]',
+            'focus:outline-none data-[focus]:outline-2 data-[focus]:-outline-offset-2 data-[focus]:outline-white/25 placeholder-font-[Pretendard-Light]',
+          )}
           autoComplete="off"
           ref={inputRef}
           value={searchresult}
@@ -80,7 +86,6 @@ export function Search({ setResult }: any) {
           placeholder={placeholder}
           onFocus={onFocus}
           onBlur={handleBlurContainer}
-          className="w-[87%] h-[30px] bg-transparent font-['Pretendard-Light'] text-[0.92rem] text-[#FFFFFF] placeholder-font-['Pretendard-Light'] focus:outline-none"
         />
         {isFocused && <api.DropdownSearch />}
         {searchresult.length > 0 && (
