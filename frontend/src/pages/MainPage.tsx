@@ -2,12 +2,13 @@ import NavBar from '../shared/ui/NavBar.tsx';
 // import { EmblaOptionsType } from 'embla-carousel';
 import { useEffect, useRef } from 'react';
 import Footer from '../shared/ui/Footer.tsx';
-import { useLocation } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import Bootcamp from '../entities/onboarding/ui/Bootcamp.tsx';
 import Project from '../entities/onboarding/ui/Project.tsx';
 import circle1 from '../entities/onboarding/image/circle1.png';
 import circle2 from '../entities/onboarding/image/circle2.png';
 import { motion } from 'framer-motion';
+import arrow from '../entities/onboarding/image/arrow.png';
 
 export default function MainPage() {
   const location = useLocation();
@@ -101,7 +102,7 @@ export default function MainPage() {
           <div className="flex flex-col items-center justify-center mb-[20rem]">
             <span className="font-['Pretendard-Medium'] text-white text-[2rem]">실리콘밸리 성장 코딩스쿨 </span>
             <span
-              className="font-['Pre-S'] text-white text-[11rem]"
+              className="font-['Pre-S'] text-white text-[11rem] "
               style={{
                 backgroundImage: 'linear-gradient(to bottom, #E4EDFF, #0047FF',
                 WebkitBackgroundClip: 'text',
@@ -110,6 +111,27 @@ export default function MainPage() {
             >
               Techeer
             </span>
+            <motion.div
+              className="mx-auto mb-[3rem] rounded-[3rem] border-solid border-[1px] border-black shadow-[0_35px_60px_-15px_rgba(146, 146, 146, 0.3)]"
+              style={{
+                boxShadow: '0px 4px 4px -2px rgba(146, 146, 146, 0.49)',
+              }}
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: false }}
+              transition={{
+                ease: 'easeInOut',
+                duration: 1,
+                delay: 0.5,
+              }}
+            >
+              <Link to="https://techeer.net">
+                <div className="flex w-[15rem] h-[3rem] justify-center items-center gap-[1rem]">
+                  <span className="font-['Pretendard-Medium'] text-[1.3rem] text-white">테커 소개 보러가기</span>
+                  <img className="w-[2rem] h-[2rem] flex" src={arrow} alt="버튼" />
+                </div>
+              </Link>
+            </motion.div>
           </div>
         </motion.div>
         <motion.div
