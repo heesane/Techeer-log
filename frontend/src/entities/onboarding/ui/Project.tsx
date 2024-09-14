@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom';
 import arrow from '../image/arrow.png';
 import folder from '../image/folder.png';
 import { motion } from 'framer-motion';
@@ -76,10 +77,12 @@ export default function Project() {
             delay: 0.5,
           }}
         >
-          <div className="flex w-[11rem] h-[3rem] justify-center items-center gap-[1rem]">
-            <span className="font-['Pretendard-Medium'] text-[1.3rem] text-white">보러가기</span>
-            <img className="w-[2rem] h-[2rem] flex" src={arrow} alt="버튼" />
-          </div>
+          <Link to="/project">
+            <div className="flex w-[11rem] h-[3rem] justify-center items-center gap-[1rem]">
+              <span className="font-['Pretendard-Medium'] text-[1.3rem] text-white">보러가기</span>
+              <img className="w-[2rem] h-[2rem] flex" src={arrow} alt="버튼" />
+            </div>
+          </Link>
         </motion.div>
         <div className="w-[100vw] h-full flex flex-col bg-cover bg-[url('./entities/onboarding/image/gradientbg.png')]">
           <motion.div

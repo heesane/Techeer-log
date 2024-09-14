@@ -16,7 +16,7 @@ export default function ScrapList() {
   });
 
   if (isLoading) {
-    return <div className="bg-transparent w-full h-full">Loading...</div>;
+    return <div className="w-full h-full bg-transparent">Loading...</div>;
   }
 
   if (error) {
@@ -33,7 +33,7 @@ export default function ScrapList() {
 
   return (
     <div>
-      <div className="grid grid-rows-2 grid-cols-3 gap-4 m-4">
+      <div className="grid grid-cols-3 grid-rows-2 gap-4 m-4">
         {currentData && currentData.length > 0 ? (
           currentData?.map((scrap) => <ScrapCard key={scrap.projectId} scrap={scrap} />)
         ) : (

@@ -25,7 +25,7 @@ export default function ProjectListCard({ project }: propsProjects) {
       <Link to={moveProjectView}>
         <div
           key={project.id}
-          className="h-[14rem] rounded-[0.3rem] border-solid border border-[#444444] flex p-[1rem] box-sizing-border w-[100%] relative transform transition-transform duration-300 ease-in-out hover:scale-105 mb-[1.3rem]"
+          className="h-[14rem] rounded-[0.3rem] border-solid border border-[#444444] flex p-[1rem] box-sizing-border w-[100%] relative transform transition-transform duration-200 ease-in-out hover:scale-[1.015] mb-[1.3rem]"
         >
           {project.rankEnum !== 'NONE' ? (
             <div className="absolute w-0 h-0 border-solid border-0 border-r-[5rem] border-b-[5rem] border-transparent border-r-[#2B00AD] top-0 right-0">

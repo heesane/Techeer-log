@@ -1,24 +1,26 @@
 import { useEffect, useRef, useState } from 'react';
 import * as api from '../index';
 import { useMutation } from '@tanstack/react-query';
-import { useLocation, useNavigate } from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
 import cancelSearch from '../../../shared/assets/image/searchImg/Cancel-Search.svg';
 import iconSearch from '../../../shared/assets/image/searchImg/Icon-Search.png';
+import { Input } from '@headlessui/react';
+import clsx from 'clsx';
 
 export function Search({ setResult }: any) {
   const [searchresult, setSearchresult] = useState('');
   const location = useLocation();
-  const navigate = useNavigate();
   const queryParams = new URLSearchParams(location.search);
   const searchQuery = queryParams.get('search') || '';
   const [isFocused, setIsFocused] = useState<boolean>(false);
   const inputRef = useRef<HTMLInputElement>(null);
+  const [placeholder, setPlaceholder] = useState<string>('검색할 프로젝트를 입력해 주세요.');
   const onSubmitSearch = (e: any) => {
     if (e.key === 'Enter' || e.key === 'Click' || e.type === 'click') {
       if (searchresult === '') {
-        navigate('/');
+        window.location.replace('/project');
       } else {
-        navigate(`?search=${searchresult}`);
+        window.location.replace(`?search=${searchresult}`);
       }
     }
   };
@@ -32,9 +34,15 @@ export function Search({ setResult }: any) {
   const onChangeSearch = (e: any) => {
     setSearchresult(e.target.value);
   };
+  const onFocus = () => {
+    setIsFocused(true);
+    setPlaceholder('');
+  };
+
   const handleBlurContainer = () => {
     setTimeout(() => {
       setIsFocused(false);
+      setPlaceholder('검색할 프로젝트를 입력해 주세요.');
     }, 200);
   };
   const searchMutation = useMutation({
@@ -57,13 +65,17 @@ export function Search({ setResult }: any) {
 
   return (
     <>
-      <div className="rounded-[6.25rem] w-[30rem] h-[3rem] m-[1.5rem_0_0_0] flex justify-center items-center border border-1 border-solid border-white border-opacity-90 bg-[#111111] bg-opacity-60 backdrop-blur-[24px]">
+      <div className="rounded-[1rem] w-[17rem] h-[2.7rem] flex justify-end items-center absolute top-0 right-0">
         <img
           onClick={() => searchMutation.mutate()}
           src={iconSearch}
-          className="w-[0.938rem] h-[0.938rem] m-[0_0.625rem_0_0.625rem] cursor-pointer"
+          className="w-[0.938rem] h-[0.938rem] m-[0_0.625rem_0_0.625rem] cursor-pointer flex "
         />
-        <input
+        <Input
+          className={clsx(
+            'block w-[87%] h-[2.1rem] rounded-lg border-none bg-white/5 py-1.5 px-3 text-sm/6 text-white font-[Pretendard-Light] text-[0.92rem]',
+            'focus:outline-none data-[focus]:outline-2 data-[focus]:-outline-offset-2 data-[focus]:outline-white/25 placeholder-font-[Pretendard-Light]',
+          )}
           autoComplete="off"
           ref={inputRef}
           value={searchresult}
@@ -71,17 +83,16 @@ export function Search({ setResult }: any) {
           onChange={onChangeSearch}
           type="text"
           name="search"
-          placeholder="검색하실 내용을 입력해 주세요."
-          onFocus={() => setIsFocused(true)}
+          placeholder={placeholder}
+          onFocus={onFocus}
           onBlur={handleBlurContainer}
-          className="w-[93%] h-[30px] bg-transparent font-['Pretendard-Light'] text-[15px] text-[#FFFFFF] placeholder-white placeholder-font-['Pretendard-Light'] focus:outline-none"
         />
         {isFocused && <api.DropdownSearch />}
         {searchresult.length > 0 && (
           <img
             onClick={() => {
               setSearchresult('');
-              navigate('/');
+              window.location.replace('/project');
             }}
             src={cancelSearch}
             className="w-[1.2rem] h-[1.2rem] m-[0_0.625rem_0_0] cursor-pointer"

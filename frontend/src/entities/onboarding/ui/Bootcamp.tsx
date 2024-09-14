@@ -2,18 +2,16 @@ import arrow from '../image/arrow.png';
 import object from '../image/object.png';
 import iconPoint from '../../../shared/assets/image/mainImg/Icon-Point.png';
 import { EmblaCarousel } from '../../../entities/carousel';
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useRef } from 'react';
 import { EmblaOptionsType } from 'embla-carousel';
 import { prizeDate } from '../../../shared/types/prizeDate';
-import ProjectCard from '../../../shared/ui/ProjectListCard';
 import useScrollCount from '../hook/useScrollHook';
 // import useScrollFadeIn from '../hook/useScrollFadIn';
 import { motion } from 'framer-motion';
+import { Link } from 'react-router-dom';
 
 export default function Bootcamp() {
   const OPTIONS: EmblaOptionsType = { loop: true };
-  const [result, setResult] = useState<any>([]);
-  console.log(setResult);
   const queryParams = new URLSearchParams(location.search);
   const searchQuery = queryParams.get('search') || '';
 
@@ -125,10 +123,12 @@ export default function Bootcamp() {
             delay: 0.5,
           }}
         >
-          <div className="flex w-[11rem] h-[3rem] justify-center items-center gap-[1rem]">
-            <span className="font-['Pretendard-Medium'] text-[1.3rem] text-white">보러가기</span>
-            <img className="w-[2rem] h-[2rem] flex" src={arrow} alt="버튼" />
-          </div>
+          <Link to="/project">
+            <div className="flex w-[11rem] h-[3rem] justify-center items-center gap-[1rem]">
+              <span className="font-['Pretendard-Medium'] text-[1.3rem] text-white">보러가기</span>
+              <img className="w-[2rem] h-[2rem] flex" src={arrow} alt="버튼" />
+            </div>
+          </Link>
         </motion.div>
         <motion.div
           initial={{ opacity: 0, y: 30 }}
@@ -145,31 +145,17 @@ export default function Bootcamp() {
       </div>
       {/* 우수 선정작 */}
       <div className="w-[75rem] mt-[6.063rem] flex flex-col justify-center mb-[15rem]">
-        {searchQuery ? (
-          <div ref={scrollRef} className="grid grid-cols-3 grid-rows-3 gap-4 m-4">
-            {result && result.length > 0 ? (
-              result.map((results: any) => <ProjectCard key={results.id} project={results} />)
-            ) : (
-              <div className="flex justify-center text-[1.875rem] text-[#FFFFFF] font-['Pretendard-Thin']">
-                No projects found.
-              </div>
-            )}
-          </div>
-        ) : (
-          <>
-            <div className="flex flex-col items-center justify-center my-12">
-              <img src={iconPoint} className="w-[1.875rem] h-[0.75rem] mb-[1rem]" />
-              <span className="font-['Pretendard-Thin'] text-[1.875rem] text-white">
-                {data.year} {renameSemester(data.semesterEnum)} 부트캠프
-                <a className="font-['Pretendard-Bold']"> 우수 선정작</a>
-              </span>
-            </div>
-            <div className="overflow-x-hidden w-[98%] mx-auto mb-[6.25rem]">
-              <EmblaCarousel options={OPTIONS} date={data} />
-              <div ref={scrollRef}></div>
-            </div>
-          </>
-        )}
+        <div className="flex flex-col items-center justify-center my-12">
+          <img src={iconPoint} className="w-[1.875rem] h-[0.75rem] mb-[1rem]" />
+          <span className="font-['Pretendard-Thin'] text-[1.875rem] text-white">
+            {data.year} {renameSemester(data.semesterEnum)} 부트캠프
+            <a className="font-['Pretendard-Bold']"> 우수 선정작</a>
+          </span>
+        </div>
+        <div className="overflow-x-hidden w-[98%] mx-auto mb-[6.25rem]">
+          <EmblaCarousel options={OPTIONS} date={data} />
+          <div ref={scrollRef}></div>
+        </div>
       </div>
     </div>
   );

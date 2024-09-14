@@ -1,18 +1,16 @@
 import NavBar from '../shared/ui/NavBar.tsx';
-import { Search } from '../entities/search';
 // import { EmblaOptionsType } from 'embla-carousel';
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useRef } from 'react';
 import Footer from '../shared/ui/Footer.tsx';
-import { useLocation } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import Bootcamp from '../entities/onboarding/ui/Bootcamp.tsx';
 import Project from '../entities/onboarding/ui/Project.tsx';
 import circle1 from '../entities/onboarding/image/circle1.png';
 import circle2 from '../entities/onboarding/image/circle2.png';
 import { motion } from 'framer-motion';
+import arrow from '../entities/onboarding/image/arrow.png';
 
 export default function MainPage() {
-  const [result, setResult] = useState<any>([]);
-  console.log(result);
   const location = useLocation();
   const queryParams = new URLSearchParams(location.search);
   const searchQuery = queryParams.get('search') || '';
@@ -55,18 +53,12 @@ export default function MainPage() {
     };
   }, []);
 
-  const [alignment, setAlignment] = useState<string | null>('left');
-
-  const setAlign = (align: string | null) => {
-    setAlignment(align);
-  };
-
   return (
     <div className="bg-[#111111] flex flex-col w-screen justify-center items-center">
       <NavBar />
       {/* 메인페이지-소개 */}
       <div className="w-[100vw] h-[41.6vw] flex justify-center items-center gradient-bg">
-        <div className="gradients-container absolute inset-0">
+        <div className="absolute inset-0 gradients-container">
           <div className="g1"></div>
           <div className="g2"></div>
           <div className="g3"></div>
@@ -79,7 +71,6 @@ export default function MainPage() {
           <span className="font-['Pretendard-Thin'] text-[1.875rem]">
             테커에서 진행하는 <a className="font-['Pretendard-Medium']">다양한 프로젝트를 한눈에</a>
           </span>
-          <Search setResult={setResult} nowRef={scrollRef} />
         </div>
       </div>
       {/* 부트캠프 소개*/}
@@ -111,7 +102,7 @@ export default function MainPage() {
           <div className="flex flex-col items-center justify-center mb-[20rem]">
             <span className="font-['Pretendard-Medium'] text-white text-[2rem]">실리콘밸리 성장 코딩스쿨 </span>
             <span
-              className="font-['Pre-S'] text-white text-[11rem]"
+              className="font-['Pre-S'] text-white text-[11rem] "
               style={{
                 backgroundImage: 'linear-gradient(to bottom, #E4EDFF, #0047FF',
                 WebkitBackgroundClip: 'text',
@@ -120,6 +111,27 @@ export default function MainPage() {
             >
               Techeer
             </span>
+            <motion.div
+              className="mx-auto mb-[3rem] rounded-[3rem] border-solid border-[1px] border-black shadow-[0_35px_60px_-15px_rgba(146, 146, 146, 0.3)]"
+              style={{
+                boxShadow: '0px 4px 4px -2px rgba(146, 146, 146, 0.49)',
+              }}
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: false }}
+              transition={{
+                ease: 'easeInOut',
+                duration: 1,
+                delay: 0.5,
+              }}
+            >
+              <Link to="https://techeer.net">
+                <div className="flex w-[15rem] h-[3rem] justify-center items-center gap-[1rem]">
+                  <span className="font-['Pretendard-Medium'] text-[1.3rem] text-white">테커 소개 보러가기</span>
+                  <img className="w-[2rem] h-[2rem] flex" src={arrow} alt="버튼" />
+                </div>
+              </Link>
+            </motion.div>
           </div>
         </motion.div>
         <motion.div

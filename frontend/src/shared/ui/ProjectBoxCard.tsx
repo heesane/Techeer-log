@@ -46,17 +46,21 @@ export default function ProjectBoxCard({ project }: propsProjects) {
             <div className="w-80 mt-[1.5rem] inline-block self-start break-words font-['Pre-R'] font-normal text-[1.1rem] text-[#fafafa] overflow-hidden text-ellipsis whitespace-nowrap text-clamp">
               {project.subtitle}
             </div>
-            <div className="rounded-[0.3rem] flex flex-row flex-wrap self-start w-[90%] h-[2rem] box-sizing-border mt-[2.5rem]">
+            <div className="rounded-[0.3rem] m-[1.5rem_0_0_0] flex flex-row flex-wrap self-start w-[90%] box-sizing-border gap-[0.5rem]">
               {firstFrontend ? (
-                <div className="rounded-[0.3rem] bg-[#333333] m-[0_0.8rem_0.4rem_0rem] flex flex-row justify-center p-[0.3rem_0.7rem_0.3rem_0.7rem] box-sizing-border">
-                  <span className="break-words font-['Pre-R'] text-[0.9rem] text-[#FFFFFF]">{firstFrontend.name}</span>
+                <div className="rounded-[0.3rem] bg-[#333333] flex flex-row justify-center items-center p-[0.5rem_1.5rem_0.5rem_1.5rem] box-sizing-border">
+                  <span className="break-words font-['Pre-R'] font-semibold text-[0.9rem] text-[#FFFFFF]">
+                    {firstFrontend.name}
+                  </span>
                 </div>
               ) : (
                 <></>
               )}
               {firstBackend ? (
-                <div className="rounded-[0.3rem] bg-[#333333] m-[0_0.8rem_0.4rem_0rem] flex flex-row justify-center p-[0.3rem_0.7rem_0.3rem_0.7rem] box-sizing-border">
-                  <span className="break-words font-['Pre-R'] text-[0.9rem] text-[#FFFFFF]">{firstBackend.name}</span>
+                <div className="rounded-[0.3rem] bg-[#333333] flex flex-row justify-center items-center p-[0.5rem_1.5rem_0.5rem_1.5rem] box-sizing-border">
+                  <span className="break-words font-['Pre-R'] font-semibold text-[0.9rem] text-[#FFFFFF]">
+                    {firstBackend.name}
+                  </span>
                 </div>
               ) : (
                 <></>
@@ -69,7 +73,7 @@ export default function ProjectBoxCard({ project }: propsProjects) {
                   <img className="h-[1.2rem] w-[1rem] ml-[0.1rem] mt-[0.2rem]" src={arrow}></img>
                 </button>
               </Link>
-              {!project.githubLink ? (
+              {project.githubLink ? (
                 <Link to={project.githubLink}>
                   <button className="flex flex-row gap-[0.3rem] cursor-pointer">
                     <p className="text-[#0047FF] font-bold">Github </p>
@@ -79,7 +83,7 @@ export default function ProjectBoxCard({ project }: propsProjects) {
               ) : (
                 <></>
               )}
-              {!project.blogLink ? (
+              {project.blogLink ? (
                 <Link to={project.blogLink}>
                   <button className="flex flex-row gap-[0.3rem] cursor-pointer">
                     <p className="text-[#0047FF] font-bold">Blog </p>
