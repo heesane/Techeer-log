@@ -66,7 +66,7 @@ export default function MainPage() {
           <div ref={interBubble} className="interactive"></div>
         </div>
         <div className="w-[100vw] h-[100vw] flex flex-col justify-center items-center font-['Pretendard-Regular'] font-normal text-[#FFFFFF]">
-          <span className="font-['Pretendard-Black'] text-[6rem] m-[0_0_1.5rem_0]">Techeer</span>
+          <span className="font-['Pretendard-Black'] text-[7rem] m-[0_0_1.5rem_0]">TECHEER</span>
           <span className="font-['Pretendard-Thin'] text-[1.875rem]">
             테커에서 진행하는 <a className="font-['Pretendard-Medium']">다양한 프로젝트를 한눈에</a>
           </span>
