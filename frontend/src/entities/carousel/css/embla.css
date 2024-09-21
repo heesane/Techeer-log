@@ -22,6 +22,7 @@
 }
 .embla__slide__number {
   position: relative;
+  border-radius: 15px;
   overflow: hidden;
   height: var(--slide-height);
 }
@@ -35,7 +36,6 @@
   left: 0;
   width: 100%;
   height: 100%;
-  /* 기존 스타일 유지 */
   background-color: rgba(16, 16, 16, 0.9);
   padding: 3rem;
   border-radius: 10px;
