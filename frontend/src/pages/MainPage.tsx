@@ -1,8 +1,7 @@
 import NavBar from '../shared/ui/NavBar.tsx';
-// import { EmblaOptionsType } from 'embla-carousel';
 import { useEffect, useRef } from 'react';
 import Footer from '../shared/ui/Footer.tsx';
-import { Link, useLocation } from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
 import Bootcamp from '../entities/onboarding/ui/Bootcamp.tsx';
 import Project from '../entities/onboarding/ui/Project.tsx';
 import circle1 from '../entities/onboarding/image/circle1.png';
@@ -67,7 +66,7 @@ export default function MainPage() {
           <div ref={interBubble} className="interactive"></div>
         </div>
         <div className="w-[100vw] h-[100vw] flex flex-col justify-center items-center font-['Pretendard-Regular'] font-normal text-[#FFFFFF]">
-          <span className="font-['Pretendard-Black'] text-[6rem] m-[0_0_1.5rem_0]">TECHEER</span>
+          <span className="font-['Pretendard-Black'] text-[6rem] m-[0_0_1.5rem_0]">Techeer</span>
           <span className="font-['Pretendard-Thin'] text-[1.875rem]">
             테커에서 진행하는 <a className="font-['Pretendard-Medium']">다양한 프로젝트를 한눈에</a>
           </span>
@@ -125,12 +124,12 @@ export default function MainPage() {
                 delay: 0.5,
               }}
             >
-              <Link to="https://techeer.net">
+              <a href="https://techeer.net" target="_blank" rel="noopener noreferrer">
                 <div className="flex w-[15rem] h-[3rem] justify-center items-center gap-[1rem]">
                   <span className="font-['Pretendard-Medium'] text-[1.3rem] text-white">테커 소개 보러가기</span>
                   <img className="w-[2rem] h-[2rem] flex" src={arrow} alt="버튼" />
                 </div>
-              </Link>
+              </a>
             </motion.div>
           </div>
         </motion.div>
