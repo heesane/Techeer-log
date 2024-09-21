@@ -62,7 +62,7 @@ pipeline {
                         ssh -o StrictHostKeyChecking=no ${DEPLOY_SERVER} '
                         cd ~/Techeer-log
                         sudo chmod +x ${DEPLOY_SCRIPT}
-                        sudo sh ${DEPLOY_SCRIPT}
+                        sudo sh ${DEPLOY_SCRIPT}'
                         """
                     }
                 }
