@@ -39,8 +39,9 @@ pipeline {
             steps {
                 script {
                     sh """
-                      chmod +x backend-build.sh
-                      ./backend-build.sh
+                      cd ~/Techeer-log
+                      chmod +x ./backend-build.sh
+                      sh ./backend-build.sh
                     """
                 }
             }
@@ -60,8 +61,8 @@ pipeline {
                         ssh -o StrictHostKeyChecking=no ${DEPLOY_SERVER} << EOF
                           cd ~/Techeer-log
                           git pull
-                          chmod +x deploy.sh
-                          ./deploy.sh
+                          chmod +x ./deploy.sh
+                          sh ./deploy.sh
                         EOF
                         """
                     }
