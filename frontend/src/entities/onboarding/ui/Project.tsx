@@ -5,21 +5,21 @@ import { motion } from 'framer-motion';
 
 export default function Project() {
   const images1: string[] = [
-    'src/entities/onboarding/image/img1.png',
-    'src/entities/onboarding/image/img2.png',
-    'src/entities/onboarding/image/img3.png',
-    'src/entities/onboarding/image/img4.png',
-    'src/entities/onboarding/image/img1.png',
-    'src/entities/onboarding/image/img2.png',
+    '../../../../src/entities/onboarding/image/img1.png',
+    '../../../../src/entities/onboarding/image/img2.png',
+    '../../../../src/entities/onboarding/image/img3.png',
+    '../../../../src/entities/onboarding/image/img4.png',
+    '../../../../src/entities/onboarding/image/img1.png',
+    '../../../../src/entities/onboarding/image/img2.png',
   ];
 
   const images2: string[] = [
-    'src/entities/onboarding/image/img5.png',
-    'src/entities/onboarding/image/img6.png',
-    'src/entities/onboarding/image/img7.png',
-    'src/entities/onboarding/image/img8.png',
-    'src/entities/onboarding/image/img5.png',
-    'src/entities/onboarding/image/img6.png',
+    '../../../../src/entities/onboarding/image/img5.png',
+    '../../../../src/entities/onboarding/image/img6.png',
+    '../../../../src/entities/onboarding/image/img7.png',
+    '../../../../src/entities/onboarding/image/img8.png',
+    '../../../../src/entities/onboarding/image/img5.png',
+    '../../../../src/entities/onboarding/image/img6.png',
   ];
 
   return (
