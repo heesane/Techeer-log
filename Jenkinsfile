@@ -57,10 +57,10 @@ pipeline {
                 script {
                     sshagent(['techeer-log-ssh']) {
                         sh """
-                        ssh -o StrictHostKeyChecking=no ${DEPLOY_SERVER} << EOF
+                        ssh -o StrictHostKeyChecking=no ${DEPLOY_SERVER} <<EOF
                           cd ~/Techeer-log
-                          chmod +x ./deploy.sh
-                          sh ./deploy.sh
+                          sudo chmod +x ./deploy.sh
+                          sudo sh ./deploy.sh
                         EOF
                         """
                     }
