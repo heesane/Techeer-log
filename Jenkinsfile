@@ -39,7 +39,6 @@ pipeline {
             steps {
                 script {
                     sh """
-                      cd ~/Techeer-log
                       chmod +x ./backend-build.sh
                       sh ./backend-build.sh
                     """
