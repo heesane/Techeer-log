@@ -56,7 +56,6 @@ services:
     env_file:
       - "./backend/backend-secret-deploy.env"
       - "./backend/spring-source-deploy.env"
-      - log_folder:/logs/backend
     environment:
       - SERVER_PORT=8081
     ports:
