@@ -7,7 +7,7 @@ volumes:
     driver_opts:
       o: bind
       type: none
-      device: ./backend/logs
+      device: ./backend/logs/backend
 
 services:
   nginx:
@@ -40,6 +40,7 @@ services:
     env_file:
       - "./backend/backend-secret-deploy.env"
       - "./backend/spring-source-deploy.env"
+    volumes:
       - log_folder:./logs/backend
     environment:
       - SERVER_PORT=8080
@@ -57,6 +58,7 @@ services:
     env_file:
       - "./backend/backend-secret-deploy.env"
       - "./backend/spring-source-deploy.env"
+    volumes:
       - log_folder:./logs/backend
     environment:
       - SERVER_PORT=8081
