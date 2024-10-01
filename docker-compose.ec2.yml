@@ -2,6 +2,12 @@ version: "3.8"
 
 volumes:
   build_folder: null
+  log_folder:
+    driver: local
+    driver_opts:
+      o: bind
+      type: none
+      device: ./backend/logs
 
 services:
   nginx:
