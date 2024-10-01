@@ -41,7 +41,7 @@ services:
       - "./backend/backend-secret-deploy.env"
       - "./backend/spring-source-deploy.env"
     volumes:
-      - log_folder:./logs/backend
+      - log_folder:/logs/backend
     environment:
       - SERVER_PORT=8080
     ports:
@@ -59,7 +59,7 @@ services:
       - "./backend/backend-secret-deploy.env"
       - "./backend/spring-source-deploy.env"
     volumes:
-      - log_folder:./logs/backend
+      - log_folder:/logs/backend
     environment:
       - SERVER_PORT=8081
     ports:
