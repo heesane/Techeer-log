@@ -14,6 +14,7 @@ import com.techeerlog.member.domain.Nickname;
 import com.techeerlog.member.domain.Password;
 import com.techeerlog.member.repository.MemberRepository;
 import com.techeerlog.project.domain.Project;
+import com.techeerlog.project.dto.ProjectRequest;
 import com.techeerlog.project.dto.ProjectResponse;
 import com.techeerlog.project.enums.*;
 import com.techeerlog.project.repository.NonRegisterProjectMemberRepository;
@@ -69,9 +70,9 @@ public class ProjectServiceTest {
     private ProjectService projectService;
 
     @Nested
-    class findProjectResponseTest {
+    class FindProjectResponseTest {
         @Test
-        @DisplayName("프로젝트 단일 조회")
+        @DisplayName("프로젝트 단일 조회 성공")
         void findProjectResponseTestSuccess() {
             // given
             Member member = createMember(1L);
@@ -150,32 +151,89 @@ public class ProjectServiceTest {
                     .member(member)
                     .build();
         }
+    }
 
-//        private ProjectResponse createProjectResponse(
-//                Long projectResponseId,
-//                Project project) {
-//            return ProjectResponse.builder()
-//                    .id(projectResponseId)
-//                    .mainImageUrl(project.getMainImageUrl())
-//                    .title(project.getTitle())
-//                    .subtitle(project.getSubtitle())
-//                    .content(project.getContent())
-//                    .startDate(project.getStartDate())
-//                    .endDate(project.getEndDate())
-//                    .platform(project.getPlatform())
-//                    .projectTypeEnum(project.getProjectTypeEnum())
-//                    .projectTeamNameEnum(project.getProjectTeamNameEnum())
-//                    .year(project.getYear())
-//                    .semesterEnum(project.getSemesterEnum())
-//                    .projectStatusEnum(project.getProjectStatusEnum())
-//                    .githubLink(project.getGithubLink())
-//                    .blogLink(project.getBlogLink())
-//                    .websiteLink(project.getWebsiteLink())
-//                    .loveCount(0)
-//                    .isLoved(true)
-//                    .isScraped(true)
-//                    .build();
-//        }
+    @Nested
+    class AddProjectTest {
+        @Test
+        @DisplayName("프로젝트 추가 성공")
+        void addProjectTestSuccess() {
+            // given
+            Member member = createMember(1L);
+            Project project = createProject(1L, member);
+
+            Mockito.when(projectRepository.save(any())).thenReturn(project);
+
+            ProjectRequest projectRequest = createProjectRequest(1L);
+
+            // when
+            Long projectId = projectService.addProject(projectRequest,
+                    new AuthInfo(1L, "type", "nickname"));
+
+            // then
+            Assertions.assertEquals(1L, projectId);
+        }
+
+        private Member createMember(Long memberId) {
+            return Member.builder()
+                    .id(memberId)
+                    .introduction("instruction" + memberId)
+                    .loginId(new LoginId("test" + memberId))
+                    .nickname(new Nickname("test" + memberId))
+                    .password(new Password("1234"))
+                    .profileImageUrl("profileImageUrl" + memberId)
+                    .build();
+        }
+
+        private ProjectRequest createProjectRequest(Long projectId) {
+            return ProjectRequest.builder()
+                    .title("title" + projectId)
+                    .subtitle("subtitle" + projectId)
+                    .mainImageUrl("mainImageUrl" + projectId)
+                    .content("content" + projectId)
+                    .startDate(LocalDate.now())
+                    .endDate(LocalDate.now())
+                    .blogLink("blogLink" + projectId)
+                    .githubLink("githubLink" + projectId)
+                    .websiteLink("websiteLink" + projectId)
+                    .projectStatusEnum(ProjectStatusEnum.COMPLETED)
+                    .projectTypeEnum(ProjectTypeEnum.BOOTCAMP)
+                    .platform(PlatformEnum.WEB)
+                    .year(2024)
+                    .semesterEnum(SemesterEnum.ALL)
+                    .projectMemberRequestList(Collections.emptyList())
+                    .frameworkRequestList(Collections.emptyList())
+                    .nonRegisterProjectMemberRequestList(Collections.emptyList())
+                    .build();
+        }
+
+        private Project createProject(Long projectId, Member member) {
+            return Project.builder()
+                    .id(projectId)
+                    .title("title" + projectId)
+                    .subtitle("subtitle" + projectId)
+                    .mainImageUrl("mainImageUrl" + projectId)
+                    .content("content" + projectId)
+                    .startDate(LocalDate.now())
+                    .endDate(LocalDate.now())
+                    .blogLink("blogLink" + projectId)
+                    .githubLink("githubLink" + projectId)
+                    .websiteLink("websiteLink" + projectId)
+                    .commentList(Collections.emptyList())
+                    .projectFrameworkList(Collections.emptyList())
+                    .projectMemberList(Collections.emptyList())
+                    .nonRegisterProjectMemberList(Collections.emptyList())
+                    .loveList(Collections.emptyList())
+                    .projectStatusEnum(ProjectStatusEnum.COMPLETED)
+                    .projectTypeEnum(ProjectTypeEnum.BOOTCAMP)
+                    .platform(PlatformEnum.WEB)
+                    .projectTeamNameEnum(ProjectTeamNameEnum.A)
+                    .rankEnum(RankEnum.FIRST)
+                    .year(2024)
+                    .semesterEnum(SemesterEnum.ALL)
+                    .member(member)
+                    .build();
+        }
     }
 
 }
