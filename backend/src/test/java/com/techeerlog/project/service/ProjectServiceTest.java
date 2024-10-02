@@ -170,10 +170,10 @@ public class ProjectServiceTest {
             Mockito.when(projectRepository.save(any())).thenReturn(project);
 
             ProjectRequest projectRequest = createProjectRequest(1L);
+            AuthInfo authInfo = createAuthInfo(1L);
 
             // when
-            Long projectId = projectService.addProject(projectRequest,
-                    new AuthInfo(1L, "type", "nickname"));
+            Long projectId = projectService.addProject(projectRequest, authInfo);
 
             // then
             Assertions.assertEquals(1L, projectId);
@@ -280,13 +280,8 @@ public class ProjectServiceTest {
             projectService.updateProject(id, projectRequest, authInfo);
 
             // then
-            // 프로젝트 조회
             Mockito.verify(projectRepository).findById(project.getId());
-
-            // 프로젝트 업데이트
             Mockito.verify(projectMapper).updateProjectFromRequest(projectRequest, project);
-
-            // 프로젝트 저장
             Mockito.verify(projectRepository).save(project);
         }
 
@@ -324,6 +319,71 @@ public class ProjectServiceTest {
                     .projectMemberRequestList(Collections.emptyList())
                     .frameworkRequestList(Collections.emptyList())
                     .nonRegisterProjectMemberRequestList(Collections.emptyList())
+                    .build();
+        }
+
+        private Project createProject(Long projectId, Member member) {
+            return Project.builder()
+                    .id(projectId)
+                    .title("title" + projectId)
+                    .subtitle("subtitle" + projectId)
+                    .mainImageUrl("mainImageUrl" + projectId)
+                    .content("content" + projectId)
+                    .startDate(LocalDate.now())
+                    .endDate(LocalDate.now())
+                    .blogLink("blogLink" + projectId)
+                    .githubLink("githubLink" + projectId)
+                    .websiteLink("websiteLink" + projectId)
+                    .commentList(Collections.emptyList())
+                    .projectFrameworkList(Collections.emptyList())
+                    .projectMemberList(Collections.emptyList())
+                    .nonRegisterProjectMemberList(Collections.emptyList())
+                    .loveList(Collections.emptyList())
+                    .projectStatusEnum(ProjectStatusEnum.COMPLETED)
+                    .projectTypeEnum(ProjectTypeEnum.BOOTCAMP)
+                    .platform(PlatformEnum.WEB)
+                    .projectTeamNameEnum(ProjectTeamNameEnum.A)
+                    .rankEnum(RankEnum.FIRST)
+                    .year(2024)
+                    .semesterEnum(SemesterEnum.ALL)
+                    .member(member)
+                    .build();
+        }
+    }
+
+    @Nested
+    class DeleteProjectTest {
+        @Test
+        @DisplayName("프로젝트 삭제 성공")
+        void deleteProjectTestSuccess() {
+            // given
+            Long id = 1L;
+            AuthInfo authInfo = createAuthInfo(1L);
+            Member member = createMember(1L);
+            Project project = createProject(1L, member);
+
+            Mockito.when(projectRepository.findById(any()))
+                    .thenReturn(Optional.ofNullable(project));
+
+            // when
+            projectService.deleteProject(id, authInfo);
+
+            // then
+            Mockito.verify(projectRepository).delete(project);
+        }
+
+        private AuthInfo createAuthInfo(Long id) {
+            return new AuthInfo(id, "type", "test");
+        }
+
+        private Member createMember(Long memberId) {
+            return Member.builder()
+                    .id(memberId)
+                    .introduction("instruction" + memberId)
+                    .loginId(new LoginId("test" + memberId))
+                    .nickname(new Nickname("test" + memberId))
+                    .password(new Password("1234"))
+                    .profileImageUrl("profileImageUrl" + memberId)
                     .build();
         }
 
