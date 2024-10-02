@@ -17,6 +17,7 @@ import com.techeerlog.project.domain.Project;
 import com.techeerlog.project.dto.ProjectRequest;
 import com.techeerlog.project.dto.ProjectResponse;
 import com.techeerlog.project.enums.*;
+import com.techeerlog.project.exception.ProjectNotFoundException;
 import com.techeerlog.project.repository.NonRegisterProjectMemberRepository;
 import com.techeerlog.project.repository.ProjectFrameworkRepository;
 import com.techeerlog.project.repository.ProjectMemberRepository;
@@ -172,6 +173,24 @@ public class ProjectServiceTest {
 
             // then
             Assertions.assertEquals(1L, projectId);
+        }
+
+        @Test
+        @DisplayName("프로젝트 조회 실패 인한 예외 발생")
+        void addProjectTestThrowsProjectNotFoundException() {
+            // given
+            Member member = createMember(1L);
+            Project project = createProject(1L, member);
+
+            Mockito.when(projectRepository.save(any())).thenThrow(new ProjectNotFoundException());
+
+            ProjectRequest projectRequest = createProjectRequest(1L);
+
+            // when, then
+            Assertions.assertThrows(ProjectNotFoundException.class,
+                    () -> { projectService.addProject(projectRequest,
+                            new AuthInfo(1L, "type", "nickname"));
+                            });
         }
 
         private Member createMember(Long memberId) {
