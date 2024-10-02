@@ -80,6 +80,7 @@ public class ProjectServiceTest {
             Project project = createProject(1L, member);
             Love love = createLove(member, project);
             Scrap scrap = createScrap(member, project);
+            AuthInfo authInfo = createAuthInfo(1L);
 
             Mockito.when(projectRepository.findById(any()))
                     .thenReturn(Optional.ofNullable(project));
@@ -90,14 +91,17 @@ public class ProjectServiceTest {
 
             // when
             ProjectResponse projectResponse =
-                    projectService.findProjectResponse(1L,
-                            new AuthInfo(1L, "type", "test"));
+                    projectService.findProjectResponse(1L, authInfo);
 
             // then
             Assertions.assertEquals(projectResponse.getId(), 1L);
             Assertions.assertEquals(projectResponse.getProjectMemberResponseList().size(), 0);
             Assertions.assertTrue(projectResponse.isLoved());
             Assertions.assertTrue(projectResponse.isScraped());
+        }
+
+        private AuthInfo createAuthInfo(Long id) {
+            return new AuthInfo(id, "type", "test");
         }
 
         private Member createMember(Long memberId) {
@@ -180,17 +184,19 @@ public class ProjectServiceTest {
         void addProjectTestThrowsProjectNotFoundException() {
             // given
             Member member = createMember(1L);
-            Project project = createProject(1L, member);
 
             Mockito.when(projectRepository.save(any())).thenThrow(new ProjectNotFoundException());
 
             ProjectRequest projectRequest = createProjectRequest(1L);
+            AuthInfo authInfo = createAuthInfo(1L);
 
             // when, then
             Assertions.assertThrows(ProjectNotFoundException.class,
-                    () -> { projectService.addProject(projectRequest,
-                            new AuthInfo(1L, "type", "nickname"));
-                            });
+                    () -> {projectService.addProject(projectRequest, authInfo);});
+        }
+
+        private AuthInfo createAuthInfo(Long id) {
+            return new AuthInfo(id, "type", "test");
         }
 
         private Member createMember(Long memberId) {
@@ -255,4 +261,98 @@ public class ProjectServiceTest {
         }
     }
 
+    @Nested
+    class UpdateProjectTest {
+        @Test
+        @DisplayName("프로젝트 수정 성공")
+        void updateProjectTestSuccess() {
+            // given
+            Long id = 1L;
+            ProjectRequest projectRequest = createProjectRequest(1L);
+            AuthInfo authInfo = createAuthInfo(1L);
+
+            Member member = createMember(1L);
+            Project project = createProject(1L, member);
+            Mockito.when(projectRepository.findById(any()))
+                    .thenReturn(Optional.ofNullable(project));
+
+            // when
+            projectService.updateProject(id, projectRequest, authInfo);
+
+            // then
+            // 프로젝트 조회
+            Mockito.verify(projectRepository).findById(project.getId());
+
+            // 프로젝트 업데이트
+            Mockito.verify(projectMapper).updateProjectFromRequest(projectRequest, project);
+
+            // 프로젝트 저장
+            Mockito.verify(projectRepository).save(project);
+        }
+
+        private AuthInfo createAuthInfo(Long id) {
+            return new AuthInfo(id, "type", "test");
+        }
+
+        private Member createMember(Long memberId) {
+            return Member.builder()
+                    .id(memberId)
+                    .introduction("instruction" + memberId)
+                    .loginId(new LoginId("test" + memberId))
+                    .nickname(new Nickname("test" + memberId))
+                    .password(new Password("1234"))
+                    .profileImageUrl("profileImageUrl" + memberId)
+                    .build();
+        }
+
+        private ProjectRequest createProjectRequest(Long projectId) {
+            return ProjectRequest.builder()
+                    .title("title" + projectId)
+                    .subtitle("subtitle" + projectId)
+                    .mainImageUrl("mainImageUrl" + projectId)
+                    .content("content" + projectId)
+                    .startDate(LocalDate.now())
+                    .endDate(LocalDate.now())
+                    .blogLink("blogLink" + projectId)
+                    .githubLink("githubLink" + projectId)
+                    .websiteLink("websiteLink" + projectId)
+                    .projectStatusEnum(ProjectStatusEnum.COMPLETED)
+                    .projectTypeEnum(ProjectTypeEnum.BOOTCAMP)
+                    .platform(PlatformEnum.APP)
+                    .year(2023) // check
+                    .semesterEnum(SemesterEnum.ALL)
+                    .projectMemberRequestList(Collections.emptyList())
+                    .frameworkRequestList(Collections.emptyList())
+                    .nonRegisterProjectMemberRequestList(Collections.emptyList())
+                    .build();
+        }
+
+        private Project createProject(Long projectId, Member member) {
+            return Project.builder()
+                    .id(projectId)
+                    .title("title" + projectId)
+                    .subtitle("subtitle" + projectId)
+                    .mainImageUrl("mainImageUrl" + projectId)
+                    .content("content" + projectId)
+                    .startDate(LocalDate.now())
+                    .endDate(LocalDate.now())
+                    .blogLink("blogLink" + projectId)
+                    .githubLink("githubLink" + projectId)
+                    .websiteLink("websiteLink" + projectId)
+                    .commentList(Collections.emptyList())
+                    .projectFrameworkList(Collections.emptyList())
+                    .projectMemberList(Collections.emptyList())
+                    .nonRegisterProjectMemberList(Collections.emptyList())
+                    .loveList(Collections.emptyList())
+                    .projectStatusEnum(ProjectStatusEnum.COMPLETED)
+                    .projectTypeEnum(ProjectTypeEnum.BOOTCAMP)
+                    .platform(PlatformEnum.WEB)
+                    .projectTeamNameEnum(ProjectTeamNameEnum.A)
+                    .rankEnum(RankEnum.FIRST)
+                    .year(2024)
+                    .semesterEnum(SemesterEnum.ALL)
+                    .member(member)
+                    .build();
+        }
+    }
 }
