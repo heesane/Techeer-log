@@ -28,6 +28,12 @@ services:
     tty: true
     command: '/bin/sh -c ''while :; do sleep 6h & wait $${!}; nginx -s reload; done & nginx -g "daemon off;"'''
 
+  redis:
+    image: "redis:alpine"
+    container_name: "redis"
+    ports:
+      - "6379:6379"
+
   backend1:
     build:
       context: ./backend
