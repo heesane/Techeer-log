@@ -2,11 +2,11 @@
 <Configuration status="DEBUG">
     <Properties>
         <Property name="logPath">./logs/backend</Property>
-        <Property name="logPattern">[%-5level] %d{yyyy-MM-dd HH:mm:ss} [%t] %c{1} - %msg%n</Property>
+        <Property name="logPattern">%d{HH:mm:ss.SSS} %highlight{%p} %marker --- [ %t ] %cyan{%c{1.}} - %msg%n</Property>
         <Property name="serviceName">application</Property>
     </Properties>
     <Appenders>
-        <Console name="console">
+        <Console name="Console" target="SYSTEM_OUT">
             <PatternLayout pattern="${logPattern}"/>
         </Console>
         <RollingFile
@@ -27,10 +27,13 @@
             </Delete>
         </DefaultRolloverStrategy>
     </Appenders>
+
     <Loggers>
         <Logger name="com.techeerlog" level="info" additivity="false">
-            <AppenderRef ref="console"/>
+            <AppenderRef ref="Console"/>
             <AppenderRef ref="file"/>
         </Logger>
+        <Logger name="org.springframework" level="info"/>
+        <Logger name="org.hibernate" level="info"/>
     </Loggers>
 </Configuration>
