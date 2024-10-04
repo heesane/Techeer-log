@@ -28,15 +28,24 @@ services:
     tty: true
     command: '/bin/sh -c ''while :; do sleep 6h & wait $${!}; nginx -s reload; done & nginx -g "daemon off;"'''
 
+  redis:
+    image: "redis:alpine"
+    container_name: "redis"
+    ports:
+      - "6379:6379"
+    networks:
+      - redis_net
+      - default
+
   backend1:
     build:
       context: ./backend
       dockerfile: Dockerfile-deploy
     container_name: backend1
     restart: always
-    #    networks:
-    #      - pinpoint_pinpoint
-    #      - default
+    networks:
+      - redis_net
+      - default
     env_file:
       - "./backend/backend-secret-deploy.env"
       - "./backend/spring-source-deploy.env"
@@ -55,6 +64,9 @@ services:
       dockerfile: Dockerfile-deploy
     container_name: backend2
     restart: always
+    networks:
+      - redis_net
+      - default
     env_file:
       - "./backend/backend-secret-deploy.env"
       - "./backend/spring-source-deploy.env"
@@ -86,9 +98,9 @@ services:
     depends_on:
       - nginx
 
-#networks:
-#  pinpoint_pinpoint:
-#    external: true
+networks:
+  redis_net:
+    driver: bridge
 #  Entrypoint 로 명령어가 동작하지 않음. 직접 접속하여 명령을 수행하는 것은 가능
 #  docker exec -it frontend sh
 #  cp -rf /frontend/dist/* /frontend/volume/
