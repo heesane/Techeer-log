@@ -9,18 +9,19 @@ spring:
 
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: ${DEV.RDB.DATABASE_URL}
-    username: ${DEV.RDB.USERNAME}
-    password: ${DEV.RDB.PASSWORD}
+    url: ${LOCAL.RDB.DATABASE_URL}
+    username: ${LOCAL.RDB.USERNAME}
+    password: ${LOCAL.RDB.PASSWORD}
   jpa:
-    database: mysql
     hibernate:
-      ddl-auto: none #  validate, none
+      ddl-auto: update #  validate, none
     #defer-datasource-initialization: true #data.sql을 작성할 때 필요
     properties:
       hibernate:
         format_sql: true
+        dialect: org.hibernate.dialect.MySQL8Dialect
         show_sql: true
+    generate-ddl: true
   servlet:
     multipart:
       max-file-size: 2MB
@@ -37,8 +38,8 @@ spring:
 
   data:
     redis:
-      host: ${DEV.REDIS.HOST}
-      port: ${DEV.REDIS.PORT}
+      host: ${LOCAL.REDIS.HOST}
+      port: ${LOCAL.REDIS.PORT}
 
 security:
   jwt:
