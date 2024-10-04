@@ -7,6 +7,7 @@ import { ProjectTabs } from '../../entities/ProjectTabs/ui/ProjectTabs.tsx';
 import ListToggle from '../../shared/ui/ListToggle.tsx';
 import { useLocation } from 'react-router';
 
+
 export const ProjectPage = () => {
   const [selectedType, setSelectedType] = useState<string>('부트캠프');
   const [selectedYear, setSelectedYear] = useState<string>('진행 연도');
