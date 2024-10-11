@@ -21,7 +21,7 @@ export const ProjectPage = () => {
   //검색 기능 자동 스크롤
   const queryParams = new URLSearchParams(location.search);
   const searchQuery = queryParams.get('search') || '';
-  const [_, setResult] = useState<any>([]);
+  const [setResult] = useState<any>([]);
   const scrollRef = useRef<HTMLDivElement | null>(null);
   const { pathname } = useLocation();
 

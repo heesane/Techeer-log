@@ -42,11 +42,7 @@ export const BootCampPage = () => {
           <ErrorMessage />
         ) : (
           <div className="grid grid-rows-3 grid-cols-3 gap-4 m-4">
-            {data?.length ? (
-              data.map((project) => <ProjectCard key={project.id} project={project} />)
-            ) : (
-              <div>No projects found.</div>
-            )}
+            {data?.length ? data.map((project) => <ProjectCard key={project.id} project={project} />) : <div></div>}
           </div>
         )}
       </div>
