@@ -24,8 +24,15 @@ const useProjects = ({ selectedType, selectedYear, selectedPeriod, result }: Pro
   const projects = data?.pages.flat() ?? [];
   const filteredProjects = useMemo(() => {
     let p = [...projects];
-    if (selectedType !== '프로젝트 종류' && selectedType !== '전체') {
+    // if (selectedType !== '프로젝트 종류' && selectedType !== '전체') {
+    //   p = p.filter(({ projectTypeEnum }) => projectTypeEnum === filterOptions[selectedType]);
+    // }
+    if (selectedType == '부트캠프') {
       p = p.filter(({ projectTypeEnum }) => projectTypeEnum === filterOptions[selectedType]);
+    } else {
+      p = p.filter(
+        ({ projectTypeEnum }) => projectTypeEnum === 'TEAM_PROJECT' || projectTypeEnum === 'PERSONAL_PROJECT',
+      );
     }
 
     if (selectedYear !== '진행 연도' && selectedYear !== '전체') {
@@ -69,7 +76,9 @@ export const ProjectList = ({ selectedType, selectedYear, selectedPeriod, alignm
           {projects && projects.length > 0 ? (
             projects.map((project) => <ProjectBoxCard key={project.id} project={project} />)
           ) : (
-            <div>No projects found.</div>
+            <div className="flex flex-col -m-4 text-[1.25rem] px-[0.5rem] mb-[2rem] font-[400] text-[#90909a]">
+              등록된 프로젝트가 없습니다.
+            </div>
           )}
           {isFetchingNextPage ? <div className="w-full h-full bg-transparent">Loading...</div> : <div ref={ref} />}
         </div>
@@ -78,7 +87,9 @@ export const ProjectList = ({ selectedType, selectedYear, selectedPeriod, alignm
           {projects && projects.length > 0 ? (
             projects.map((project) => <ProjectListCard key={project.id} project={project} />)
           ) : (
-            <div>No projects found.</div>
+            <div className="flex flex-col -m-4 text-[1.25rem] px-[0.5rem] mb-[2rem] font-[400] text-[#90909a]">
+              등록된 프로젝트가 없습니다.
+            </div>
           )}
           {isFetchingNextPage ? <div className="w-full h-full bg-transparent">Loading...</div> : <div ref={ref} />}
         </div>
