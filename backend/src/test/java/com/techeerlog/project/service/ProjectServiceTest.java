@@ -363,6 +363,22 @@ public class ProjectServiceTest {
             verify(projectFrameworkRepository).saveAll(any());
         }
 
+        @Test
+        @DisplayName("프로젝트 조회 실패로 인한 수정 실패")
+        void updateProjectTestThrowsProjectNotFoundException() {
+            // given
+            Long id = 1L;
+            ProjectRequest projectRequest = createProjectRequest(1L);
+            AuthInfo authInfo = createAuthInfo(1L);
+
+            when(projectRepository.findById(any()))
+                    .thenReturn(Optional.empty());
+
+            // when, then
+            assertThrows(ProjectNotFoundException.class,
+                    () -> {projectService.updateProject(id, projectRequest, authInfo);});
+        }
+
         private AuthInfo createAuthInfo(Long id) {
             return new AuthInfo(id, "type", "test");
         }
