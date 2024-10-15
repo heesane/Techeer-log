@@ -500,6 +500,23 @@ public class ProjectServiceTest {
                     () -> {projectService.deleteProject(projectId, authInfo);});
         }
 
+        @Test
+        @DisplayName("작성자가 아닌 회원의 접근으로 인한 삭제 실패")
+        void deleteProjectTestThrowsAuthorizationException() {
+            // given
+            Long projectId = 1L;
+            AuthInfo authInfo = createAuthInfo(2L);
+            Member member = createMember(1L);
+            Project project = createProject(1L, member);
+
+            when(projectRepository.findById(any()))
+                    .thenReturn(Optional.ofNullable(project));
+
+            // when, then
+            assertThrows(AuthorizationException.class,
+                    () -> {projectService.deleteProject(projectId, authInfo);});
+        }
+
         private AuthInfo createAuthInfo(Long id) {
             return new AuthInfo(id, "type", "test");
         }
