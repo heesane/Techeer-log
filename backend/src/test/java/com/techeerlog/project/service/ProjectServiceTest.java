@@ -12,8 +12,10 @@ import com.techeerlog.member.domain.LoginId;
 import com.techeerlog.member.domain.Member;
 import com.techeerlog.member.domain.Nickname;
 import com.techeerlog.member.domain.Password;
+import com.techeerlog.member.exception.MemberNotFoundException;
 import com.techeerlog.member.repository.MemberRepository;
 import com.techeerlog.project.domain.Project;
+import com.techeerlog.project.dto.ProjectMemberRequest;
 import com.techeerlog.project.dto.ProjectRequest;
 import com.techeerlog.project.dto.ProjectResponse;
 import com.techeerlog.project.enums.*;
@@ -37,10 +39,13 @@ import java.awt.print.PrinterJob;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.List;
 import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.doThrow;
+import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
 public class ProjectServiceTest {
@@ -83,11 +88,11 @@ public class ProjectServiceTest {
             Scrap scrap = createScrap(member, project);
             AuthInfo authInfo = createAuthInfo(1L);
 
-            Mockito.when(projectRepository.findById(any()))
+            when(projectRepository.findById(any()))
                     .thenReturn(Optional.ofNullable(project));
-            Mockito.when(loveRepository.findByMemberIdAndProjectId(any(), any()))
+            when(loveRepository.findByMemberIdAndProjectId(any(), any()))
                     .thenReturn(Optional.ofNullable(love));
-            Mockito.when(scrapRepository.findByMemberIdAndProjectId(any(), any()))
+            when(scrapRepository.findByMemberIdAndProjectId(any(), any()))
                     .thenReturn(Optional.ofNullable(scrap));
 
             // when
@@ -107,7 +112,7 @@ public class ProjectServiceTest {
             // given
             AuthInfo authInfo = createAuthInfo(1L);
 
-            Mockito.when(projectRepository.findById(any()))
+            when(projectRepository.findById(any()))
                     .thenReturn(Optional.empty());
 
             // when, then
@@ -183,7 +188,7 @@ public class ProjectServiceTest {
             Member member = createMember(1L);
             Project project = createProject(1L, member);
 
-            Mockito.when(projectRepository.save(any())).thenReturn(project);
+            when(projectRepository.save(any())).thenReturn(project);
 
             ProjectRequest projectRequest = createProjectRequest(1L);
             AuthInfo authInfo = createAuthInfo(1L);
@@ -196,15 +201,33 @@ public class ProjectServiceTest {
         }
 
         @Test
+        @DisplayName("프로젝트 추가 실패")
+        void addProjectTestThrowsMemberNotFoundException() {
+            // given
+            Member member = createMember(1L);
+            Project project = createProject(1L, member);
+            List<ProjectMemberRequest> projectMemberRequestList = createProjectMemberRequestList();
+
+            doThrow(new MemberNotFoundException()).when(utilMethod).validateMemberId(any());
+            // void method 예외는 doThrow 사용해 발생 시킨다.
+
+            ProjectRequest projectRequest = createProjectRequest(1L, projectMemberRequestList);
+            AuthInfo authInfo = createAuthInfo(1L);
+
+            // when, then
+            assertThrows(MemberNotFoundException.class, () -> {
+                projectService.addProject(projectRequest, authInfo);
+            });
+        }
+
+        @Test
         @DisplayName("프로젝트 저장 실패로 인한 ProjectNotFoundException")
         void addProjectTestThrowsProjectNotFoundException() {
             // given
-            Member member = createMember(1L);
-
-            Mockito.when(projectRepository.save(any())).thenThrow(new ProjectNotFoundException());
-
             ProjectRequest projectRequest = createProjectRequest(1L);
             AuthInfo authInfo = createAuthInfo(1L);
+
+            when(projectRepository.save(any())).thenThrow(new ProjectNotFoundException());
 
             // when, then
             assertThrows(ProjectNotFoundException.class,
@@ -226,6 +249,22 @@ public class ProjectServiceTest {
                     .build();
         }
 
+        private ProjectMemberRequest createProjectMemberRequest(Long memberId){
+            return ProjectMemberRequest.builder()
+                    .memberId(memberId)
+                    .projectMemberTypeEnum(ProjectMemberTypeEnum.BACKEND)
+                    .build();
+        }
+
+        private List<ProjectMemberRequest> createProjectMemberRequestList(){
+            List<ProjectMemberRequest> projectMemberRequestList = new ArrayList<>();
+            for (long memberId = 1; memberId <= 5; memberId++) {
+                projectMemberRequestList.add(createProjectMemberRequest(memberId));
+            }
+
+            return projectMemberRequestList;
+        }
+
         private ProjectRequest createProjectRequest(Long projectId) {
             return ProjectRequest.builder()
                     .title("title" + projectId)
@@ -243,6 +282,27 @@ public class ProjectServiceTest {
                     .year(2024)
                     .semesterEnum(SemesterEnum.ALL)
                     .projectMemberRequestList(Collections.emptyList())
+                    .frameworkRequestList(Collections.emptyList())
+                    .nonRegisterProjectMemberRequestList(Collections.emptyList())
+                    .build();
+        }
+        private ProjectRequest createProjectRequest(Long projectId, List<ProjectMemberRequest> projectMemberRequestList) {
+            return ProjectRequest.builder()
+                    .title("title" + projectId)
+                    .subtitle("subtitle" + projectId)
+                    .mainImageUrl("mainImageUrl" + projectId)
+                    .content("content" + projectId)
+                    .startDate(LocalDate.now())
+                    .endDate(LocalDate.now())
+                    .blogLink("blogLink" + projectId)
+                    .githubLink("githubLink" + projectId)
+                    .websiteLink("websiteLink" + projectId)
+                    .projectStatusEnum(ProjectStatusEnum.COMPLETED)
+                    .projectTypeEnum(ProjectTypeEnum.BOOTCAMP)
+                    .platform(PlatformEnum.WEB)
+                    .year(2024)
+                    .semesterEnum(SemesterEnum.ALL)
+                    .projectMemberRequestList(projectMemberRequestList)
                     .frameworkRequestList(Collections.emptyList())
                     .nonRegisterProjectMemberRequestList(Collections.emptyList())
                     .build();
@@ -289,7 +349,7 @@ public class ProjectServiceTest {
 
             Member member = createMember(1L);
             Project project = createProject(1L, member);
-            Mockito.when(projectRepository.findById(any()))
+            when(projectRepository.findById(any()))
                     .thenReturn(Optional.ofNullable(project));
 
             // when
@@ -378,7 +438,7 @@ public class ProjectServiceTest {
             Member member = createMember(1L);
             Project project = createProject(1L, member);
 
-            Mockito.when(projectRepository.findById(any()))
+            when(projectRepository.findById(any()))
                     .thenReturn(Optional.ofNullable(project));
 
             // when
