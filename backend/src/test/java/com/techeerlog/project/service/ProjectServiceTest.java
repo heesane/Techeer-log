@@ -485,6 +485,21 @@ public class ProjectServiceTest {
             verify(projectRepository).delete(project);
         }
 
+        @Test
+        @DisplayName("프로젝트 조회 실패로 인한 삭제 실패")
+        void deleteProjectTestThrowsProjectNotFoundException() {
+            // given
+            Long projectId = 1L;
+            AuthInfo authInfo = createAuthInfo(1L);
+
+            when(projectRepository.findById(any()))
+                    .thenReturn(Optional.empty());
+
+            // when, then
+            assertThrows(ProjectNotFoundException.class,
+                    () -> {projectService.deleteProject(projectId, authInfo);});
+        }
+
         private AuthInfo createAuthInfo(Long id) {
             return new AuthInfo(id, "type", "test");
         }
