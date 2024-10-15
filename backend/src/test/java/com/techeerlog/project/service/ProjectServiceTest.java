@@ -201,18 +201,15 @@ public class ProjectServiceTest {
         }
 
         @Test
-        @DisplayName("프로젝트 추가 실패")
+        @DisplayName("프로젝트 멤버 정보 조회 실패")
         void addProjectTestThrowsMemberNotFoundException() {
             // given
-            Member member = createMember(1L);
-            Project project = createProject(1L, member);
             List<ProjectMemberRequest> projectMemberRequestList = createProjectMemberRequestList();
+            ProjectRequest projectRequest = createProjectRequest(1L, projectMemberRequestList);
+            AuthInfo authInfo = createAuthInfo(1L);
 
             doThrow(new MemberNotFoundException()).when(utilMethod).validateMemberId(any());
             // void method 예외는 doThrow 사용해 발생 시킨다.
-
-            ProjectRequest projectRequest = createProjectRequest(1L, projectMemberRequestList);
-            AuthInfo authInfo = createAuthInfo(1L);
 
             // when, then
             assertThrows(MemberNotFoundException.class, () -> {
