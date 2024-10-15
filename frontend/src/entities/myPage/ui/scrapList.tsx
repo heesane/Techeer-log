@@ -37,7 +37,9 @@ export default function ScrapList() {
         {currentData && currentData.length > 0 ? (
           currentData?.map((scrap) => <ScrapCard key={scrap.projectId} scrap={scrap} />)
         ) : (
-          <div>No projects found.</div>
+          <div className="flex flex-col -m-4 text-[1.25rem] px-[0.5rem] mb-[2rem] font-[400] text-[#90909a]">
+            등록된 프로젝트가 없습니다.
+          </div>
         )}
       </div>
       <Pagination totalPages={totalPages} currentPage={currentPage} onPageChange={setCurrentPage} />

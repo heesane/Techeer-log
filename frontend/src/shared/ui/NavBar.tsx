@@ -37,8 +37,8 @@ export default function NavBar() {
             TECHEER
           </span>
         </div>
-        <div className="flex flex-row justify-between items-center gap-[2.5rem] h-[fit-content] box-sizing-border text-[1.2rem] font-[500]">
-          <div className="flex flex-row items-center text-[1.2rem] text-[#cccccc] font-[500]  gap-[2.5rem] mt-[0.2rem]">
+        <div className="flex flex-row justify-between items-center gap-[2.5rem] h-[fit-content] box-sizing-border text-[1.2rem] font-['Pre'] font-[500] ">
+          <div className="flex flex-row items-center text-[#cccccc] gap-[2.5rem]">
             <span
               onClick={() => handleNavigation('/')}
               className={`cursor-pointer hover:text-[#FFFFFF] ${
@@ -63,7 +63,7 @@ export default function NavBar() {
             ) : (
               <span
                 onClick={() => handleNavigation('/login')}
-                className={`cursor-pointer break-words font-['Pretendard'] leading-[1.5] ${
+                className={`cursor-pointer break-words ${
                   activeTab === 'login' ? 'text-[#FFFFFF]' : 'text-[#cccccc]'
                 } hover:text-[#FFFFFF]`}
               >

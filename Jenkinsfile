@@ -3,6 +3,8 @@ pipeline {
 
     environment {
         DEPLOY_SERVER = "${env.TECHEER_LOG_IP}"
+        BUILD_SCRIPT = "./backend-build.sh"
+        DEPLOY_SCRIPT = "./deploy.sh"
     }
 
     stages {
@@ -39,8 +41,8 @@ pipeline {
             steps {
                 script {
                     sh """
-                      chmod +x backend-build.sh
-                      ./backend-build.sh
+                      chmod +x ${BUILD_SCRIPT}
+                      sh ${BUILD_SCRIPT}
                     """
                 }
             }
@@ -57,12 +59,10 @@ pipeline {
                 script {
                     sshagent(['techeer-log-ssh']) {
                         sh """
-                        ssh -o StrictHostKeyChecking=no ${DEPLOY_SERVER} << EOF
-                          cd ~/Techeer-log
-                          git pull
-                          chmod +x deploy.sh
-                          ./deploy.sh
-                        EOF
+                        ssh -o StrictHostKeyChecking=no ${DEPLOY_SERVER} '
+                        cd ~/Techeer-log
+                        sudo chmod +x ${DEPLOY_SCRIPT}
+                        sudo sh ${DEPLOY_SCRIPT}'
                         """
                     }
                 }

@@ -28,7 +28,7 @@ export default function ProjectListCard({ project }: propsProjects) {
           className="h-[14rem] rounded-[0.3rem] border-solid border border-[#444444] flex p-[1rem] box-sizing-border w-[100%] relative transform transition-transform duration-200 ease-in-out hover:scale-[1.015] mb-[1.3rem]"
         >
           {project.rankEnum !== 'NONE' ? (
-            <div className="absolute w-0 h-0 border-solid border-0 border-r-[5rem] border-b-[5rem] border-transparent border-r-[#2B00AD] top-0 right-0">
+            <div className="absolute w-0 h-0 border-solid border-0 border-r-[5rem] border-b-[5rem] border-transparent border-r-[#0028ff] top-0 right-0">
               <p className="absolute w-[3rem] ml-[2rem] mt-[1.3rem] text-[1rem] font-semibold text-white rotate-[45deg]">
                 수상작
               </p>
@@ -65,9 +65,9 @@ export default function ProjectListCard({ project }: propsProjects) {
               <div className="w-80 h-[3rem] m-[0.4rem_1rem_0.7rem_1rem] inline-block self-start break-words font-['Pre-R'] font-normal text-[1.1rem] text-[#CCCCCC] overflow-hidden text-ellipsis whitespace-nowrap text-clamp">
                 {project.subtitle}
               </div>
-              <div className="rounded-[0.3rem] m-[1.5rem_0_0_1rem] flex flex-row flex-wrap self-start w-[90%] box-sizing-border gap-[0.5rem]">
+              <div className="rounded-[0.3rem] m-[2rem_0_0_1rem] flex flex-row flex-wrap self-start w-[90%] box-sizing-border gap-[0.5rem]">
                 {firstFrontend ? (
-                  <div className="rounded-[0.3rem] bg-[#333333] flex flex-row justify-center items-center p-[0.5rem_1.5rem_0.5rem_1.5rem] box-sizing-border">
+                  <div className="rounded-[0.3rem] bg-[#333333] flex flex-row justify-center items-center p-[0.4rem_0.9rem] box-sizing-border">
                     <span className="break-words font-['Pre-R'] font-semibold text-[0.9rem] text-[#FFFFFF]">
                       {firstFrontend.name}
                     </span>
@@ -76,7 +76,7 @@ export default function ProjectListCard({ project }: propsProjects) {
                   <></>
                 )}
                 {firstBackend ? (
-                  <div className="rounded-[0.3rem] bg-[#333333] flex flex-row justify-center items-center p-[0.5rem_1.5rem_0.5rem_1.5rem] box-sizing-border">
+                  <div className="rounded-[0.3rem] bg-[#333333] flex flex-row justify-center items-center p-[0.4rem_0.9rem] box-sizing-border">
                     <span className="break-words font-['Pre-R'] font-semibold text-[0.9rem] text-[#FFFFFF]">
                       {firstBackend.name}
                     </span>

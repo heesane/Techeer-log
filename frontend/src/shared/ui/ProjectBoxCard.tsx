@@ -1,7 +1,8 @@
 import { useState } from 'react';
 import { Project } from '../types/projectList.ts';
 import { Link, useParams } from 'react-router-dom';
-import arrow from '../assets/image/mainImg/arrow.png';
+import { MdArrowOutward } from 'react-icons/md';
+
 interface propsProjects {
   project: Project;
 }
@@ -48,7 +49,7 @@ export default function ProjectBoxCard({ project }: propsProjects) {
             </div>
             <div className="rounded-[0.3rem] m-[1.5rem_0_0_0] flex flex-row flex-wrap self-start w-[90%] box-sizing-border gap-[0.5rem]">
               {firstFrontend ? (
-                <div className="rounded-[0.3rem] bg-[#333333] flex flex-row justify-center items-center p-[0.5rem_1.5rem_0.5rem_1.5rem] box-sizing-border">
+                <div className="rounded-[0.3rem] bg-[#333333] flex flex-row justify-center items-center p-[0.3rem_0.8rem] box-sizing-border">
                   <span className="break-words font-['Pre-R'] font-semibold text-[0.9rem] text-[#FFFFFF]">
                     {firstFrontend.name}
                   </span>
@@ -57,7 +58,7 @@ export default function ProjectBoxCard({ project }: propsProjects) {
                 <></>
               )}
               {firstBackend ? (
-                <div className="rounded-[0.3rem] bg-[#333333] flex flex-row justify-center items-center p-[0.5rem_1.5rem_0.5rem_1.5rem] box-sizing-border">
+                <div className="rounded-[0.3rem] bg-[#333333] flex flex-row justify-center items-center p-[0.3rem_0.8rem] box-sizing-border">
                   <span className="break-words font-['Pre-R'] font-semibold text-[0.9rem] text-[#FFFFFF]">
                     {firstBackend.name}
                   </span>
@@ -68,16 +69,16 @@ export default function ProjectBoxCard({ project }: propsProjects) {
             </div>
             <div className="absolute bottom-[2rem] flex flex-row gap-[1.4rem] font-['Pre'] text-[1.5rem]">
               <Link to={moveProjectView}>
-                <button className="flex flex-row gap-[0.3rem] cursor-pointer">
+                <button className="flex flex-row gap-[0.1rem] cursor-pointer">
                   <p className="text-[#0047FF] font-bold">Detail </p>
-                  <img className="h-[1.2rem] w-[1rem] ml-[0.1rem] mt-[0.2rem]" src={arrow}></img>
+                  <MdArrowOutward style={{ color: '#0047FF', fontSize: '1.5rem', marginTop: '-0.1rem' }} />
                 </button>
               </Link>
               {project.githubLink ? (
                 <Link to={project.githubLink}>
-                  <button className="flex flex-row gap-[0.3rem] cursor-pointer">
+                  <button className="flex flex-row gap-[0.1rem] cursor-pointer">
                     <p className="text-[#0047FF] font-bold">Github </p>
-                    <img className="h-[1.2rem] w-[1rem] ml-[0.1rem] mt-[0.2rem]" src={arrow}></img>
+                    <MdArrowOutward style={{ color: '#0047FF', fontSize: '1.5rem', marginTop: '-0.1rem' }} />
                   </button>
                 </Link>
               ) : (
@@ -85,9 +86,9 @@ export default function ProjectBoxCard({ project }: propsProjects) {
               )}
               {project.blogLink ? (
                 <Link to={project.blogLink}>
-                  <button className="flex flex-row gap-[0.3rem] cursor-pointer">
+                  <button className="flex flex-row gap-[0.1rem] cursor-pointer">
                     <p className="text-[#0047FF] font-bold">Blog </p>
-                    <img className="h-[1.2rem] w-[1rem] ml-[0.1rem] mt-[0.2rem]" src={arrow}></img>
+                    <MdArrowOutward style={{ color: '#0047FF', fontSize: '1.5rem', marginTop: '-0.1rem' }} />
                   </button>
                 </Link>
               ) : (
