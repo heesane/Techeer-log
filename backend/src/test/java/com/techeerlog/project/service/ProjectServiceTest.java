@@ -1,6 +1,7 @@
 package com.techeerlog.project.service;
 
 import com.techeerlog.auth.dto.AuthInfo;
+import com.techeerlog.auth.exception.AuthorizationException;
 import com.techeerlog.framework.repository.FrameworkRepository;
 import com.techeerlog.global.mapper.FrameworkMapper;
 import com.techeerlog.global.mapper.MemberMapper;
@@ -376,6 +377,24 @@ public class ProjectServiceTest {
 
             // when, then
             assertThrows(ProjectNotFoundException.class,
+                    () -> {projectService.updateProject(id, projectRequest, authInfo);});
+        }
+
+        @Test
+        @DisplayName("작성자가 아닌 회원 접근으로 인한 수정 실패")
+        void updateProjectTestThrowsAuthorizationException() {
+            // given
+            Long id = 1L;
+            ProjectRequest projectRequest = createProjectRequest(1L);
+            AuthInfo authInfo = createAuthInfo(2L);
+
+            Member member = createMember(1L);
+            Project project = createProject(1L, member);
+            when(projectRepository.findById(any()))
+                    .thenReturn(Optional.ofNullable(project));
+
+            // when, then
+            assertThrows(AuthorizationException.class,
                     () -> {projectService.updateProject(id, projectRequest, authInfo);});
         }
 
