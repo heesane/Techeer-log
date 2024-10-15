@@ -44,8 +44,7 @@ import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.Mockito.doThrow;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
 public class ProjectServiceTest {
@@ -353,9 +352,15 @@ public class ProjectServiceTest {
             projectService.updateProject(id, projectRequest, authInfo);
 
             // then
-            Mockito.verify(projectRepository).findById(project.getId());
-            Mockito.verify(projectMapper).updateProjectFromRequest(projectRequest, project);
-            Mockito.verify(projectRepository).save(project);
+            verify(projectRepository).save(any());
+
+            verify(projectMemberRepository).deleteAllByProjectId(any());
+            verify(nonRegisterProjectMemberRepository).deleteAllByProjectId(any());
+            verify(projectFrameworkRepository).deleteAllByProjectId(any());
+
+            verify(projectMemberRepository).saveAll(any());
+            verify(nonRegisterProjectMemberRepository).saveAll(any());
+            verify(projectFrameworkRepository).saveAll(any());
         }
 
         private AuthInfo createAuthInfo(Long id) {
@@ -442,7 +447,7 @@ public class ProjectServiceTest {
             projectService.deleteProject(id, authInfo);
 
             // then
-            Mockito.verify(projectRepository).delete(project);
+            verify(projectRepository).delete(project);
         }
 
         private AuthInfo createAuthInfo(Long id) {
