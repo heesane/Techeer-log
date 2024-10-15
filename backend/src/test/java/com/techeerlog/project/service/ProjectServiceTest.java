@@ -196,7 +196,7 @@ public class ProjectServiceTest {
         }
 
         @Test
-        @DisplayName("프로젝트 조회 실패 인한 예외 발생")
+        @DisplayName("프로젝트 저장 실패로 인한 ProjectNotFoundException")
         void addProjectTestThrowsProjectNotFoundException() {
             // given
             Member member = createMember(1L);
