@@ -39,6 +39,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Optional;
 
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.ArgumentMatchers.any;
 
 @ExtendWith(MockitoExtension.class)
@@ -98,6 +99,21 @@ public class ProjectServiceTest {
             Assertions.assertEquals(projectResponse.getProjectMemberResponseList().size(), 0);
             Assertions.assertTrue(projectResponse.isLoved());
             Assertions.assertTrue(projectResponse.isScraped());
+        }
+
+        @Test
+        @DisplayName("projectNotFoundException")
+        void findProjectResponseTestThrowProjectNotFoundException() {
+            // given
+            AuthInfo authInfo = createAuthInfo(1L);
+
+            Mockito.when(projectRepository.findById(any()))
+                    .thenReturn(Optional.empty());
+
+            // when, then
+            assertThrows(ProjectNotFoundException.class, () -> {
+                projectService.findProjectResponse(1L, authInfo);
+            });
         }
 
         private AuthInfo createAuthInfo(Long id) {
@@ -191,7 +207,7 @@ public class ProjectServiceTest {
             AuthInfo authInfo = createAuthInfo(1L);
 
             // when, then
-            Assertions.assertThrows(ProjectNotFoundException.class,
+            assertThrows(ProjectNotFoundException.class,
                     () -> {projectService.addProject(projectRequest, authInfo);});
         }
 
