@@ -7,7 +7,6 @@ import circle1 from '../entities/onboarding/image/circle1.png';
 import circle2 from '../entities/onboarding/image/circle2.png';
 import { motion } from 'framer-motion';
 import arrow from '../entities/onboarding/image/arrow.png';
-const Footer = React.lazy(() => import('../shared/ui/Footer.tsx'));
 
 export default function MainPage() {
   const location = useLocation();
@@ -51,6 +50,7 @@ export default function MainPage() {
       window.removeEventListener('mousemove', handleMouseMove);
     };
   }, []);
+  const Footer = React.lazy(() => import('../shared/ui/Footer.tsx'));
 
   return (
     <div className="bg-[#111111] flex flex-col w-screen justify-center items-center">

@@ -37,7 +37,7 @@ export default function ScrapList() {
         {currentData && currentData.length > 0 ? (
           currentData?.map((scrap) => <ScrapCard key={scrap.projectId} scrap={scrap} />)
         ) : (
-          <div>No projects found.</div>
+          <div></div>
         )}
       </div>
       <Pagination totalPages={totalPages} currentPage={currentPage} onPageChange={setCurrentPage} />

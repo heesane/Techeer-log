@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { Project } from '../types/projectList.ts';
 import { Link, useParams } from 'react-router-dom';
 import arrow from '../assets/image/mainImg/arrow.png';
+
 interface propsProjects {
   project: Project;
 }

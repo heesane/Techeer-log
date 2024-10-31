@@ -1,10 +1,5 @@
 //import { Search } from '../../../entities/search/index.ts';
 import React, { Suspense } from 'react';
-const Search = React.lazy(() =>
-  import('../../../entities/search/index.ts').then((module) => ({
-    default: module.Search,
-  })),
-);
 
 interface TabProps {
   selectedType: string;
@@ -43,6 +38,11 @@ export const ProjectTabs = ({
   ];
   const selectedTab = tabDescription.find((tab) => tab.type === selectedType) || tabDescription[0];
 
+  const Search = React.lazy(() =>
+    import('../../../entities/search/index.ts').then((module) => ({
+      default: module.Search,
+    })),
+  );
   return (
     <>
       <div className="flex flex-row gap-[4rem] w-[100%] pb-[1rem] border-b-[0.1rem] border-solid border-[#444444] box-sizing-border relative">
