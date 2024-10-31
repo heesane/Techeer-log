@@ -65,7 +65,7 @@ export function LogIn() {
     // 전체 배경
     <div className="bg-[#111111] bg-opacity-90 flex w-screen h-screen justify-center items-center">
       {/* 모달 이미지 배경 */}
-      <div className="rounded-[1.25rem] bg-cover bg-[url('/src/shared/assets/image/loginImg/Background-Login.png')] bg-no-repeat flex flex-row w-[60rem] h-[37.5rem]">
+      <div className="rounded-[1.25rem] bg-cover bg-[url('/src/shared/assets/image/loginImg/Background-Login.webp')] bg-no-repeat flex flex-row w-[60rem] h-[37.5rem]">
         {/* 왼쪽 박스 텍스트 그룹 */}
         <div className="flex flex-col justify-center ml-8 box-sizing-border w-[55%] gap-2">
           <p className="break-words font-['Bayon'] font-normal text-[3rem] text-[#FFFFFF]">Techeer.log</p>
