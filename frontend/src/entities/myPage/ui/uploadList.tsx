@@ -37,7 +37,7 @@ export default function UploadList() {
         {currentData.length > 0 ? (
           currentData.map((project) => <ProjectBoxCard key={project.id} project={project} />)
         ) : (
-          <div className="text-white">No projects found.</div>
+          <div className="text-white"></div>
         )}
       </div>
       <Pagination totalPages={totalPages} currentPage={currentPage} onPageChange={handlePageChange} />

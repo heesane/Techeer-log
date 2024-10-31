@@ -66,7 +66,7 @@ export function SignUp() {
   return (
     //   확인용 배경 박스
     <div className="bg-[#111111] bg-opacity-90 flex w-screen h-screen justify-center items-center">
-      <div className="rounded-[20px] bg-[url('./shared/assets/image/signupImg/signup.svg')] bg-cover bg-no-repeat flex flex-row w-[960px] h-[600px] box-sizing-border">
+      <div className="rounded-[20px] bg-[url('./shared/assets/image/signupImg/signup.webp')] bg-cover bg-no-repeat flex flex-row w-[960px] h-[600px] box-sizing-border">
         {/*왼쪽 박스*/}
         <div className="flex flex-col justify-center ml-8 box-sizing-border w-[55%] gap-2">
           <p className="break-words font-['Bayon'] font-normal text-[3rem] text-[#FFFFFF]">Techeer.log</p>
@@ -143,7 +143,7 @@ export function SignUp() {
                 )}
               </label>
             </div>
-            {/*<div className="flex mb-8 items-center gap-4">*/}
+            {/*<div className="flex items-center gap-4 mb-8">*/}
             {/*  <label className="block">*/}
             {/*    <input*/}
             {/*      type="text"*/}
@@ -154,7 +154,7 @@ export function SignUp() {
             {/*    />*/}
             {/*  </label>*/}
             {/*</div>*/}
-            {/*<div className="flex mb-8 items-center gap-4">*/}
+            {/*<div className="flex items-center gap-4 mb-8">*/}
             {/*  <p className="text-[1.1rem] leading-7 pt-0 font-semibold mb-30 text-[#ECEFF5]">아이디</p>*/}
             {/*  <label className="block">*/}
             {/*    <input*/}
@@ -166,7 +166,7 @@ export function SignUp() {
             {/*    />*/}
             {/*  </label>*/}
             {/*</div>*/}
-            {/*<div className="flex mb-8 items-center gap-4">*/}
+            {/*<div className="flex items-center gap-4 mb-8">*/}
             {/*  <p className="text-[1.1rem] leading-7 font-semibold mb-30 text-[#ECEFF5]">비밀번호</p>*/}
             {/*  <label className="block">*/}
             {/*    <input*/}
@@ -178,7 +178,7 @@ export function SignUp() {
             {/*    />*/}
             {/*  </label>*/}
             {/*</div>*/}
-            {/*<div className="flex mb-8 items-center gap-4">*/}
+            {/*<div className="flex items-center gap-4 mb-8">*/}
             {/*  <p className="text-[1rem] leading-7 font-semibold mb-30 text-[#ECEFF5]">비밀번호 확인</p>*/}
             {/*  <label className="block">*/}
             {/*    <input*/}

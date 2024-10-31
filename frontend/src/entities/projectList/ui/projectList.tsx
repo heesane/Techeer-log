@@ -1,8 +1,10 @@
-import ProjectBoxCard from '../../../shared/ui/ProjectBoxCard.tsx';
 import { useGetProjectQuery } from '../query/useGetProjectQuery.tsx';
 import { useInView } from 'react-intersection-observer';
 import { useEffect, useMemo } from 'react';
 import ProjectListCard from '../../../shared/ui/ProjectListCard.tsx';
+import SkeletonCard from '../../../shared/ui/SkeletonCard.tsx';
+import ProjectBoxCard from '../../../shared/ui/ProjectBoxCard.tsx';
+
 type ProjectListProps = {
   selectedType: string;
   selectedYear: string;
@@ -67,7 +69,13 @@ export const ProjectList = ({ selectedType, selectedYear, selectedPeriod, alignm
     }
   }, [hasNextPage, fetchNextPage, inView]);
   if (isFetching && !isFetchingNextPage) {
-    return <div className="w-full h-full bg-transparent">Loading...</div>;
+    return (
+      <div className="grid grid-cols-3 grid-rows-3 gap-4 m-4">
+        {[...Array(9)].map((_, index) => (
+          <SkeletonCard key={index} />
+        ))}
+      </div>
+    );
   }
   return (
     <>

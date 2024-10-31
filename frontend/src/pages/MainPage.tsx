@@ -1,6 +1,5 @@
 import NavBar from '../shared/ui/NavBar.tsx';
-import { useEffect, useRef } from 'react';
-import Footer from '../shared/ui/Footer.tsx';
+import React, { useEffect, useRef, Suspense } from 'react';
 import { useLocation } from 'react-router-dom';
 import Bootcamp from '../entities/onboarding/ui/Bootcamp.tsx';
 import Project from '../entities/onboarding/ui/Project.tsx';
@@ -51,6 +50,7 @@ export default function MainPage() {
       window.removeEventListener('mousemove', handleMouseMove);
     };
   }, []);
+  const Footer = React.lazy(() => import('../shared/ui/Footer.tsx'));
 
   return (
     <div className="bg-[#111111] flex flex-col w-screen justify-center items-center">
@@ -146,7 +146,9 @@ export default function MainPage() {
           <img className="w-[35rem] h-[43rem] flex -right-0 bottom-0 absolute" src={circle2} alt="원" />
         </motion.div>
       </div>
-      <Footer />
+      <Suspense fallback={<div>Loading...</div>}>
+        <Footer />
+      </Suspense>
     </div>
   );
 }
