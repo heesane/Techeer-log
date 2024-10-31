@@ -89,14 +89,24 @@ export default function ProjectListCard({ project }: propsProjects) {
             <div className="absolute bottom-[2.2rem] right-[2rem] flex flex-row items-center gap-4 box-sizing-border">
               {project.githubLink && (
                 <div className="flex hover:scale-110">
-                  <a href={project.githubLink} target="_blank" rel="noopener noreferrer">
+                  <a
+                    href={project.githubLink}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    onClick={(event) => event.stopPropagation()}
+                  >
                     <img src={GithubIcon} className="cursor-pointer w-[2rem] h-[2rem]" />
                   </a>
                 </div>
               )}
               {project.blogLink && (
                 <div className="flex hover:scale-110">
-                  <a href={project.blogLink} target="_blank" rel="noopener noreferrer">
+                  <a
+                    href={project.blogLink}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    onClick={(event) => event.stopPropagation()}
+                  >
                     <img src={BlogIcon} className="cursor-pointer ml-1 w-[2rem] h-[2rem]" />
                   </a>
                 </div>
