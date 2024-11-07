@@ -15,5 +15,8 @@ RUN npm install recoil
 RUN npm install framer-motion
 RUN npm install vite
 
+# Tags input을 사용하기 위해 추가
+COPY react-tagsinput.css ./node_modules/react-tagsinput/react-tagsinput.css
+
 # 배포 시에는 build 파일이 쓰이지 않으므로 상관 없음
 RUN npm run build

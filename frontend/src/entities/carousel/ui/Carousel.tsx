@@ -16,9 +16,9 @@ type PropType = {
   options?: EmblaOptionsType;
   date: prizeDate;
 };
-
 export const EmblaCarousel: React.FC<PropType> = (props) => {
   const { options, date } = props;
+
   const [emblaRef, emblaApi] = useEmblaCarousel(options, [
     Autoplay({ playOnInit: true, delay: 3000, stopOnMouseEnter: true, stopOnInteraction: false }),
   ]);
@@ -60,7 +60,13 @@ export const EmblaCarousel: React.FC<PropType> = (props) => {
 
         const tweenValue = 1 - Math.abs(diffToTarget * tweenFactor.current);
         const opacity = numberWithinRange(tweenValue, 0.2, 1).toString();
-        emblaApi.slideNodes()[slideIndex].style.opacity = opacity;
+
+        // 이미지 래퍼에 opacity 적용
+        const slideNode = emblaApi.slideNodes()[slideIndex];
+        const imageWrapper = slideNode.querySelector('.image-wrapper') as HTMLElement;
+        if (imageWrapper) {
+          imageWrapper.style.opacity = opacity;
+        }
       });
     });
   }, []);
@@ -93,10 +99,12 @@ export const EmblaCarousel: React.FC<PropType> = (props) => {
         <div className="embla__container">
           {data?.map((project: Project, index: number) => (
             <div className="embla__slide" key={index}>
-              <Link to={`/projectview/${project.id}`}>
+              <Link to={`/project/${project.id}`}>
                 <div className="embla__slide__number cursor-pointer">
-                  <img src={project.mainImageUrl} className="w-full h-full object-cover" />
-                  <div className="hover-content ">
+                  <div className="image-wrapper">
+                    <img src={project.mainImageUrl} className="w-full h-full object-cover" />
+                  </div>
+                  <div className="hover-content">
                     <div className="font-bold text-[2.5rem] leading-[1] mb-5">{project.title}</div>
                     <div className="font-normal text-[1.5rem]">{project.subtitle}</div>
                   </div>

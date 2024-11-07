@@ -194,7 +194,13 @@ export const ProjectWrite = ({ setStep }: any) => {
         </div>
         {/* 오른쪽 박스 - preview */}
         <div className="flex flex-col w-1/2 h-full font-['Pretendard'] p-[2.5rem_3.5rem] whitespace-pre-wrap overflow-y-scroll">
-          <MarkdownView markdown={markdown} />
+          <div
+            className={
+              'bg-transparent w-[100%] h-fit text-[1.2rem] outline-none cursor-text border-none text-white focus:text-white px-1 leading-6'
+            }
+          >
+            <MarkdownView markdown={markdown} />
+          </div>
         </div>
       </div>
       <textEdit.bottomButtons setStep={setStep} />

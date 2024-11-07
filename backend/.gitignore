@@ -38,3 +38,5 @@ out/
 
 ### Generated ###
 /src/main/generated/
+gradle.properties
+secret.yml

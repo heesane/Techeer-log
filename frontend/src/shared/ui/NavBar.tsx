@@ -1,78 +1,73 @@
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import { useAuthStore } from '../store/authStore';
-export default function NavBar({ scrollRef }: { scrollRef: React.RefObject<HTMLDivElement> | null }) {
-  const { logout, nickname } = useAuthStore();
+import { useEffect, useState } from 'react';
+import { UserDropDown } from './UserDropDown.tsx';
+export default function NavBar() {
+  const { nickname } = useAuthStore();
+  // const [selectedMenu, setSelectedMenu] = useState<string>('');
+
   const navigate = useNavigate();
+  const location = useLocation();
 
-  const goLogin = () => {
-    navigate('/login');
+  const getActiveTab = (pathname: string) => {
+    if (pathname === '/') return '소개';
+    if (pathname.startsWith('/project')) return '프로젝트';
+    if (pathname.startsWith('/mypage')) return '마이페이지';
+    return '';
   };
 
-  const handleLogout = () => {
-    logout();
-    window.location.replace('/');
+  const [activeTab, setActiveTab] = useState<string>(getActiveTab(location.pathname));
+
+  useEffect(() => {
+    setActiveTab(getActiveTab(location.pathname));
+  }, [location.pathname]);
+
+  const handleNavigation = (path: string) => {
+    navigate(path);
   };
-  const goProjectWrite = () => {
-    navigate('/projectwrite');
-  };
-  const cursorMove = () => {
-    console.log(scrollRef);
-    scrollRef?.current?.scrollIntoView({ behavior: 'smooth' });
-  };
+
   return (
     <div className="fixed top-0 w-screen flex justify-center items-center z-50 backdrop-blur-[4px]">
-      <div className="flex flex-row items-center justify-between py-2 px-3 w-[1200px] box-sizing-border">
-        <div className="flex flex-row justify-center my-2">
+      <div className="flex flex-row items-center justify-between py-2 px-3 w-[1300px] box-sizing-border ">
+        <div className="flex flex-row justify-center my-2 gap-[3rem]">
           <span
             onClick={() => window.location.replace('/')}
-            className="cursor-pointer break-words font-['Bayon'] font-normal text-[2rem] text-[#EFEFEF]"
+            className="cursor-pointer break-words font-['Bayon'] font-normal text-[2.3rem] text-[#EFEFEF]"
           >
-            Techeer.log
+            TECHEER
           </span>
         </div>
-        <div className="flex flex-row justify-between gap-[1rem] h-[fit-content] box-sizing-border">
-          <div className="flex flex-row justify-center box-sizing-border">
-            {nickname && (
-              <span
-                onClick={goProjectWrite}
-                className="cursor-pointer break-words font-['Pretendard'] font-normal text-[1rem] leading-[1.5] text-[#FFFFFF]"
-              >
-                새 프로젝트 작성
-              </span>
-            )}
-          </div>
-          <div className="flex flex-row justify-center box-sizing-border">
-            {nickname && (
-              <span
-                onClick={() => navigate('/mypage')}
-                className="cursor-pointer break-words font-['Pretendard'] font-normal text-[1rem] leading-[1.5] text-[#FFFFFF]"
-              >
-                마이페이지
-              </span>
-            )}
-          </div>
-          <div className="flex flex-row justify-center box-sizing-border">
+        <div className="flex flex-row justify-between items-center gap-[2.5rem] h-[fit-content] box-sizing-border text-[1.2rem] font-['Pre'] font-[500] ">
+          <div className="flex flex-row items-center text-[#cccccc] gap-[2.5rem]">
             <span
-              onClick={cursorMove}
-              className="cursor-pointer break-words font-['Pretendard'] font-normal text-[1rem] leading-[1.5] text-[#FFFFFF]"
+              onClick={() => handleNavigation('/')}
+              className={`cursor-pointer hover:text-[#FFFFFF] ${
+                activeTab === '소개' ? 'text-[#FFFFFF]' : 'text-[#cccccc]'
+              }`}
+            >
+              소개
+            </span>
+            <span
+              onClick={() => handleNavigation('/project')}
+              className={`cursor-pointer hover:text-[#FFFFFF] ${
+                activeTab === '프로젝트' ? 'text-[#FFFFFF]' : 'text-[#cccccc]'
+              }`}
             >
               프로젝트
             </span>
           </div>
+
           <div className="rounded-[0.3rem] flex flex-row justify-center box-sizing-border">
-            {!nickname ? (
-              <span
-                onClick={goLogin}
-                className="cursor-pointer break-words font-['Pretendard'] font-medium text-[1rem] leading-[1.5] text-[#FFFFFF]"
-              >
-                LOGIN
-              </span>
+            {nickname ? (
+              <UserDropDown defaultName={nickname} />
             ) : (
               <span
-                onClick={handleLogout}
-                className="cursor-pointer break-words font-['Pretendard'] font-medium text-[1rem] leading-[1.5] text-[#FFFFFF]"
+                onClick={() => handleNavigation('/login')}
+                className={`cursor-pointer break-words ${
+                  activeTab === 'login' ? 'text-[#FFFFFF]' : 'text-[#cccccc]'
+                } hover:text-[#FFFFFF]`}
               >
-                LOGOUT
+                LOGIN
               </span>
             )}
           </div>

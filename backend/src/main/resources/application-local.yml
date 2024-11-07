@@ -1,0 +1,71 @@
+server:
+  port: ${COMMON.PORT}
+
+salt: ${COMMON.SALT}
+
+spring:
+  config:
+    import: secret.yml
+
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: ${LOCAL.RDB.DATABASE_URL}
+    username: ${LOCAL.RDB.USERNAME}
+    password: ${LOCAL.RDB.PASSWORD}
+  jpa:
+    hibernate:
+      ddl-auto: update #  validate, none
+    #defer-datasource-initialization: true #data.sql을 작성할 때 필요
+    properties:
+      hibernate:
+        format_sql: true
+        dialect: org.hibernate.dialect.MySQL8Dialect
+        show_sql: true
+    generate-ddl: true
+  servlet:
+    multipart:
+      max-file-size: 2MB
+      max-request-size: 2MB
+
+  sql:
+    init:
+      schema-locations: classpath:sql/schema.sql
+      # data-locations: classpath:data.sql
+      mode: always
+  default:
+    image:
+      address: ${DEFAULT_IMAGE}
+
+  data:
+    redis:
+      host: ${LOCAL.REDIS.HOST}
+      port: ${LOCAL.REDIS.PORT}
+
+security:
+  jwt:
+    token:
+      secret: ${COMMON.JWT_TOKEN}
+      expire-length:
+        access: 3600000
+        refresh: 1210000000
+
+cloud:
+  aws:
+    credentials:
+      access-key: ${COMMON.S3.ACCESS_KEY}
+      secret-key: ${COMMON.S3.SECRET_KEY}
+    s3:
+      bucket: ${COMMON.S3.BUCKET}
+    region:
+      static: ${COMMON.S3.REGION}
+
+
+
+
+#logging:
+#  level:
+#    org:
+#      hibernate:
+#        SQL: info
+#    org.springframework: info
+#    console-log: debug

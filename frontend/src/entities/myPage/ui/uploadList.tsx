@@ -1,13 +1,13 @@
 import { useGetProjectQuery } from '../../projectList/query/useGetProjectQuery';
-import ProjectCard from '../../../shared/ui/ProjectCard';
 import Pagination from '../../../shared/ui/Pagination';
 import { useState } from 'react';
 import { useAuthStore } from '../../../shared/store/authStore';
+import ProjectBoxCard from '../../../shared/ui/ProjectBoxCard';
 
 export default function UploadList() {
   const { loginId } = useAuthStore(); // 현재 로그인한 사용자의 ID를 가져옴
 
-  const { data, isFetchingNextPage, fetchNextPage, hasNextPage } = useGetProjectQuery();
+  const { data, isFetchingNextPage, fetchNextPage, hasNextPage } = useGetProjectQuery('');
 
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 6; // 페이지당 보여줄 프로젝트 수
@@ -33,11 +33,11 @@ export default function UploadList() {
   };
   return (
     <div>
-      <div className="grid grid-rows-2 grid-cols-3 gap-4 m-4">
+      <div className="grid grid-cols-3 grid-rows-2 gap-4 m-4">
         {currentData.length > 0 ? (
-          currentData.map((project) => <ProjectCard key={project.id} project={project} />)
+          currentData.map((project) => <ProjectBoxCard key={project.id} project={project} />)
         ) : (
-          <div className="text-white">No projects found.</div>
+          <div className="text-white"></div>
         )}
       </div>
       <Pagination totalPages={totalPages} currentPage={currentPage} onPageChange={handlePageChange} />

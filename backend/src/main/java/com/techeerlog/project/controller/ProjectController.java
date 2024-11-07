@@ -8,6 +8,7 @@ import com.techeerlog.project.service.ProjectService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
+import lombok.extern.log4j.Log4j2;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -21,6 +22,7 @@ import static com.techeerlog.global.response.ResultCode.*;
 @Tag(name = "Project", description = "Project API Document")
 @RestController
 @RequestMapping("/v1")
+@Log4j2
 public class ProjectController {
     private final ProjectService projectService;
 
@@ -75,7 +77,23 @@ public class ProjectController {
     @GetMapping(path = "/projects/list")
     public ResponseEntity<ResultResponse<ProjectItemListResponse>> findProjectList(@Valid ProjectListRequest projectListRequest, @Login AuthInfo authInfo) {
         ProjectItemListResponse projectItemListResponse = projectService.findProjectListResponse(projectListRequest, authInfo);
-
+        projectItemListResponse.getProjectItemResponseList().forEach(project -> {
+            log.info("Project ID: {}", project.getId());
+            log.info("Title: {}", project.getTitle());
+            log.info("Subtitle: {}", project.getSubtitle());
+            log.info("Content: {}", project.getContent());
+            log.info("Platform: {}", project.getPlatform());
+            log.info("StartDate: {}", project.getStartDate());
+            log.info("EndDate: {}", project.getEndDate());
+            log.info("GithubLink: {}", project.getGithubLink());
+            log.info("BlogLink: {}", project.getBlogLink());
+            log.info("WebsiteLink: {}", project.getWebsiteLink());
+            log.info("Writer ID: {}", project.getWriter().getId());
+            log.info("Writer Nickname: {}", project.getWriter().getNickname());
+            log.info("Loved: {}", project.isLoved());
+            log.info("Scraped: {}", project.isScraped());
+            // 필요에 따라 추가 필드들도 로깅 가능
+        });
         ResultResponse<ProjectItemListResponse> listResultResponse
                 = new ResultResponse<>(FIND_PROJECT_LIST_SUCCESS, projectItemListResponse);
 

@@ -21,23 +21,24 @@
   overflow: hidden
 }
 .embla__slide__number {
-  /*box-shadow: inset 0 0 0 0.2rem var(--detail-medium-contrast);*/
+  position: relative;
   border-radius: 15px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
   overflow: hidden;
   height: var(--slide-height);
 }
+.image-wrapper {
+  width: 100%;
+  height: 100%;
+}
 .hover-content {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
   background-color: rgba(16, 16, 16, 0.9);
   padding: 3rem;
   border-radius: 10px;
-  position: absolute;
-  top: 0;
-  left: calc(var(--slide-spacing) * 1);
-  width: 98%;
-  height: 100%;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -47,7 +48,7 @@
   transition: opacity 0.3s, transform 0.3s;
 }
 .embla__slide__number:hover .hover-content {
-  display: flex; /* 호버 시 보이도록 변경 */
+  /*  display: flex; !* 호버 시 보이도록 변경 *!*/
   opacity: 1;
   transform: translateY(0);
 }

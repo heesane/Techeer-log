@@ -1,14 +1,17 @@
 server:
-  port: ${SERVER_PORT}
+  port: ${COMMON.PORT}
 
-salt: ${SALT_VALUE}
+salt: ${COMMON.SALT}
 
 spring:
+  config:
+    import: secret.yml
+
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: ${SPRING_DATASOURCE_URL}
-    username: ${SPRING_DATASOURCE_USERNAME}
-    password: ${SPRING_DATASOURCE_PASSWORD}
+    url: ${PROD.RDB.DATABASE_URL}
+    username: ${PROD.RDB.USERNAME}
+    password: ${PROD.RDB.PASSWORD}
   jpa:
     database: mysql
     hibernate:
@@ -22,18 +25,29 @@ spring:
     multipart:
       max-file-size: 2MB
       max-request-size: 2MB
+  data:
+    redis:
+      host: redis
+      port: 6379
 
 #  sql:
 #    init:
 #      schema-locations: classpath:sql/schema.sql
-#      data-locations: classpath:data.sql
-#      mode: never
+#      # data-locations: classpath:data.sql
+#      mode: always
+#  default:
+#    image:
+#      address: ${DEFAULT_IMAGE}
 
+  data:
+    redis:
+      host: ${PROD.REDIS.HOST}
+      port: ${PROD.REDIS.PORT}
 
 security:
   jwt:
     token:
-      secret: ${JWT_TOKEN}
+      secret: ${COMMON.JWT_TOKEN}
       expire-length:
         access: 3600000
         refresh: 1210000000
@@ -41,12 +55,15 @@ security:
 cloud:
   aws:
     credentials:
-      access-key: ${ACCESS_KEY}
-      secret-key: ${SECRET_KEY}
+      access-key: ${COMMON.S3.ACCESS_KEY}
+      secret-key: ${COMMON.S3.SECRET_KEY}
     s3:
-      bucket: ${BUCKET}
+      bucket: ${COMMON.S3.BUCKET}
     region:
-      static: ${REGION}
+      static: ${COMMON.S3.REGION}
+
+
+
 
 #logging:
 #  level:

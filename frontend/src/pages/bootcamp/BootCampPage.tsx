@@ -3,7 +3,7 @@ import Footer from '../../shared/ui/Footer.tsx';
 import { getBootCampProject } from './api/getBootCampProject.ts';
 import { Project } from '../../shared/types/projectList.ts';
 import { useQuery } from '@tanstack/react-query';
-import ProjectCard from '../../shared/ui/ProjectCard.tsx';
+import ProjectCard from '../../shared/ui/ProjectBoxCard.tsx';
 
 export const BootCampPage = () => {
   const { data, isError, error } = useQuery<Project[]>({
@@ -42,11 +42,7 @@ export const BootCampPage = () => {
           <ErrorMessage />
         ) : (
           <div className="grid grid-rows-3 grid-cols-3 gap-4 m-4">
-            {data?.length ? (
-              data.map((project) => <ProjectCard key={project.id} project={project} />)
-            ) : (
-              <div>No projects found.</div>
-            )}
+            {data?.length ? data.map((project) => <ProjectCard key={project.id} project={project} />) : <div></div>}
           </div>
         )}
       </div>
