@@ -98,11 +98,11 @@ export const ProjectList = ({ selectedType, selectedYear, selectedPeriod, alignm
       ) : (
         <div className="m-4">
           {projects && projects.length > 0 ? (
-            projects.map((project) => (
-              <Suspense fallback={<div>Loading...</div>}>
+            <Suspense fallback={<div>Loading...</div>}>
+              {projects.map((project) => (
                 <ProjectListCard key={project.id} project={project} />
-              </Suspense>
-            ))
+              ))}
+            </Suspense>
           ) : (
             <div className="flex flex-col -m-4 text-[1.25rem] px-[0.5rem] mb-[2rem] font-[400] text-[#90909a]">
               등록된 프로젝트가 없습니다.
