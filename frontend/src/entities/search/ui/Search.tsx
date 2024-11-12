@@ -1,7 +1,8 @@
 import { useEffect, useRef, useState } from 'react';
-import * as api from '../index';
+import { getProjectList } from '../../projectList/api/getProjectList';
 import { useMutation } from '@tanstack/react-query';
 import { useLocation } from 'react-router-dom';
+import * as api from '../';
 import cancelSearch from '../../../shared/assets/image/searchImg/Cancel-Search.svg';
 import iconSearch from '../../../shared/assets/image/searchImg/Icon-Search.png';
 import { Input } from '@headlessui/react';
@@ -47,7 +48,7 @@ export function Search({ setResult }: any) {
   };
   const searchMutation = useMutation({
     mutationFn: async () => {
-      const response = await api.projectSearch(searchQuery);
+      const response = await getProjectList({ pageStart: 0, size: 20, keyword: searchQuery });
       return response;
     },
     onSuccess: (data) => {
