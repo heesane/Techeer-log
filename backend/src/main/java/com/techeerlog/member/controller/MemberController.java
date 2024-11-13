@@ -87,7 +87,7 @@ public class MemberController {
     public ResponseEntity<SimpleResultResponse> updatePassword(@RequestBody UpdatePasswordRequest updatePasswordRequest,
                                                                           @Login AuthInfo authInfo) {
         memberService.updatePassword(authInfo, updatePasswordRequest);
-
+        refreshTokenService.deleteToken(authInfo.getId());
         SimpleResultResponse resultResponse = new SimpleResultResponse(UPDATE_CODE_SUCCESS);
 
         return ResponseEntity.status(UPDATE_CODE_SUCCESS.getStatus())
