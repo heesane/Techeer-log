@@ -88,9 +88,9 @@ public class MemberController {
                                                                           @Login AuthInfo authInfo) {
         memberService.updatePassword(authInfo, updatePasswordRequest);
 
-        SimpleResultResponse resultResponse = new SimpleResultResponse(UPDATE_PASSWORD_SUCCESS);
+        SimpleResultResponse resultResponse = new SimpleResultResponse(UPDATE_CODE_SUCCESS);
 
-        return ResponseEntity.status(UPDATE_PASSWORD_SUCCESS.getStatus())
+        return ResponseEntity.status(UPDATE_CODE_SUCCESS.getStatus())
                 .body(resultResponse);
     }
 }
