@@ -142,6 +142,10 @@ public class MemberService extends BaseEntity {
             throw new IncorrectPasswordException();
         }
 
+        // 일치하다면 새로운 비밀번호가 유효한지 확인
+        String newPassword = updatePasswordRequest.getNewPassword();
+        Password.validate(newPassword);
+
 
     }
 
