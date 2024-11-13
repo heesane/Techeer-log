@@ -144,8 +144,11 @@ public class MemberService extends BaseEntity {
 
         // 일치하다면 새로운 비밀번호가 유효한지 확인
         String newPassword = updatePasswordRequest.getNewPassword();
-        Password.validate(newPassword);
+//        Password.validate(newPassword);
 
+        // 비밀번호 업데이트
+        member.updatePassword(Password.of(encryptor, newPassword));
+        memberRepository.save(member);
 
     }
 
