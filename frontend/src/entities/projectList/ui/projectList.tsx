@@ -20,6 +20,7 @@ const filterOptions: Record<string, string> = {
   '동계': 'FIRST',
   '하계': 'SECOND',
 };
+
 //프로젝트 가져온 후 필터링
 const useProjects = ({ selectedType, selectedYear, selectedPeriod, result }: ProjectListProps) => {
   const { data, hasNextPage, isFetching, isFetchingNextPage, fetchNextPage } = useGetProjectQuery(result);
@@ -54,6 +55,7 @@ const useProjects = ({ selectedType, selectedYear, selectedPeriod, result }: Pro
     fetchNextPage,
   };
 };
+
 export const ProjectList = ({ selectedType, selectedYear, selectedPeriod, alignment, result }: ProjectListProps) => {
   const { projects, hasNextPage, isFetching, isFetchingNextPage, fetchNextPage } = useProjects({
     selectedType,
@@ -62,13 +64,14 @@ export const ProjectList = ({ selectedType, selectedYear, selectedPeriod, alignm
     alignment,
     result,
   });
+
   const { ref, inView } = useInView();
   useEffect(() => {
     if (inView && hasNextPage) {
       fetchNextPage();
     }
   }, [hasNextPage, fetchNextPage, inView]);
-  if (isFetching && !isFetchingNextPage) {
+  if (isFetching) {
     return (
       <div className="grid grid-cols-3 grid-rows-3 gap-4 m-4">
         {[...Array(9)].map((_, index) => (
@@ -82,6 +85,7 @@ export const ProjectList = ({ selectedType, selectedYear, selectedPeriod, alignm
       default: module.default,
     })),
   );
+
   return (
     <>
       {alignment !== 'right' ? (
