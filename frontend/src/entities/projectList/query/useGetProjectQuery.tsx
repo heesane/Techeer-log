@@ -5,6 +5,13 @@ import { useInfiniteQuery } from '@tanstack/react-query';
 const SIZE_PER_PAGE = 20; //페이지당 불러올 게시글 개수
 
 export const useGetProjectQuery = (result: string) => {
+  const queryOptions = {
+    cacheTime: 30 * 1000 * 60, // 30분
+    staleTime: 30 * 1000 * 60, // 30분
+    retry: 0,
+    refetchOnReconnect: true,
+    refetchOnWindowFocus: true,
+  };
   const { data, isFetching, hasNextPage, fetchNextPage, isFetchingNextPage } = useInfiniteQuery<Project[]>({
     queryKey: ['projectList'],
     queryFn: ({ pageParam }) => getProjectList({ pageStart: pageParam, size: SIZE_PER_PAGE, keyword: result }),
@@ -14,10 +21,7 @@ export const useGetProjectQuery = (result: string) => {
 
       return lastPage.length < SIZE_PER_PAGE ? undefined : nextPage;
     },
-
-    retry: 0,
-    refetchOnReconnect: false,
-    refetchOnWindowFocus: false,
+    ...queryOptions,
   });
 
   return { data, hasNextPage, isFetching, isFetchingNextPage, fetchNextPage };
