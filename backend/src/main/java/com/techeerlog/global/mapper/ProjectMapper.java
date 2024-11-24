@@ -16,10 +16,6 @@ public interface ProjectMapper {
 
     Project projectRequestToProject(ProjectRequest projectRequest);
 
-    ProjectRequest projectToProjectRequest(Project project);
-
-    Project projectResponseToProject(ProjectResponse projectResponse);
-
     @Mapping(source = "project.id", target = "id")
     ProjectResponse projectToProjectResponse(Project project, MemberResponse writer, int loveCount, boolean isLoved,
                                              boolean isScraped, List<ProjectMemberResponse> projectMemberResponseList,
