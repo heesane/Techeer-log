@@ -7,6 +7,7 @@ import com.techeerlog.member.domain.Member;
 import com.techeerlog.project.enums.*;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -22,6 +23,7 @@ import java.util.List;
 @Entity
 @Getter
 @Setter
+@Builder
 @NoArgsConstructor
 @AllArgsConstructor
 @EntityListeners(value = {AuditingEntityListener.class})
@@ -95,5 +97,9 @@ public class Project extends BaseEntity {
             return false;
         }
         return member.getId().equals(accessMemberId);
+    }
+
+    public void updateMember(Member member) {
+        this.member = member;
     }
 }
