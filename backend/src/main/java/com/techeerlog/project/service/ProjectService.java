@@ -93,9 +93,8 @@ public class ProjectService {
     public Long addProject(ProjectRequest projectRequest, AuthInfo authInfo) {
         validateMemberList(projectRequest);
 
-        Member writer = utilMethod.findMemberByAuthInfo(authInfo);
         Project project = projectMapper.projectRequestToProject(projectRequest);
-        project.setMember(writer);
+        project.updateMember(utilMethod.findMemberByAuthInfo(authInfo));
 
         Optional<Project> projectOptional = Optional.of(projectRepository.save(project));
         Project savedProject = projectOptional.orElseThrow(ProjectNotFoundException::new);
@@ -123,6 +122,7 @@ public class ProjectService {
         validateOwner(authInfo, project);
 
         projectMapper.updateProjectFromRequest(projectRequest, project);
+        // dirty checking을 통한 업데이트 -> @Setter 제거 불가
         projectRepository.save(project);
 
         deleteAllProjectMember(project);
