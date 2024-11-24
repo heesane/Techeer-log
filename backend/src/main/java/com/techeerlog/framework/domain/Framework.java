@@ -3,6 +3,7 @@ package com.techeerlog.framework.domain;
 import com.techeerlog.framework.enums.FrameworkTypeEnum;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -10,8 +11,9 @@ import lombok.Setter;
 @Entity
 @NoArgsConstructor
 @AllArgsConstructor
-@Setter
+//@Setter
 @Getter
+@Builder
 public class Framework {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
