@@ -13,11 +13,23 @@ import com.techeerlog.global.mapper.ProjectMapper;
 import com.techeerlog.global.support.UtilMethod;
 import com.techeerlog.love.repository.LoveRepository;
 import com.techeerlog.member.domain.Member;
+import com.techeerlog.member.dto.MemberResponse;
 import com.techeerlog.member.exception.MemberNotFoundException;
 import com.techeerlog.member.repository.MemberRepository;
-import com.techeerlog.project.domain.*;
-import com.techeerlog.project.dto.*;
-import com.techeerlog.project.enums.ProjectTeamNameEnum;
+import com.techeerlog.project.domain.NonRegisterProjectMember;
+import com.techeerlog.project.domain.Project;
+import com.techeerlog.project.domain.ProjectFramework;
+import com.techeerlog.project.domain.ProjectMember;
+import com.techeerlog.project.dto.NonRegisterProjectMemberRequest;
+import com.techeerlog.project.dto.NonRegisterProjectMemberResponse;
+import com.techeerlog.project.dto.PrizeProjectListRequest;
+import com.techeerlog.project.dto.ProjectItemListResponse;
+import com.techeerlog.project.dto.ProjectItemResponse;
+import com.techeerlog.project.dto.ProjectListRequest;
+import com.techeerlog.project.dto.ProjectMemberRequest;
+import com.techeerlog.project.dto.ProjectMemberResponse;
+import com.techeerlog.project.dto.ProjectRequest;
+import com.techeerlog.project.dto.ProjectResponse;
 import com.techeerlog.project.enums.RankEnum;
 import com.techeerlog.project.enums.SearchFieldEnum;
 import com.techeerlog.project.enums.SemesterEnum;
@@ -95,7 +107,8 @@ public class ProjectService {
         return savedProject.getId();
     }
 
-    private void saveProjectNonRegisterProjectMemberList(Project project, List<NonRegisterProjectMemberRequest> nonRegisterProjectMemberRequestList) {
+    private void saveProjectNonRegisterProjectMemberList(Project project,
+                                                         List<NonRegisterProjectMemberRequest> nonRegisterProjectMemberRequestList) {
         List<NonRegisterProjectMember> nonRegisterProjectMemberList = new ArrayList<>();
         for (NonRegisterProjectMemberRequest nonRegisterProjectMemberRequest : nonRegisterProjectMemberRequestList) {
             nonRegisterProjectMemberList.add(new NonRegisterProjectMember(project, nonRegisterProjectMemberRequest));
@@ -138,18 +151,18 @@ public class ProjectService {
         return projectListToProjectItemListResponse(projectSlice, authInfo);
     }
 
-    public ProjectItemListResponse findPrizeProjectListResponse(PrizeProjectListRequest prizeProjectListRequest, AuthInfo authInfo) {
-        Slice<Project> projectSlice = projectRepository.findPrizeProjectList(
-                prizeProjectListRequest.getProjectTypeEnum(),
-                prizeProjectListRequest.getYear(),
-                prizeProjectListRequest.getSemesterEnum(),
-                List.of(RankEnum.FIRST, RankEnum.SECOND, RankEnum.THIRD, RankEnum.FOURTH, RankEnum.FIFTH)
-        );
+    public ProjectItemListResponse findPrizeProjectListResponse(PrizeProjectListRequest prizeProjectListRequest,
+                                                                AuthInfo authInfo) {
+        Slice<Project> projectSlice =
+                projectRepository.findPrizeProjectList(prizeProjectListRequest.getProjectTypeEnum(),
+                        prizeProjectListRequest.getYear(), prizeProjectListRequest.getSemesterEnum(),
+                        List.of(RankEnum.FIRST, RankEnum.SECOND, RankEnum.THIRD, RankEnum.FOURTH, RankEnum.FIFTH));
 
         return projectListToProjectItemListResponse(projectSlice, authInfo);
     }
 
-    private ProjectItemListResponse projectListToProjectItemListResponse(Slice<Project> projectSlice, AuthInfo authInfo) {
+    private ProjectItemListResponse projectListToProjectItemListResponse(Slice<Project> projectSlice,
+                                                                         AuthInfo authInfo) {
         List<ProjectItemResponse> projectItemResponseList = new ArrayList<>();
 
         for (Project project : projectSlice) {
@@ -157,17 +170,14 @@ public class ProjectService {
             projectItemResponse.setWriter(memberMapper.memberToMemberResponse(project.getMember()));
             projectItemResponse.setLoveCount(project.getLoveList().size());
             projectItemResponse.setLoved(loveRepository.findByMemberIdAndProjectId(authInfo.getId(), project.getId()).isPresent());
-            projectItemResponse.setScraped(scrapRepository.findByMemberIdAndProjectId(authInfo.getId(), project.getId()).isPresent());
+            projectItemResponse.setScraped(scrapRepository.findByMemberIdAndProjectId(authInfo.getId(),
+                    project.getId()).isPresent());
             projectItemResponse.setFrameworkResponseList(getFrameworkResponseList(project.getProjectFrameworkList()));
 
             projectItemResponseList.add(projectItemResponse);
         }
 
-        return ProjectItemListResponse.builder()
-                .nextPage(projectSlice.getNumber() + 1)
-                .hasNextPage(projectSlice.hasNext())
-                .projectItemResponseList(projectItemResponseList)
-                .build();
+        return ProjectItemListResponse.builder().nextPage(projectSlice.getNumber() + 1).hasNextPage(projectSlice.hasNext()).projectItemResponseList(projectItemResponseList).build();
     }
 
     private Slice<Project> getProjectSlice(ProjectListRequest projectListRequest) {
@@ -179,9 +189,7 @@ public class ProjectService {
         Sort.Direction sortDirection = projectListRequest.getSortDirection();
         String searchKeyword = projectListRequest.getSearchKeyword();
 
-        Sort sort = Sort.by(
-                new Sort.Order(sortDirection, "id")
-        );
+        Sort sort = Sort.by(new Sort.Order(sortDirection, "id"));
 
         Pageable pageable = PageRequest.of(pageStart, pageSize, sort);
 
@@ -217,7 +225,9 @@ public class ProjectService {
         for (FrameworkRequest frameworkRequest : frameworkRequestList) {
             ProjectFramework projectFramework = new ProjectFramework();
 
-            Optional<Framework> framework = frameworkRepository.findByNameAndFrameworkTypeEnum(frameworkRequest.getName().toLowerCase(), frameworkRequest.getFrameworkTypeEnum());
+            Optional<Framework> framework =
+                    frameworkRepository.findByNameAndFrameworkTypeEnum(frameworkRequest.getName().toLowerCase(),
+                            frameworkRequest.getFrameworkTypeEnum());
 
             // framework 가 DB 에 없는 새로운 값인 경우 새로 객체를 만들고 DB 에 저장
             // 그리고 저장한 framework 를 가져온다
@@ -242,7 +252,8 @@ public class ProjectService {
         projectMemberRepository.saveAll(projectMemberList);
     }
 
-    private List<ProjectMember> getProjectMemberListByRequest(Project project, List<ProjectMemberRequest> projectMemberRequestList) {
+    private List<ProjectMember> getProjectMemberListByRequest(Project project,
+                                                              List<ProjectMemberRequest> projectMemberRequestList) {
         List<ProjectMember> projectMemberList = new ArrayList<>();
 
         for (ProjectMemberRequest projectMemberRequest : projectMemberRequestList) {
@@ -268,7 +279,8 @@ public class ProjectService {
         List<FrameworkResponse> frameworkResponseList = new ArrayList<>();
 
         for (ProjectFramework projectFramework : projectFrameworkList) {
-            FrameworkResponse frameworkResponse = frameworkMapper.frameworkToFrameworkResponse(projectFramework.getFramework());
+            FrameworkResponse frameworkResponse =
+                    frameworkMapper.frameworkToFrameworkResponse(projectFramework.getFramework());
 
             frameworkResponseList.add(frameworkResponse);
         }
@@ -291,8 +303,7 @@ public class ProjectService {
 
 
     private Project findProjectById(Long projectId) {
-        return projectRepository.findById(projectId)
-                .orElseThrow(ProjectNotFoundException::new);
+        return projectRepository.findById(projectId).orElseThrow(ProjectNotFoundException::new);
     }
 
     private void validateOwner(AuthInfo authInfo, Project project) {
@@ -301,29 +312,34 @@ public class ProjectService {
         }
     }
 
-    public ProjectItemListResponse findSortedProjectListResponse(ProjectListRequest projectListRequest, AuthInfo authInfo) {
+    public ProjectItemListResponse findSortedProjectListResponse(ProjectListRequest projectListRequest,
+                                                                 AuthInfo authInfo) {
         int year = 2024;
         SemesterEnum semester = SemesterEnum.SECOND;
         Slice<Project> sortedProjectSlice = getSortedProjectSlice(projectListRequest, year, semester);
         return projectListToProjectItemListResponse(sortedProjectSlice, authInfo);
     }
 
-    private Slice<Project> getSortedProjectSlice(ProjectListRequest projectListRequest, int year, SemesterEnum semester) {
+    private Slice<Project> getSortedProjectSlice(ProjectListRequest projectListRequest, int year,
+                                                 SemesterEnum semester) {
         Sort sort = Sort.by(Sort.Direction.ASC, "projectTeamNameEnum", "id");
         Pageable pageable = PageRequest.of(projectListRequest.getPageStart(), projectListRequest.getPageSize(), sort);
         return projectRepository.findAllByYearAndSemesterSorted(year, semester, pageable);
     }
 
-    private ProjectResponse createProjectResponse(Project project, AuthInfo authInfo){
-        ProjectResponse projectResponse = projectMapper.projectToProjectResponse(project);
-        projectResponse.setWriter(memberMapper.memberToMemberResponse(project.getMember()));
-        projectResponse.setLoveCount(project.getLoveList().size());
-        projectResponse.setLoved(loveRepository.findByMemberIdAndProjectId(authInfo.getId(), project.getId()).isPresent());
-        projectResponse.setScraped(scrapRepository.findByMemberIdAndProjectId(authInfo.getId(), project.getId()).isPresent());
-        projectResponse.setProjectMemberResponseList(getProjectMemberResponseList(project.getProjectMemberList()));
-        projectResponse.setNonRegisterProjectMemberResponseList(getNonRegisterProjectMemberResponseList(project.getNonRegisterProjectMemberList()));
-        projectResponse.setFrameworkResponseList(getFrameworkResponseList(project.getProjectFrameworkList()));
-        return projectResponse;
+    private ProjectResponse createProjectResponse(Project project, AuthInfo authInfo) {
+        MemberResponse writer = memberMapper.memberToMemberResponse(project.getMember());
+        int loveCount = project.getLoveList().size();
+        boolean isLoved = loveRepository.findByMemberIdAndProjectId(authInfo.getId(), project.getId()).isPresent();
+        boolean isScraped = scrapRepository.findByMemberIdAndProjectId(authInfo.getId(), project.getId()).isPresent();
+        List<ProjectMemberResponse> projectMemberResponseList =
+                getProjectMemberResponseList(project.getProjectMemberList());
+        List<NonRegisterProjectMemberResponse> nonRegisterProjectMemberResponseList =
+                getNonRegisterProjectMemberResponseList(project.getNonRegisterProjectMemberList());
+        List<FrameworkResponse> frameworkResponseList = getFrameworkResponseList(project.getProjectFrameworkList());
+
+        return projectMapper.projectToProjectResponse(project, writer, loveCount, isLoved, isScraped,
+                projectMemberResponseList, nonRegisterProjectMemberResponseList, frameworkResponseList);
     }
 
 }
