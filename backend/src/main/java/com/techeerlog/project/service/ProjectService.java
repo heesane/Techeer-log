@@ -82,7 +82,7 @@ public class ProjectService {
     }
 
     private List<NonRegisterProjectMemberResponse> getNonRegisterProjectMemberResponseList(
-                            List<NonRegisterProjectMember> nonRegisterProjectMemberList) {
+            List<NonRegisterProjectMember> nonRegisterProjectMemberList) {
         return nonRegisterProjectMemberList.stream()
                 .map(NonRegisterProjectMember::getResponse)
                 .collect(Collectors.toList());
@@ -108,7 +108,8 @@ public class ProjectService {
     private void saveProjectNonRegisterProjectMemberList(Project project,
                                                          List<NonRegisterProjectMemberRequest> nonRegisterProjectMemberRequestList) {
         List<NonRegisterProjectMember> nonRegisterProjectMemberList = nonRegisterProjectMemberRequestList.stream()
-                .map(nonRegisterProjectMemberRequest -> new NonRegisterProjectMember(project, nonRegisterProjectMemberRequest))
+                .map(nonRegisterProjectMemberRequest -> new NonRegisterProjectMember(project,
+                        nonRegisterProjectMemberRequest))
                 .collect(Collectors.toList());
 
         nonRegisterProjectMemberRepository.saveAll(nonRegisterProjectMemberList);
@@ -162,21 +163,24 @@ public class ProjectService {
 
     private ProjectItemListResponse projectListToProjectItemListResponse(Slice<Project> projectSlice,
                                                                          AuthInfo authInfo) {
-        List<ProjectItemResponse> projectItemResponseList = new ArrayList<>();
 
-        for (Project project : projectSlice) {
-            ProjectItemResponse projectItemResponse = projectMapper.projectToProjectItemResponse(project);
-            projectItemResponse.setWriter(memberMapper.memberToMemberResponse(project.getMember()));
-            projectItemResponse.setLoveCount(project.getLoveList().size());
-            projectItemResponse.setLoved(loveRepository.findByMemberIdAndProjectId(authInfo.getId(), project.getId()).isPresent());
-            projectItemResponse.setScraped(scrapRepository.findByMemberIdAndProjectId(authInfo.getId(),
-                    project.getId()).isPresent());
-            projectItemResponse.setFrameworkResponseList(getFrameworkResponseList(project.getProjectFrameworkList()));
+        List<ProjectItemResponse> projectItemResponseList = projectSlice.stream()
+                .map(project -> {
+                    MemberResponse writer = memberMapper.memberToMemberResponse(project.getMember());
+                    int loveCount = project.getLoveList().size();
+                    boolean isLoved = loveRepository.findByMemberIdAndProjectId(authInfo.getId(), project.getId()).isPresent();
+                    boolean isScraped = scrapRepository.findByMemberIdAndProjectId(authInfo.getId(), project.getId()).isPresent();
+                    List<FrameworkResponse> frameworkResponseList = getFrameworkResponseList(project.getProjectFrameworkList());
 
-            projectItemResponseList.add(projectItemResponse);
-        }
+                    return projectMapper.projectToProjectItemResponse(project, writer, loveCount, isLoved, isScraped, frameworkResponseList);
+                })
+                .collect(Collectors.toList());
 
-        return ProjectItemListResponse.builder().nextPage(projectSlice.getNumber() + 1).hasNextPage(projectSlice.hasNext()).projectItemResponseList(projectItemResponseList).build();
+        return ProjectItemListResponse.builder()
+                .nextPage(projectSlice.getNumber() + 1)
+                .hasNextPage(projectSlice.hasNext())
+                .projectItemResponseList(projectItemResponseList)
+                .build();
     }
 
     private Slice<Project> getProjectSlice(ProjectListRequest projectListRequest) {
