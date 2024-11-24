@@ -168,11 +168,15 @@ public class ProjectService {
                 .map(project -> {
                     MemberResponse writer = memberMapper.memberToMemberResponse(project.getMember());
                     int loveCount = project.getLoveList().size();
-                    boolean isLoved = loveRepository.findByMemberIdAndProjectId(authInfo.getId(), project.getId()).isPresent();
-                    boolean isScraped = scrapRepository.findByMemberIdAndProjectId(authInfo.getId(), project.getId()).isPresent();
-                    List<FrameworkResponse> frameworkResponseList = getFrameworkResponseList(project.getProjectFrameworkList());
+                    boolean isLoved =
+                            loveRepository.findByMemberIdAndProjectId(authInfo.getId(), project.getId()).isPresent();
+                    boolean isScraped =
+                            scrapRepository.findByMemberIdAndProjectId(authInfo.getId(), project.getId()).isPresent();
+                    List<FrameworkResponse> frameworkResponseList =
+                            getFrameworkResponseList(project.getProjectFrameworkList());
 
-                    return projectMapper.projectToProjectItemResponse(project, writer, loveCount, isLoved, isScraped, frameworkResponseList);
+                    return projectMapper.projectToProjectItemResponse(project, writer, loveCount, isLoved, isScraped,
+                            frameworkResponseList);
                 })
                 .collect(Collectors.toList());
 
