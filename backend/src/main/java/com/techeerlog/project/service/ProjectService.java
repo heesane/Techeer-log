@@ -54,6 +54,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -72,7 +73,7 @@ public class ProjectService {
     private final LoveRepository loveRepository;
     private final ScrapRepository scrapRepository;
 
-//    @Cacheable(value = "project", key = "#projectId")
+    //    @Cacheable(value = "project", key = "#projectId")
     public ProjectResponse findProjectResponse(Long projectId, AuthInfo authInfo) {
 
         Project findProject = findProjectById(projectId);
@@ -81,12 +82,9 @@ public class ProjectService {
     }
 
     private List<NonRegisterProjectMemberResponse> getNonRegisterProjectMemberResponseList(List<NonRegisterProjectMember> nonRegisterProjectMemberList) {
-        List<NonRegisterProjectMemberResponse> nonRegisterProjectMemberResponseList = new ArrayList<>();
-
-        for (NonRegisterProjectMember nonRegisterProjectMember : nonRegisterProjectMemberList) {
-            nonRegisterProjectMemberResponseList.add(nonRegisterProjectMember.getResponse());
-        }
-        return nonRegisterProjectMemberResponseList;
+        return nonRegisterProjectMemberList.stream()
+                .map(NonRegisterProjectMember::getResponse)
+                .collect(Collectors.toList());
     }
 
     @Transactional
@@ -220,30 +218,29 @@ public class ProjectService {
     }
 
     private void saveProjectFrameworkList(Project project, List<FrameworkRequest> frameworkRequestList) {
-        List<ProjectFramework> projectFrameworkList = new ArrayList<>();
-
-        for (FrameworkRequest frameworkRequest : frameworkRequestList) {
-            ProjectFramework projectFramework = new ProjectFramework();
-
-            Optional<Framework> framework =
-                    frameworkRepository.findByNameAndFrameworkTypeEnum(frameworkRequest.getName().toLowerCase(),
+        List<ProjectFramework> projectFrameworkList = frameworkRequestList.stream()
+                .map(frameworkRequest -> {
+                    Optional<Framework> framework = frameworkRepository.findByNameAndFrameworkTypeEnum(
+                            frameworkRequest.getName().toLowerCase(),
                             frameworkRequest.getFrameworkTypeEnum());
 
-            // framework 가 DB 에 없는 새로운 값인 경우 새로 객체를 만들고 DB 에 저장
-            // 그리고 저장한 framework 를 가져온다
-            if (framework.isEmpty()) {
-                Framework newFramework = new Framework();
-                newFramework.setName(frameworkRequest.getName().toLowerCase());
-                newFramework.setFrameworkTypeEnum(frameworkRequest.getFrameworkTypeEnum());
+                    // DB에 없는 새로운 값인 경우 객체를 생성하고 저장
+                    if (framework.isEmpty()) {
+                        Framework newFramework = Framework.builder()
+                                .name(frameworkRequest.getName().toLowerCase())
+                                .frameworkTypeEnum(frameworkRequest.getFrameworkTypeEnum())
+                                .build();
 
-                framework = Optional.of(frameworkRepository.save(newFramework));
-            }
+                        framework = Optional.of(frameworkRepository.save(newFramework));
+                    }
 
-            projectFramework.setProject(project);
-            projectFramework.setFramework(framework.orElseThrow(FrameworkNotFoundException::new));
+                    return ProjectFramework.builder()
+                            .project(project)
+                            .framework(framework.orElseThrow(FrameworkNotFoundException::new))
+                            .build();
+                })
+                .collect(Collectors.toList());
 
-            projectFrameworkList.add(projectFramework);
-        }
         projectFrameworkRepository.saveAll(projectFrameworkList);
     }
 
@@ -276,29 +273,18 @@ public class ProjectService {
     }
 
     private List<FrameworkResponse> getFrameworkResponseList(List<ProjectFramework> projectFrameworkList) {
-        List<FrameworkResponse> frameworkResponseList = new ArrayList<>();
-
-        for (ProjectFramework projectFramework : projectFrameworkList) {
-            FrameworkResponse frameworkResponse =
-                    frameworkMapper.frameworkToFrameworkResponse(projectFramework.getFramework());
-
-            frameworkResponseList.add(frameworkResponse);
-        }
-        return frameworkResponseList;
+        return projectFrameworkList.stream()
+                .map(projectFramework -> frameworkMapper.frameworkToFrameworkResponse(projectFramework.getFramework()))
+                .collect(Collectors.toList());
     }
 
     private List<ProjectMemberResponse> getProjectMemberResponseList(List<ProjectMember> projectMemberList) {
-        List<ProjectMemberResponse> projectMemberResponseList = new ArrayList<>();
-
-        for (ProjectMember projectMember : projectMemberList) {
-            ProjectMemberResponse projectMemberResponse = new ProjectMemberResponse();
-
-            projectMemberResponse.setProjectMemberTypeEnum(projectMember.getProjectMemberType());
-            projectMemberResponse.setMemberResponse(memberMapper.memberToMemberResponse(projectMember.getMember()));
-
-            projectMemberResponseList.add(projectMemberResponse);
-        }
-        return projectMemberResponseList;
+        return projectMemberList.stream()
+                .map(projectMember -> ProjectMemberResponse.builder()
+                        .projectMemberTypeEnum(projectMember.getProjectMemberType())
+                        .memberResponse(memberMapper.memberToMemberResponse(projectMember.getMember()))
+                        .build())
+                .collect(Collectors.toList());
     }
 
 
