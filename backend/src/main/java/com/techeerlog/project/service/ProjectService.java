@@ -116,7 +116,7 @@ public class ProjectService {
     }
 
     @Transactional
-    @CachePut(value = "project", key = "#id")
+//    @CachePut(value = "project", key = "#id")
     public ProjectResponse updateProject(Long id, ProjectRequest projectRequest, AuthInfo authInfo) {
         Project project = findProjectById(id);
         validateOwner(authInfo, project);
@@ -138,7 +138,7 @@ public class ProjectService {
 
 
     @Transactional
-    @CacheEvict(value = "project", key = "#id")
+//    @CacheEvict(value = "project", key = "#id")
     public void deleteProject(Long id, AuthInfo authInfo) {
         Project project = findProjectById(id);
         validateOwner(authInfo, project);
