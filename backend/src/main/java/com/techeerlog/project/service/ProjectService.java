@@ -267,9 +267,9 @@ public class ProjectService {
     }
 
     private void validateMemberList(ProjectRequest projectRequest) {
-        for (ProjectMemberRequest projectMemberRequest : projectRequest.getProjectMemberRequestList()) {
-            utilMethod.validateMemberId(projectMemberRequest.getMemberId());
-        }
+        projectRequest.getProjectMemberRequestList().stream()
+                .map(ProjectMemberRequest::getMemberId)
+                .forEach(utilMethod::validateMemberId);
     }
 
     private List<FrameworkResponse> getFrameworkResponseList(List<ProjectFramework> projectFrameworkList) {
