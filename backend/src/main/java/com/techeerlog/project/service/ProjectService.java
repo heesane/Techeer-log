@@ -81,7 +81,8 @@ public class ProjectService {
         return createProjectResponse(findProject, authInfo);
     }
 
-    private List<NonRegisterProjectMemberResponse> getNonRegisterProjectMemberResponseList(List<NonRegisterProjectMember> nonRegisterProjectMemberList) {
+    private List<NonRegisterProjectMemberResponse> getNonRegisterProjectMemberResponseList(
+                            List<NonRegisterProjectMember> nonRegisterProjectMemberList) {
         return nonRegisterProjectMemberList.stream()
                 .map(NonRegisterProjectMember::getResponse)
                 .collect(Collectors.toList());
@@ -106,10 +107,10 @@ public class ProjectService {
 
     private void saveProjectNonRegisterProjectMemberList(Project project,
                                                          List<NonRegisterProjectMemberRequest> nonRegisterProjectMemberRequestList) {
-        List<NonRegisterProjectMember> nonRegisterProjectMemberList = new ArrayList<>();
-        for (NonRegisterProjectMemberRequest nonRegisterProjectMemberRequest : nonRegisterProjectMemberRequestList) {
-            nonRegisterProjectMemberList.add(new NonRegisterProjectMember(project, nonRegisterProjectMemberRequest));
-        }
+        List<NonRegisterProjectMember> nonRegisterProjectMemberList = nonRegisterProjectMemberRequestList.stream()
+                .map(nonRegisterProjectMemberRequest -> new NonRegisterProjectMember(project, nonRegisterProjectMemberRequest))
+                .collect(Collectors.toList());
+
         nonRegisterProjectMemberRepository.saveAll(nonRegisterProjectMemberList);
     }
 
@@ -251,19 +252,16 @@ public class ProjectService {
 
     private List<ProjectMember> getProjectMemberListByRequest(Project project,
                                                               List<ProjectMemberRequest> projectMemberRequestList) {
-        List<ProjectMember> projectMemberList = new ArrayList<>();
-
-        for (ProjectMemberRequest projectMemberRequest : projectMemberRequestList) {
-            ProjectMember projectMember = new ProjectMember();
-            Optional<Member> member = memberRepository.findById(projectMemberRequest.getMemberId());
-
-            projectMember.setProject(project);
-            projectMember.setMember(member.orElseThrow(MemberNotFoundException::new));
-            projectMember.setProjectMemberType(projectMemberRequest.getProjectMemberTypeEnum());
-
-            projectMemberList.add(projectMember);
-        }
-        return projectMemberList;
+        return projectMemberRequestList.stream()
+                .map(projectMemberRequest -> {
+                    Optional<Member> member = memberRepository.findById(projectMemberRequest.getMemberId());
+                    return ProjectMember.builder()
+                            .project(project)
+                            .member(member.orElseThrow(MemberNotFoundException::new))
+                            .projectMemberType(projectMemberRequest.getProjectMemberTypeEnum())
+                            .build();
+                })
+                .collect(Collectors.toList());
     }
 
     private void validateMemberList(ProjectRequest projectRequest) {
