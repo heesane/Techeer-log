@@ -5,12 +5,13 @@ import com.techeerlog.member.domain.Member;
 import com.techeerlog.project.enums.ProjectMemberTypeEnum;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Entity
-@Setter
+@Builder
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
