@@ -72,7 +72,7 @@ public class ProjectService {
     private final LoveRepository loveRepository;
     private final ScrapRepository scrapRepository;
 
-    @Cacheable(value = "project", key = "#projectId")
+//    @Cacheable(value = "project", key = "#projectId")
     public ProjectResponse findProjectResponse(Long projectId, AuthInfo authInfo) {
 
         Project findProject = findProjectById(projectId);
