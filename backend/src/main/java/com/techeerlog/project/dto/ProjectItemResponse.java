@@ -4,6 +4,7 @@ import com.techeerlog.framework.dto.FrameworkResponse;
 import com.techeerlog.member.dto.MemberResponse;
 import com.techeerlog.project.enums.*;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -12,7 +13,7 @@ import java.time.LocalDate;
 import java.util.List;
 
 @Getter
-@Setter
+@Builder
 @NoArgsConstructor
 @AllArgsConstructor
 public class ProjectItemResponse {
