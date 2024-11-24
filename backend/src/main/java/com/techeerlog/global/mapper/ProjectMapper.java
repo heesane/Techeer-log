@@ -22,5 +22,8 @@ public interface ProjectMapper {
                                              List<NonRegisterProjectMemberResponse> nonRegisterProjectMemberResponseList,
                                              List<FrameworkResponse> frameworkResponseList);
 
-    ProjectItemResponse projectToProjectItemResponse(Project project);
+    @Mapping(source = "project.id", target = "id")
+    ProjectItemResponse projectToProjectItemResponse(Project project, MemberResponse writer, int loveCount,
+                                                     boolean isLoved, boolean isScraped,
+                                                     List<FrameworkResponse> frameworkResponseList);
 }
