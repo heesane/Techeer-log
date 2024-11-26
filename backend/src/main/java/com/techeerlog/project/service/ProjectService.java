@@ -137,7 +137,7 @@ public class ProjectService {
 
 
     @Transactional
-//    @CacheEvict(value = "project", key = "#id")
+    @CacheEvict(cacheNames = "project", keyGenerator = "customKeyGenerator")
     public void deleteProject(Long id, AuthInfo authInfo) {
         Project project = findProjectById(id);
         validateOwner(authInfo, project);
