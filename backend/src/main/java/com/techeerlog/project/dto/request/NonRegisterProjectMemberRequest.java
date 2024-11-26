@@ -1,4 +1,4 @@
-package com.techeerlog.project.dto;
+package com.techeerlog.project.dto.request;
 
 import com.techeerlog.project.enums.ProjectMemberTypeEnum;
 import lombok.AllArgsConstructor;
@@ -10,7 +10,7 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class ProjectMemberRequest {
-    private Long memberId;
+public class NonRegisterProjectMemberRequest {
+    private String name;
     private ProjectMemberTypeEnum projectMemberTypeEnum;
 }

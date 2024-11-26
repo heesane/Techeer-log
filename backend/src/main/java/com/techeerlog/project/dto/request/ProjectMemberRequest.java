@@ -1,18 +1,16 @@
-package com.techeerlog.project.dto;
+package com.techeerlog.project.dto.request;
 
-import com.techeerlog.member.dto.MemberResponse;
 import com.techeerlog.project.enums.ProjectMemberTypeEnum;
 import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Getter
-@Builder
+@Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class ProjectMemberResponse {
-    private MemberResponse memberResponse;
+public class ProjectMemberRequest {
+    private Long memberId;
     private ProjectMemberTypeEnum projectMemberTypeEnum;
 }

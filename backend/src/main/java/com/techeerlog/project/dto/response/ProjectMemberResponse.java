@@ -1,5 +1,6 @@
-package com.techeerlog.project.dto;
+package com.techeerlog.project.dto.response;
 
+import com.techeerlog.member.dto.MemberResponse;
 import com.techeerlog.project.enums.ProjectMemberTypeEnum;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -11,7 +12,7 @@ import lombok.Setter;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class NonRegisterProjectMemberResponse {
-    private String name;
+public class ProjectMemberResponse {
+    private MemberResponse memberResponse;
     private ProjectMemberTypeEnum projectMemberTypeEnum;
 }

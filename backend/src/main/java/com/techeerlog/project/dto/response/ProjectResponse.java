@@ -1,7 +1,9 @@
-package com.techeerlog.project.dto;
+package com.techeerlog.project.dto.response;
 
 import com.techeerlog.framework.dto.FrameworkResponse;
 import com.techeerlog.member.dto.MemberResponse;
+import com.techeerlog.project.dto.response.NonRegisterProjectMemberResponse;
+import com.techeerlog.project.dto.response.ProjectMemberResponse;
 import com.techeerlog.project.enums.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -13,10 +15,11 @@ import java.time.LocalDate;
 import java.util.List;
 
 @Getter
+@Setter // deserializer 시 필요함
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class ProjectItemResponse {
+public class ProjectResponse {
     private Long id;
     private String mainImageUrl;
     private String title;
@@ -29,7 +32,6 @@ public class ProjectItemResponse {
     private ProjectTeamNameEnum projectTeamNameEnum;
     private int year;
     private SemesterEnum semesterEnum;
-    private RankEnum rankEnum;
     private ProjectStatusEnum projectStatusEnum;
     private String githubLink;
     private String blogLink;
@@ -38,5 +40,7 @@ public class ProjectItemResponse {
     private boolean isLoved;
     private boolean isScraped;
     private MemberResponse writer;
+    private List<ProjectMemberResponse> projectMemberResponseList;
+    private List<NonRegisterProjectMemberResponse> nonRegisterProjectMemberResponseList;
     private List<FrameworkResponse> frameworkResponseList;
 }

@@ -3,7 +3,11 @@ package com.techeerlog.project.controller;
 import com.techeerlog.auth.dto.AuthInfo;
 import com.techeerlog.global.response.ResultResponse;
 import com.techeerlog.global.support.token.Login;
-import com.techeerlog.project.dto.*;
+import com.techeerlog.project.dto.request.PrizeProjectListRequest;
+import com.techeerlog.project.dto.request.ProjectListRequest;
+import com.techeerlog.project.dto.request.ProjectRequest;
+import com.techeerlog.project.dto.response.ProjectItemListResponse;
+import com.techeerlog.project.dto.response.ProjectResponse;
 import com.techeerlog.project.service.ProjectService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -13,8 +17,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.net.URI;
-import java.util.Arrays;
-import java.util.List;
 
 import static com.techeerlog.global.response.ResultCode.*;
 
@@ -77,7 +79,7 @@ public class ProjectController {
     @Operation(summary = "프로젝트 리스트 조회", description = "프로젝트 리스트 조회")
     @GetMapping(path = "/projects/list")
     public ResponseEntity<ResultResponse<ProjectItemListResponse>> findProjectList(
-                                @Valid ProjectListRequest projectListRequest, @Login AuthInfo authInfo) {
+            @Valid ProjectListRequest projectListRequest, @Login AuthInfo authInfo) {
 
         return ResponseEntity.status(FIND_PROJECT_LIST_SUCCESS.getStatus())
                 .body(new ResultResponse<>(
@@ -88,7 +90,7 @@ public class ProjectController {
     @Operation(summary = "우수작 프로젝트 리스트 조회", description = "우수작 프로젝트 리스트 조회")
     @GetMapping(path = "/projects/prize")
     public ResponseEntity<ResultResponse<ProjectItemListResponse>> findPrizeProjectList(
-                                @Valid PrizeProjectListRequest prizeProjectListRequest, @Login AuthInfo authInfo) {
+            @Valid PrizeProjectListRequest prizeProjectListRequest, @Login AuthInfo authInfo) {
 
         return ResponseEntity.status(FIND_PROJECT_LIST_SUCCESS.getStatus())
                 .body(new ResultResponse<>(
