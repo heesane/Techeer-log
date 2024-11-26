@@ -115,7 +115,7 @@ public class ProjectService {
     }
 
     @Transactional
-//    @CachePut(value = "project", key = "#id")
+    @CachePut(cacheNames = "project", keyGenerator = "customKeyGenerator")
     public ProjectResponse updateProject(Long id, ProjectRequest projectRequest, AuthInfo authInfo) {
         Project project = findProjectById(id);
         validateOwner(authInfo, project);
