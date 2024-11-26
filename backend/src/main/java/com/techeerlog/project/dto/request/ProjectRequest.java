@@ -1,9 +1,7 @@
 package com.techeerlog.project.dto.request;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-import com.techeerlog.framework.dto.FrameworkRequest;
-import com.techeerlog.project.dto.request.NonRegisterProjectMemberRequest;
-import com.techeerlog.project.dto.request.ProjectMemberRequest;
+import com.techeerlog.framework.dto.request.FrameworkRequest;
 import com.techeerlog.project.enums.PlatformEnum;
 import com.techeerlog.project.enums.ProjectStatusEnum;
 import com.techeerlog.project.enums.ProjectTypeEnum;

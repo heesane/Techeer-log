@@ -1,6 +1,6 @@
 package com.techeerlog.global.mapper;
 
-import com.techeerlog.framework.dto.FrameworkResponse;
+import com.techeerlog.framework.dto.response.FrameworkResponse;
 import com.techeerlog.member.dto.MemberResponse;
 import com.techeerlog.project.domain.Project;
 

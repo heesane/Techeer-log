@@ -1,9 +1,7 @@
 package com.techeerlog.project.dto.response;
 
-import com.techeerlog.framework.dto.FrameworkResponse;
+import com.techeerlog.framework.dto.response.FrameworkResponse;
 import com.techeerlog.member.dto.MemberResponse;
-import com.techeerlog.project.dto.response.NonRegisterProjectMemberResponse;
-import com.techeerlog.project.dto.response.ProjectMemberResponse;
 import com.techeerlog.project.enums.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
