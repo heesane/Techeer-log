@@ -51,7 +51,6 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -73,7 +72,7 @@ public class ProjectService {
     private final LoveRepository loveRepository;
     private final ScrapRepository scrapRepository;
 
-    //    @Cacheable(value = "project", key = "#projectId")
+    @Cacheable(cacheNames = "project", keyGenerator = "customKeyGenerator")
     public ProjectResponse findProjectResponse(Long projectId, AuthInfo authInfo) {
 
         Project findProject = findProjectById(projectId);
