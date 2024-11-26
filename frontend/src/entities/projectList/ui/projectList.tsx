@@ -1,7 +1,6 @@
 import { useGetProjectQuery } from '../query/useGetProjectQuery.tsx';
 import { useInView } from 'react-intersection-observer';
 import React, { Suspense, useEffect, useMemo } from 'react';
-//import ProjectListCard from '../../../shared/ui/ProjectListCard.tsx';
 import SkeletonCard from '../../../shared/ui/SkeletonCard.tsx';
 import ProjectBoxCard from '../../../shared/ui/ProjectBoxCard.tsx';
 
@@ -20,7 +19,8 @@ const filterOptions: Record<string, string> = {
   '동계': 'FIRST',
   '하계': 'SECOND',
 };
-//프로젝트 가져온 후 필터링
+
+//필터링 데이터 및 쿼리 데이터 반환
 const useProjects = ({ selectedType, selectedYear, selectedPeriod, result }: ProjectListProps) => {
   const { data, hasNextPage, isFetching, isFetchingNextPage, fetchNextPage } = useGetProjectQuery(result);
   const projects = data?.pages.flat() ?? [];
@@ -54,6 +54,7 @@ const useProjects = ({ selectedType, selectedYear, selectedPeriod, result }: Pro
     fetchNextPage,
   };
 };
+
 export const ProjectList = ({ selectedType, selectedYear, selectedPeriod, alignment, result }: ProjectListProps) => {
   const { projects, hasNextPage, isFetching, isFetchingNextPage, fetchNextPage } = useProjects({
     selectedType,
@@ -62,12 +63,14 @@ export const ProjectList = ({ selectedType, selectedYear, selectedPeriod, alignm
     alignment,
     result,
   });
+
   const { ref, inView } = useInView();
   useEffect(() => {
     if (inView && hasNextPage) {
       fetchNextPage();
     }
   }, [hasNextPage, fetchNextPage, inView]);
+
   if (isFetching && !isFetchingNextPage) {
     return (
       <div className="grid grid-cols-3 grid-rows-3 gap-4 m-4">
@@ -77,6 +80,7 @@ export const ProjectList = ({ selectedType, selectedYear, selectedPeriod, alignm
       </div>
     );
   }
+
   const ProjectListCard = React.lazy(() =>
     import('../../../shared/ui/ProjectListCard.tsx').then((module) => ({
       default: module.default,
