@@ -11,7 +11,6 @@ import lombok.Setter;
 @Entity
 @NoArgsConstructor
 @AllArgsConstructor
-//@Setter
 @Getter
 @Builder
 public class Framework {
