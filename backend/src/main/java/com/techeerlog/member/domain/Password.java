@@ -31,7 +31,7 @@ public class Password {
         this.value = value;
     }
 
-    private static void validate(String value) {
+    public static void validate(String value) {
         if (!PATTERN.matcher(value).matches()) {
             throw new InvalidPasswordFormatException();
         }

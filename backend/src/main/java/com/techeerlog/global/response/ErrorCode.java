@@ -32,6 +32,7 @@ public enum ErrorCode {
     INVALID_SIGNUP_FLOW_ERROR("M006", 400, "중복된 아이디입니다."),
     MEMBER_NOT_FOUND_ERROR("M007", 400, "멤버가 존재하지 않습니다."),
     PASSWORD_CONFIRMATION_ERROR("M008", 400, "비밀번호와 비밀번호 확인이 일치하지 않습니다."),
+    INCORRECT_PASSWORD_ERROR("M009", 400, "비밀번호가 기존과 일치하지 않습니다."),
 
     // Project
     INVALID_CONTENT_ERROR("P001", 400, "내용은 1글자 이상 1000글자 이하 입니다."),
