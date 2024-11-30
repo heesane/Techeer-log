@@ -103,14 +103,15 @@ public class ProjectService {
         Project project = findProjectById(id);
         validateOwner(authInfo, project);
 
-        // dirty checking을 통한 업데이트 -> @Setter 제거 불가
-        projectMapper.updateProjectFromRequest(projectRequest, project);
-        projectRepository.save(project);
-
+        // 기존 project 대한 연관 관계 제거
         deleteAllProjectMember(project);
         deleteAllNonRegisterProjectMember(project);
         deleteAllProjectFramework(project);
 
+        // dirty checking을 통한 업데이트 -> @Setter 제거 불가
+        projectMapper.updateProjectFromRequest(projectRequest, project);
+
+        // 새로운 연관 관계 설정
         saveProjectMemberList(project, projectRequest.getProjectMemberRequestList());
         saveProjectNonRegisterProjectMemberList(project, projectRequest.getNonRegisterProjectMemberRequestList());
         saveProjectFrameworkList(project, projectRequest.getFrameworkRequestList());
