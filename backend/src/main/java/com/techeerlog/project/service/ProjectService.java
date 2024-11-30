@@ -90,9 +90,7 @@ public class ProjectService {
         Optional<Project> projectOptional = Optional.of(projectRepository.save(project));
         Project savedProject = projectOptional.orElseThrow(ProjectNotFoundException::new);
 
-        saveProjectMemberList(savedProject, projectRequest.getProjectMemberRequestList());
-        saveProjectNonRegisterProjectMemberList(savedProject, projectRequest.getNonRegisterProjectMemberRequestList());
-        saveProjectFrameworkList(savedProject, projectRequest.getFrameworkRequestList());
+        saveProjectDataLists(savedProject, projectRequest);
 
         return savedProject.getId();
     }
@@ -112,9 +110,7 @@ public class ProjectService {
         projectMapper.updateProjectFromRequest(projectRequest, project);
 
         // 새로운 연관 관계 설정
-        saveProjectMemberList(project, projectRequest.getProjectMemberRequestList());
-        saveProjectNonRegisterProjectMemberList(project, projectRequest.getNonRegisterProjectMemberRequestList());
-        saveProjectFrameworkList(project, projectRequest.getFrameworkRequestList());
+        saveProjectDataLists(project, projectRequest);
 
         return createProjectResponse(project, authInfo);
     }
@@ -331,6 +327,13 @@ public class ProjectService {
         return projectMapper.projectToProjectResponse(project, writer, loveCount, isLoved, isScraped,
                 projectMemberResponseList, nonRegisterProjectMemberResponseList, frameworkResponseList);
     }
+
+    public void saveProjectDataLists(Project project, ProjectRequest projectRequest) {
+        saveProjectMemberList(project, projectRequest.getProjectMemberRequestList());
+        saveProjectNonRegisterProjectMemberList(project, projectRequest.getNonRegisterProjectMemberRequestList());
+        saveProjectFrameworkList(project, projectRequest.getFrameworkRequestList());
+    }
+
 }
 
 
