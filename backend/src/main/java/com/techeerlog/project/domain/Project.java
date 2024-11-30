@@ -77,20 +77,20 @@ public class Project extends BaseEntity {
     @JoinColumn(name = "member_id", nullable = false)
     private Member member;
 
-    @OneToMany(mappedBy = "project")
-    private List<Comment> commentList = new ArrayList<>();
+    @OneToMany(mappedBy = "project", cascade = CascadeType.REMOVE)
+    private List<Comment> commentList;
 
-    @OneToMany(mappedBy = "project", cascade = CascadeType.PERSIST, orphanRemoval = true)
-    private List<Love> loveList = new ArrayList<>();
+    @OneToMany(mappedBy = "project", cascade = CascadeType.REMOVE)
+    private List<Love> loveList;
 
-    @OneToMany(mappedBy = "project", cascade = CascadeType.PERSIST, orphanRemoval = true)
-    private List<ProjectMember> projectMemberList = new ArrayList<>();
+    @OneToMany(mappedBy = "project", cascade = CascadeType.REMOVE)
+    private List<ProjectMember> projectMemberList;
 
-    @OneToMany(mappedBy = "project", cascade = CascadeType.PERSIST, orphanRemoval = true)
-    private List<NonRegisterProjectMember> nonRegisterProjectMemberList = new ArrayList<>();
+    @OneToMany(mappedBy = "project", cascade = CascadeType.REMOVE)
+    private List<NonRegisterProjectMember> nonRegisterProjectMemberList;
 
-    @OneToMany(mappedBy = "project", cascade = CascadeType.PERSIST, orphanRemoval = true)
-    private List<ProjectFramework> projectFrameworkList = new ArrayList<>();
+    @OneToMany(mappedBy = "project", cascade = CascadeType.REMOVE)
+    private List<ProjectFramework> projectFrameworkList;
 
     public boolean isOwner(Long accessMemberId) {
         if (accessMemberId == null) {
