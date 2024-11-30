@@ -80,13 +80,6 @@ public class ProjectService {
         return createProjectResponse(findProject, authInfo);
     }
 
-    private List<NonRegisterProjectMemberResponse> getNonRegisterProjectMemberResponseList(
-            List<NonRegisterProjectMember> nonRegisterProjectMemberList) {
-        return nonRegisterProjectMemberList.stream()
-                .map(NonRegisterProjectMember::getResponse)
-                .collect(Collectors.toList());
-    }
-
     @Transactional
     public Long addProject(ProjectRequest projectRequest, AuthInfo authInfo) {
         validateMemberList(projectRequest);
@@ -104,24 +97,14 @@ public class ProjectService {
         return savedProject.getId();
     }
 
-    private void saveProjectNonRegisterProjectMemberList(Project project,
-                                                         List<NonRegisterProjectMemberRequest> nonRegisterProjectMemberRequestList) {
-        List<NonRegisterProjectMember> nonRegisterProjectMemberList = nonRegisterProjectMemberRequestList.stream()
-                .map(nonRegisterProjectMemberRequest -> new NonRegisterProjectMember(project,
-                        nonRegisterProjectMemberRequest))
-                .collect(Collectors.toList());
-
-        nonRegisterProjectMemberRepository.saveAll(nonRegisterProjectMemberList);
-    }
-
     @Transactional
     @CachePut(cacheNames = "project", keyGenerator = "customKeyGenerator")
     public ProjectResponse updateProject(Long id, ProjectRequest projectRequest, AuthInfo authInfo) {
         Project project = findProjectById(id);
         validateOwner(authInfo, project);
 
-        projectMapper.updateProjectFromRequest(projectRequest, project);
         // dirty checking을 통한 업데이트 -> @Setter 제거 불가
+        projectMapper.updateProjectFromRequest(projectRequest, project);
         projectRepository.save(project);
 
         deleteAllProjectMember(project);
@@ -134,7 +117,6 @@ public class ProjectService {
 
         return createProjectResponse(project, authInfo);
     }
-
 
     @Transactional
     @CacheEvict(cacheNames = "project", keyGenerator = "customKeyGenerator")
@@ -158,6 +140,23 @@ public class ProjectService {
                         List.of(RankEnum.FIRST, RankEnum.SECOND, RankEnum.THIRD, RankEnum.FOURTH, RankEnum.FIFTH));
 
         return projectListToProjectItemListResponse(projectSlice, authInfo);
+    }
+
+    private List<NonRegisterProjectMemberResponse> getNonRegisterProjectMemberResponseList(
+            List<NonRegisterProjectMember> nonRegisterProjectMemberList) {
+        return nonRegisterProjectMemberList.stream()
+                .map(NonRegisterProjectMember::getResponse)
+                .collect(Collectors.toList());
+    }
+
+    private void saveProjectNonRegisterProjectMemberList(Project project,
+                                                         List<NonRegisterProjectMemberRequest> nonRegisterProjectMemberRequestList) {
+        List<NonRegisterProjectMember> nonRegisterProjectMemberList = nonRegisterProjectMemberRequestList.stream()
+                .map(nonRegisterProjectMemberRequest -> new NonRegisterProjectMember(project,
+                        nonRegisterProjectMemberRequest))
+                .collect(Collectors.toList());
+
+        nonRegisterProjectMemberRepository.saveAll(nonRegisterProjectMemberList);
     }
 
     private ProjectItemListResponse projectListToProjectItemListResponse(Slice<Project> projectSlice,
@@ -292,7 +291,6 @@ public class ProjectService {
                 .collect(Collectors.toList());
     }
 
-
     private Project findProjectById(Long projectId) {
         return projectRepository.findById(projectId).orElseThrow(ProjectNotFoundException::new);
     }
@@ -332,7 +330,6 @@ public class ProjectService {
         return projectMapper.projectToProjectResponse(project, writer, loveCount, isLoved, isScraped,
                 projectMemberResponseList, nonRegisterProjectMemberResponseList, frameworkResponseList);
     }
-
 }
 
 
