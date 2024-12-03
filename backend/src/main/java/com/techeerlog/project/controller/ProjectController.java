@@ -9,9 +9,11 @@ import com.techeerlog.project.dto.request.ProjectRequest;
 import com.techeerlog.project.dto.response.ProjectItemListResponse;
 import com.techeerlog.project.dto.response.ProjectResponse;
 import com.techeerlog.project.service.ProjectService;
+import com.techeerlog.project.service.ProjectServiceImpl;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -24,13 +26,10 @@ import static com.techeerlog.global.response.ResultCode.*;
 @Tag(name = "Project", description = "Project API Document")
 @RestController
 @RequestMapping("/v1")
+@RequiredArgsConstructor
 @Log4j2
 public class ProjectController {
     private final ProjectService projectService;
-
-    public ProjectController(ProjectService projectService) {
-        this.projectService = projectService;
-    }
 
     @Operation(summary = "프로젝트 조회", description = "프로젝트 조회")
     @GetMapping("/projects/{projectId}")
