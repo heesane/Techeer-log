@@ -1,7 +1,7 @@
 import { useGetProjectQuery } from '../query/useGetProjectQuery.tsx';
 import { useInView } from 'react-intersection-observer';
-import { useEffect, useMemo } from 'react';
-import ProjectListCard from '../../../shared/ui/ProjectListCard.tsx';
+import React, { Suspense, useEffect, useMemo } from 'react';
+//import ProjectListCard from '../../../shared/ui/ProjectListCard.tsx';
 import SkeletonCard from '../../../shared/ui/SkeletonCard.tsx';
 import ProjectBoxCard from '../../../shared/ui/ProjectBoxCard.tsx';
 
@@ -20,6 +20,7 @@ const filterOptions: Record<string, string> = {
   '동계': 'FIRST',
   '하계': 'SECOND',
 };
+
 //프로젝트 가져온 후 필터링
 const useProjects = ({ selectedType, selectedYear, selectedPeriod, result }: ProjectListProps) => {
   const { data, hasNextPage, isFetching, isFetchingNextPage, fetchNextPage } = useGetProjectQuery(result);
@@ -54,6 +55,7 @@ const useProjects = ({ selectedType, selectedYear, selectedPeriod, result }: Pro
     fetchNextPage,
   };
 };
+
 export const ProjectList = ({ selectedType, selectedYear, selectedPeriod, alignment, result }: ProjectListProps) => {
   const { projects, hasNextPage, isFetching, isFetchingNextPage, fetchNextPage } = useProjects({
     selectedType,
@@ -62,13 +64,14 @@ export const ProjectList = ({ selectedType, selectedYear, selectedPeriod, alignm
     alignment,
     result,
   });
+
   const { ref, inView } = useInView();
   useEffect(() => {
     if (inView && hasNextPage) {
       fetchNextPage();
     }
   }, [hasNextPage, fetchNextPage, inView]);
-  if (isFetching && !isFetchingNextPage) {
+  if (isFetching) {
     return (
       <div className="grid grid-cols-3 grid-rows-3 gap-4 m-4">
         {[...Array(9)].map((_, index) => (
@@ -77,6 +80,12 @@ export const ProjectList = ({ selectedType, selectedYear, selectedPeriod, alignm
       </div>
     );
   }
+  const ProjectListCard = React.lazy(() =>
+    import('../../../shared/ui/ProjectListCard.tsx').then((module) => ({
+      default: module.default,
+    })),
+  );
+
   return (
     <>
       {alignment !== 'right' ? (
@@ -93,7 +102,11 @@ export const ProjectList = ({ selectedType, selectedYear, selectedPeriod, alignm
       ) : (
         <div className="m-4">
           {projects && projects.length > 0 ? (
-            projects.map((project) => <ProjectListCard key={project.id} project={project} />)
+            <Suspense fallback={<div>Loading...</div>}>
+              {projects.map((project) => (
+                <ProjectListCard key={project.id} project={project} />
+              ))}
+            </Suspense>
           ) : (
             <div className="flex flex-col -m-4 text-[1.25rem] px-[0.5rem] mb-[2rem] font-[400] text-[#90909a]">
               등록된 프로젝트가 없습니다.

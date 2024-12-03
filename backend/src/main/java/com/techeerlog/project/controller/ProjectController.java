@@ -9,7 +9,6 @@ import com.techeerlog.project.dto.request.ProjectRequest;
 import com.techeerlog.project.dto.response.ProjectItemListResponse;
 import com.techeerlog.project.dto.response.ProjectResponse;
 import com.techeerlog.project.service.ProjectService;
-import com.techeerlog.project.service.ProjectServiceImpl;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;

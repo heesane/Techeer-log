@@ -25,19 +25,6 @@ spring:
     multipart:
       max-file-size: 2MB
       max-request-size: 2MB
-  data:
-    redis:
-      host: redis
-      port: 6379
-
-#  sql:
-#    init:
-#      schema-locations: classpath:sql/schema.sql
-#      # data-locations: classpath:data.sql
-#      mode: always
-#  default:
-#    image:
-#      address: ${DEFAULT_IMAGE}
 
   data:
     redis:
