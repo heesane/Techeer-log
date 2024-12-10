@@ -1,4 +1,4 @@
-import { createBrowserRouter } from 'react-router-dom';
+import { Navigate, createBrowserRouter } from 'react-router-dom';
 import MainPage from '../../pages/MainPage.tsx';
 import { SignUp } from '../../entities/signup';
 import { LogIn } from '../../entities/login';
@@ -6,11 +6,20 @@ import { ProjectInfo } from '../../entities/projectInputModal';
 import { MyPage, ProjectDetailPage, ProjectWritePage } from '../../pages';
 import { ProjectEditPage } from '../../pages/ProjectEditPage.tsx';
 import { ProjectPage } from '../../pages/Project/ProjectPage.tsx';
+import NotFound from '../../shared/ui/NotFound.tsx';
 
 export const router = createBrowserRouter([
   {
     path: '/',
     element: <MainPage />,
+  },
+  {
+    path: '/404',
+    element: <NotFound />,
+  },
+  {
+    path: '*',
+    element: <Navigate replace to="/404" />,
   },
   {
     path: '/mypage',

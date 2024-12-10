@@ -8,27 +8,50 @@ import { anonymousToken } from '../shared/api';
 import { useEffect, useState } from 'react';
 import { setAccessToken } from '../shared/authorization/getToken.ts';
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
+import NotOpen from '../shared/ui/NotOpen.tsx';
 
 const initializeAnonymousToken = async () => {
   const accessToken = sessionStorage.getItem('accessToken');
   if (!accessToken) {
     const token = await anonymousToken();
+
     setAccessToken(token);
   }
 };
 function App() {
   const [isInitialized, setIsInitialized] = useState(false);
+  const [isNotOpenTime, setIsNotOpenTime] = useState(false);
 
+  // 시간으로 사이트 열고 닫기 설정 (시간 실정시 주석 해제)
   useEffect(() => {
+    const checkTime = () => {
+      /* const now = new Date();
+      const koreaTime = new Date(now.getTime() + now.getTimezoneOffset() * 60000 + 9 * 3600000); // UTC + 9
+      const hours = koreaTime.getHours(); */
+
+      setIsNotOpenTime(false);
+      /* if (hours > 23 || hours < 9) {
+        setIsNotOpenTime(true);
+      } else {
+        setIsNotOpenTime(false);
+      } */
+    };
+
     const init = async () => {
       await initializeAnonymousToken();
+      checkTime();
       setIsInitialized(true);
     };
+
     init();
   }, []);
 
   if (!isInitialized) {
     return <div className="w-screen h-screen bg-[#111111]"></div>;
+  }
+
+  if (isNotOpenTime) {
+    return <NotOpen />;
   }
 
   return (

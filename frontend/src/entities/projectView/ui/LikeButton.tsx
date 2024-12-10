@@ -18,16 +18,48 @@ export const LikeButton = ({ projectId, loveCount, isLoved }: LikeData) => {
 
   const postMutation = useMutation({
     mutationFn: (projectId: number) => postLike(projectId),
-    onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ['projectData'] });
-      //optimitic update적용 예정
+    onMutate: () => {
+      const prevProject = queryClient.getQueryData(['projectData']);
+
+      const nextProject = {
+        ...(prevProject || {}),
+        isLoved: !isLoved,
+        loveCount: loveCount + 1,
+      };
+      console.log('prev', prevProject, 'next', nextProject);
+
+      // ['projectData'] 키에 저장된 쿼리 데이터를 nextProject 갈아끼운다.
+      queryClient.setQueryData(['projectData'], nextProject);
+
+      return { prevProject };
+    },
+
+    onError: (err, context) => {
+      queryClient.setQueryData(['projectData'], context);
+      console.log(err);
     },
   });
 
   const deleteMutation = useMutation({
     mutationFn: (projectId: number) => deleteLike(projectId),
-    onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ['projectData'] });
+    onMutate: () => {
+      const prevProject = queryClient.getQueryData(['projectData']);
+
+      const nextProject = {
+        ...(prevProject || {}),
+        isLoved: !isLoved,
+        loveCount: loveCount - 1,
+      };
+
+      // ['projectData'] 키에 저장된 쿼리 데이터를 nextProject 갈아끼운다.
+      queryClient.setQueryData(['projectData'], nextProject);
+
+      return { prevProject };
+    },
+
+    onError: (err, context) => {
+      queryClient.setQueryData(['projectData'], context);
+      console.log(err);
     },
   });
 
