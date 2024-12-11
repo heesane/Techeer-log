@@ -86,6 +86,7 @@ export const ProjectList = ({ selectedType, selectedYear, selectedPeriod, alignm
       default: module.default,
     })),
   );
+
   return (
     <>
       {alignment !== 'right' ? (
