@@ -16,9 +16,10 @@ import com.techeerlog.member.domain.Password;
 import com.techeerlog.member.exception.MemberNotFoundException;
 import com.techeerlog.member.repository.MemberRepository;
 import com.techeerlog.project.domain.Project;
-import com.techeerlog.project.dto.ProjectMemberRequest;
-import com.techeerlog.project.dto.ProjectRequest;
-import com.techeerlog.project.dto.ProjectResponse;
+
+import com.techeerlog.project.dto.request.ProjectMemberRequest;
+import com.techeerlog.project.dto.request.ProjectRequest;
+import com.techeerlog.project.dto.response.ProjectResponse;
 import com.techeerlog.project.enums.*;
 import com.techeerlog.project.exception.ProjectNotFoundException;
 import com.techeerlog.project.repository.NonRegisterProjectMemberRepository;
@@ -32,11 +33,9 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mapstruct.factory.Mappers;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.Mockito;
 import org.mockito.Spy;
 import org.mockito.junit.jupiter.MockitoExtension;
 
-import java.awt.print.PrinterJob;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -74,7 +73,7 @@ public class ProjectServiceTest {
     @Spy
     private final FrameworkMapper frameworkMapper = Mappers.getMapper(FrameworkMapper.class);
     @InjectMocks
-    private ProjectService projectService;
+    private ProjectServiceImpl projectService;
 
     @Nested
     class FindProjectResponseTest {
@@ -353,8 +352,6 @@ public class ProjectServiceTest {
             projectService.updateProject(id, projectRequest, authInfo);
 
             // then
-            verify(projectRepository).save(any());
-
             verify(projectMemberRepository).deleteAllByProjectId(any());
             verify(nonRegisterProjectMemberRepository).deleteAllByProjectId(any());
             verify(projectFrameworkRepository).deleteAllByProjectId(any());

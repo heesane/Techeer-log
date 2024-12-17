@@ -1,4 +1,4 @@
-package com.techeerlog.project.dto;
+package com.techeerlog.project.dto.request;
 
 import com.techeerlog.project.enums.SearchFieldEnum;
 import lombok.AllArgsConstructor;

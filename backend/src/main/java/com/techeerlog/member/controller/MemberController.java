@@ -10,6 +10,7 @@ import com.techeerlog.member.domain.Member;
 import com.techeerlog.member.dto.*;
 import com.techeerlog.member.service.MemberService;
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
@@ -19,6 +20,7 @@ import java.util.Optional;
 import static com.techeerlog.global.response.ResultCode.*;
 
 
+@Tag(name = "Member", description = "Member API Document")
 @RestController
 @RequestMapping("/v1/members")
 public class MemberController {

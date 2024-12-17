@@ -1,12 +1,17 @@
-package com.techeerlog.project.dto;
+package com.techeerlog.project.dto.request;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-import com.techeerlog.framework.dto.FrameworkRequest;
+import com.techeerlog.framework.dto.request.FrameworkRequest;
 import com.techeerlog.project.enums.PlatformEnum;
 import com.techeerlog.project.enums.ProjectStatusEnum;
 import com.techeerlog.project.enums.ProjectTypeEnum;
 import com.techeerlog.project.enums.SemesterEnum;
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
 
 import java.time.LocalDate;
 import java.util.List;

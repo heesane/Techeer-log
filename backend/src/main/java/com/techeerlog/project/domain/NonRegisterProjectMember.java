@@ -1,7 +1,7 @@
 package com.techeerlog.project.domain;
 
-import com.techeerlog.project.dto.NonRegisterProjectMemberRequest;
-import com.techeerlog.project.dto.NonRegisterProjectMemberResponse;
+import com.techeerlog.project.dto.request.NonRegisterProjectMemberRequest;
+import com.techeerlog.project.dto.response.NonRegisterProjectMemberResponse;
 import com.techeerlog.project.enums.ProjectMemberTypeEnum;
 import jakarta.persistence.*;
 import lombok.NoArgsConstructor;
