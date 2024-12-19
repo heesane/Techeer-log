@@ -32,7 +32,7 @@ function App() {
       if (hours > 0 && hours < 4) {
         setIsNotOpenTime(true);
       } else {
-        setIsNotOpenTime(false);
+        setIsNotOpenTime(true);
       }
       //setIsNotOpenTime(false);
     };
