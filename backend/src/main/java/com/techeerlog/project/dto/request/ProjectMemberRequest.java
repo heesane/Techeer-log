@@ -1,7 +1,12 @@
-package com.techeerlog.project.dto;
+package com.techeerlog.project.dto.request;
 
 import com.techeerlog.project.enums.ProjectMemberTypeEnum;
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
 
 @Getter
 @Setter

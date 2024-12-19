@@ -1,7 +1,7 @@
 package com.techeerlog.scrap.service;
 
 import com.techeerlog.auth.dto.AuthInfo;
-import com.techeerlog.framework.dto.FrameworkResponse;
+import com.techeerlog.framework.dto.response.FrameworkResponse;
 import com.techeerlog.global.mapper.FrameworkMapper;
 import com.techeerlog.global.support.UtilMethod;
 import com.techeerlog.member.domain.Member;

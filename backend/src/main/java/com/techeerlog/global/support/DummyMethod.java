@@ -9,7 +9,9 @@ import com.techeerlog.member.domain.Nickname;
 import com.techeerlog.member.domain.Password;
 import com.techeerlog.member.repository.MemberRepository;
 import com.techeerlog.project.domain.Project;
+import com.techeerlog.project.domain.ProjectMember;
 import com.techeerlog.project.enums.*;
+import com.techeerlog.project.repository.ProjectMemberRepository;
 import com.techeerlog.project.repository.ProjectRepository;
 import jakarta.annotation.PostConstruct;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,7 +23,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-@Profile({"dev","local"})
+@Profile({"dev", "local"})
 @Component
 public class DummyMethod {
 
@@ -34,11 +36,15 @@ public class DummyMethod {
     @Autowired
     private ProjectRepository projectRepository;
 
+    @Autowired
+    private ProjectMemberRepository projectMemberRepository;
+
     @PostConstruct
     public void init() {
         createFrameworks();
         createMembers();
         createProjects();
+        createProjectMember();
     }
 
     private void createFrameworks() {
@@ -52,10 +58,14 @@ public class DummyMethod {
 
     private void createMembers() {
         List<Member> members = Arrays.asList(
-                new Member(1L, new LoginId("test1"), new Password("1234"), new Nickname("test1"), "profileImageUrl1", "introduction1"),
-                new Member(2L, new LoginId("test2"), new Password("1234"), new Nickname("test2"), "profileImageUrl2", "introduction2"),
-                new Member(3L, new LoginId("test3"), new Password("1234"), new Nickname("test3"), "profileImageUrl3", "introduction3"),
-                new Member(4L, new LoginId("test4"), new Password("1234"), new Nickname("test4"), "profileImageUrl4", "introduction4")
+                new Member(1L, new LoginId("test1"), new Password("1234"), new Nickname("test1"),
+                        "profileImageUrl1", "introduction1"),
+                new Member(2L, new LoginId("test2"), new Password("1234"), new Nickname("test2"),
+                        "profileImageUrl2", "introduction2"),
+                new Member(3L, new LoginId("test3"), new Password("1234"), new Nickname("test3"),
+                        "profileImageUrl3", "introduction3"),
+                new Member(4L, new LoginId("test4"), new Password("1234"), new Nickname("test4"),
+                        "profileImageUrl4", "introduction4")
         );
         memberRepository.saveAll(members);
     }
@@ -83,7 +93,8 @@ public class DummyMethod {
                             teamNames[j % teamNames.length], year, semester,
                             rank, ProjectStatusEnum.COMPLETED,
                             "githubLink" + i, "blogLink" + i, "websiteLink" + i, member,
-                            new ArrayList<>(), new ArrayList<>(), new ArrayList<>(), new ArrayList<>(), new ArrayList<>()
+                            new ArrayList<>(), new ArrayList<>(), new ArrayList<>(), new ArrayList<>(),
+                            new ArrayList<>()
                     ));
                 }
             }
@@ -92,5 +103,11 @@ public class DummyMethod {
         projectRepository.saveAll(projects);
     }
 
+    private void createProjectMember() {
+        Project project = projectRepository.findById(1L).orElseThrow();
+        Member member = memberRepository.findById(1L).orElseThrow();
 
+        ProjectMember projectMember = new ProjectMember(1L, project, member, ProjectMemberTypeEnum.BACKEND);
+        projectMemberRepository.save(projectMember);
+    }
 }

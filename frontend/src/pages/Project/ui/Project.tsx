@@ -1,9 +1,10 @@
 import { useQuery } from '@tanstack/react-query';
 import { getProject, ProjectView } from '../../../entities/projectView';
 import { ProjectData } from '../../../shared/types/project.ts';
+import NotFound from '../../../shared/ui/NotFound.tsx';
 
 export const Project = ({ projectId }: { projectId: number }) => {
-  const { data, isError, error, isLoading } = useQuery<ProjectData>({
+  const { data, isError, isLoading } = useQuery<ProjectData>({
     queryKey: ['projectData'],
     queryFn: () => getProject(projectId),
   });
@@ -13,7 +14,7 @@ export const Project = ({ projectId }: { projectId: number }) => {
   }
 
   if (isError) {
-    return <div>Error: {error.message}</div>;
+    return <NotFound />;
   }
 
   if (data) {

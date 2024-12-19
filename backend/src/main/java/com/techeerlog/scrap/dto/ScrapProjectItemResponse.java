@@ -1,6 +1,6 @@
 package com.techeerlog.scrap.dto;
 
-import com.techeerlog.framework.dto.FrameworkResponse;
+import com.techeerlog.framework.dto.response.FrameworkResponse;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
