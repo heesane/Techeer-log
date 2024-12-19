@@ -8,7 +8,7 @@ type ProjectListProps = {
   selectedType: string;
   selectedYear: string;
   selectedPeriod: string;
-  alignment: string | null;
+  alignment?: string | null;
   result: string;
 };
 /* prettier-ignore */
@@ -21,7 +21,7 @@ const filterOptions: Record<string, string> = {
 };
 
 //필터링 데이터 및 쿼리 데이터 반환
-const useProjects = ({ selectedType, selectedYear, selectedPeriod, result }: ProjectListProps) => {
+export const useProjects = ({ selectedType, selectedYear, selectedPeriod, result }: ProjectListProps) => {
   const { data, hasNextPage, isFetching, isFetchingNextPage, fetchNextPage } = useGetProjectQuery(result);
   const projects = data?.pages.flat() ?? [];
   const filteredProjects = useMemo(() => {
