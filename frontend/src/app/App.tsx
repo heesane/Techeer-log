@@ -25,16 +25,16 @@ function App() {
   // 시간으로 사이트 열고 닫기 설정 (시간 실정시 주석 해제)
   useEffect(() => {
     const checkTime = () => {
-      /* const now = new Date();
+      const now = new Date();
       const koreaTime = new Date(now.getTime() + now.getTimezoneOffset() * 60000 + 9 * 3600000); // UTC + 9
-      const hours = koreaTime.getHours(); */
+      const hours = koreaTime.getHours();
 
-      setIsNotOpenTime(false);
-      /* if (hours > 23 || hours < 9) {
+      if (hours > 3 || hours < 11) {
         setIsNotOpenTime(true);
       } else {
         setIsNotOpenTime(false);
-      } */
+      }
+      //setIsNotOpenTime(false);
     };
 
     const init = async () => {
