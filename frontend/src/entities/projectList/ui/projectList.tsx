@@ -1,7 +1,6 @@
 import { useGetProjectQuery } from '../query/useGetProjectQuery.tsx';
 import { useInView } from 'react-intersection-observer';
 import React, { Suspense, useEffect, useMemo } from 'react';
-//import ProjectListCard from '../../../shared/ui/ProjectListCard.tsx';
 import SkeletonCard from '../../../shared/ui/SkeletonCard.tsx';
 import ProjectBoxCard from '../../../shared/ui/ProjectBoxCard.tsx';
 
@@ -9,7 +8,7 @@ type ProjectListProps = {
   selectedType: string;
   selectedYear: string;
   selectedPeriod: string;
-  alignment: string | null;
+  alignment?: string | null;
   result: string;
 };
 /* prettier-ignore */
@@ -21,8 +20,8 @@ const filterOptions: Record<string, string> = {
   '하계': 'SECOND',
 };
 
-//프로젝트 가져온 후 필터링
-const useProjects = ({ selectedType, selectedYear, selectedPeriod, result }: ProjectListProps) => {
+//필터링 데이터 및 쿼리 데이터 반환
+export const useProjects = ({ selectedType, selectedYear, selectedPeriod, result }: ProjectListProps) => {
   const { data, hasNextPage, isFetching, isFetchingNextPage, fetchNextPage } = useGetProjectQuery(result);
   const projects = data?.pages.flat() ?? [];
   const filteredProjects = useMemo(() => {
@@ -71,7 +70,8 @@ export const ProjectList = ({ selectedType, selectedYear, selectedPeriod, alignm
       fetchNextPage();
     }
   }, [hasNextPage, fetchNextPage, inView]);
-  if (isFetching) {
+
+  if (isFetching && !isFetchingNextPage) {
     return (
       <div className="grid grid-cols-3 grid-rows-3 gap-4 m-4">
         {[...Array(9)].map((_, index) => (
@@ -80,6 +80,7 @@ export const ProjectList = ({ selectedType, selectedYear, selectedPeriod, alignm
       </div>
     );
   }
+
   const ProjectListCard = React.lazy(() =>
     import('../../../shared/ui/ProjectListCard.tsx').then((module) => ({
       default: module.default,
