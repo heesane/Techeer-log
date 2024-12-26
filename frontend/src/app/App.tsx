@@ -29,29 +29,28 @@ function App() {
       const koreaTime = new Date(now.getTime() + now.getTimezoneOffset() * 60000 + 9 * 3600000); // UTC + 9
       const hours = koreaTime.getHours();
 
-      if (hours > 0 && hours < 4) {
+      if (hours >= 3 && hours <= 10) {
         setIsNotOpenTime(true);
       } else {
-        setIsNotOpenTime(true);
+        setIsNotOpenTime(false);
+        const init = async () => {
+          await initializeAnonymousToken();
+          setIsInitialized(true);
+        };
+
+        init();
       }
       //setIsNotOpenTime(false);
     };
-
-    const init = async () => {
-      await initializeAnonymousToken();
-      checkTime();
-      setIsInitialized(true);
-    };
-
-    init();
+    checkTime();
   }, []);
-
-  if (!isInitialized) {
-    return <div className="w-screen h-screen bg-[#111111]"></div>;
-  }
 
   if (isNotOpenTime) {
     return <NotOpen />;
+  }
+
+  if (!isInitialized) {
+    return <div className="w-screen h-screen bg-[#111111]"></div>;
   }
 
   return (
